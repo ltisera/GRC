@@ -1,0 +1,27 @@
+Esto es lo que entendemos hasta ahora del proyecto: Gestor de referencias colaborativas
+
+- Diseñar un entorno web capaz de:
+    a: Gestionar usuarios/grupos con permisos de:
+        a1: Referenciar,Seleccionar, Compartir, Comentar, Resaltar textos <--- de que? 
+
+
+-Base de datos que gestione Usuarios/Grupos
+    -idUsuario
+    -ussrName
+    -passwd
+    -mail
+    
+
+    -idGrupo
+
+-Base de datos que gestione Documentos
+    -idDocumento
+
+-Interfaz de Usuario en navegador WEB
+
+
+
+Compartir t/f
+
+enum
+ [Compartir, Editar, ]

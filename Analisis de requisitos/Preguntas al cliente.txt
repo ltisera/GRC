@@ -1,0 +1,83 @@
+Preguntas al cliente:
+
+1) ¿La aplicacion deberia editar TEXTO?
+
+2) que formato deben estar los documentos?
+
+
+Creacion de texto:
+1) A travez de copiar y pegar con un editor integrado en la IU?
+2) ¿Parsear/Abrir un archivo?
+
+3) Cual sera la fuente de los documentos? subidos por el usuario? textos Externos referenciados a traves de links?
+
+4) ¿que datos hay que agregarle al texto? ¿Fecha de creacion, quien lo subio?
+
+5) En caso de borrar un grupo, o borrar el archivo del grupo o te elminan del grupo, El creador del archivo sigue teniendo acceso o se borra de la base de datos?
+
+
+En caso de que no sean subidos por el usuario:
+
+    3.1) el sistema deberia tener la capacidad de guardar el texto referenciado externamente en una copia local?
+
+En caso de que sean subidos por el usuario
+
+    3.2) Existe algun limite en la capacidad de alojamiento, cantidad de textos subidos?
+
+4) debe informar el sistema a los otros usuarios del grupo, que un usuario, realizo alguna accion?
+
+    4.1) De que manera debe informar el sistema?[notificaciones internas|externas|ambas]
+
+
+Sobre los usuarios:
+1) ¿que datos deberia exigirse al usuario?
+2) ¿Puede registrarse cualquiera a la app? (ej: caso de que el cliente quiera que solo los empleados de su empresa se registren)
+
+
+Sobre los grupos:
+
+1) ¿Los grupos deben ser Privados o Publicos o Ambas?
+
+    1.1) Los usuarios tienen Visibilidad de otros usuarios que no pertenezcan al grupo
+    1.2) ¿Cuantos administradores pude tener un grupo?
+    
+
+2) ¿Como gestionamos las invitaciones a los grupos? 
+3) ¿Que caracteristicas deben tener los grupos? (me refiero a Nombre, Descripcion)
+4) ¿Existe un limite en la cantidad de participantes?
+5) ¿Hay que guardar constancia sobre las ACCIONES que realiza un usuario?
+
+    5.1) ¿Que pasa cuando se edita al mismo tiempo un documento?
+
+6) ¿En caso de eliminar un usuario de un grupo, las acciones realizadas por "Eliminado" quedan guardadas?
+
+7) ¿Se puede borrar un grupo?
+
+Sobre los permisos:
+
+1) ¿se maneja de forma jerarquica? (administrador/usuario) 
+2) ¿Puede un admin expulsar a un ussr?
+3) ¿Resaltar, Compartir, etc Pueden hacerlo todos?
+4) ¿Un usuario puede editar lo que edito otro usuario?
+5) ¿Los documentos tienen permisos propios? (ej: Tal documento solo lo pueden ver los admins)
+6) Los usuarios Pueden decargar copias locales? [si|no|depende de permisos]
+
+Sobre los comentarios:
+1) Los comentarios son al final del archivo? (tipo red social)
+2) ¿Los comentarios son atravez de Etiquetas?
+3) ¿Los comentarios son como los 2 anteriores?
+
+
+
+Sobre la Interfaz:
+
+1) ¿Tiene algun requisito en particular?
+
+
+Sobre Referenciar:
+1) ¿A que se refiere con referenciar?
+
+Sobre compartir:
+
+1) ¿Compartir, es lo mismo que Subir? (Claramente NO CAMI by: Mateus)
+2) ¿Se puede compartir un documento del grupo A con el grupo B?
