@@ -19,9 +19,3 @@ Esto es lo que entendemos hasta ahora del proyecto: Gestor de referencias colabo
 
 -Interfaz de Usuario en navegador WEB
 
-
-
-Compartir t/f
-
-enum
- [Compartir, Editar, ]

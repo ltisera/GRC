@@ -1,0 +1,56 @@
+
+
+RF1) El sistema permitira la publicacion de referencias.
+
+El sistema [atravez un textbox(editor de textos)] permitira la publicacion de referencias
+    -Link a un URL 
+    -La referencia a un libro 
+    -La adicion de texto escrito por el usuario 
+
+
+RF2) Las publiclaciones pueden ser extendidas por otro usuario
+
+RF3) Un usuario puede registrarse en el sistema enviando
+    -Nombre y Apellido
+    -Email
+    -Password
+
+RF3b) El sistema no tiene limite de usuarios
+
+RFp) Los registros deben contener un captcha.
+
+
+RF4) Los registros de usuario deben ser aprobados/validados por un administrador del sistema
+
+RF5) El sistema debe adapatarse al tamaño del dispositivo de visualizacion (PC/Celular)
+
+RF6) Las publicaciones deben ser persistidas con fecha, hora y autor y/o Etiquetas.
+
+RF6b) Las publicaciones son Exclusivas del grupo
+
+
+
+RF7) Los usuarios deben contar con permisos POR GRUPOS de
+        -Solo lectura
+        -Lectura y creacion de publicaciones
+        -Lectura, creacion y extension de publicaciones
+        -Lectura, creacion, extension y eliminacion de publicaciones (administrador solamente)
+
+RF8) Los usuarios validados, pueden Crear Grupos
+
+RF9) Los grupos deben tener Nombre y Descripcion [Foto foto fotoooo]
+
+RF10) Los grupos deben ser privados
+
+RF11) Los grupos no tienen limite de usuarios
+
+FR12) Los administradores de grupo, pueden eliminar usuarios
+
+RF13) Las publicaciones de usuarios eliminados deben ser conservadas, visibles y extendibles por el grupo
+
+RF14) Los grupos creados no pueden ser eliminados
+
+RF15) Las referencias deben tener Formato
+
+RF16) El sistema debe buscar etiquetas o publicaciones
+
