@@ -3,7 +3,14 @@ import mysql.connector
 from mysql.connector import Error
 import sys
 
-DBGI = True
+DBGI = False
+
+connectionDict = {
+    'host': 'localhost',
+    'user': 'admingrc',
+    'password': '1234',
+    'database': 'bdgrc'
+}
 
 class UsuarioDAO():
     def __init__(self):
@@ -15,11 +22,15 @@ class UsuarioDAO():
     def crearConexion(self):
         if(DBGI):
             print("DBGI: Conectando a BD")
+        """
         self._bd = mysql.connector.connect(
             host="localhost",
             user="admingrc",
             passwd="1234",
             database="bdgrc")
+        """
+        self._bd = mysql.connector.connect(**connectionDict)
+
         if(DBGI):
             print("DBGI:Conectado")
         if(DBGI):
@@ -31,7 +42,8 @@ class UsuarioDAO():
 
     def cerrarConexion(self):
         if(self._bd.is_connected()):
-            print("DBGI: cerrando cursor y conexion")
+            if(DBGI):
+                print("DBGI: cerrando cursor y conexion")
             self._micur = self._bd.cursor()
             self._bd.close()
 
@@ -41,7 +53,6 @@ class UsuarioDAO():
         utraido = Usuario()
         try:
             if (self._bd.is_connected()):
-                self.crearCursor()
                 reg = self._micur.execute("SELECT * FROM Usuario WHERE idUsuario = {0}".format(id))
                 for i in self._micur:
                     utraido.idUsuario = i[0]
@@ -68,14 +79,5 @@ class UsuarioDAO():
 if __name__ == '__main__':
     udao = UsuarioDAO()
     elusr = udao.traerUsuario(1)
-    print("Imprimo Sin toString")
-    print("STID: " + str(elusr.idUsuario))
-    print("STNombre: " + elusr.nombre + " " + elusr.apellido)
-
-    elusr.idUsuario = 100
-    print("\nImprimendo usuario Con ToosSTRING")
+    print("Nombre" + elusr.nombre)
     print(elusr.aCadena())
-
-
-    nuser=Usuario("nico", "SosReGenia", "con@.com", "pass")
-    udao.agregarUsuario(nuser)    

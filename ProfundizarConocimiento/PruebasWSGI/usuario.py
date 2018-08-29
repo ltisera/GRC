@@ -30,7 +30,7 @@ class Usuario():
 
     @nombre.setter
     def nombre(self, nombre):
-        self._nombre = nombre
+        self._nombre = str(nombre)
 
     @property
     def apellido(self):
@@ -38,7 +38,7 @@ class Usuario():
 
     @apellido.setter
     def apellido(self, apellido):
-        self._apellido = apellido
+        self._apellido = str(apellido)
 
     @property
     def email(self):
@@ -46,7 +46,7 @@ class Usuario():
 
     @email.setter
     def email(self, email):
-        self._email = email
+        self._email = str(email)
 
     @property
     def password(self):
@@ -54,12 +54,12 @@ class Usuario():
 
     @password.setter
     def password(self, password):
-        self._password = password
+        self._password = str(password)
 
     def aCadena(self):
-        return ("id: " + str(self.idUsuario) +
+        return str("id: " + str(self.idUsuario) +
                 " Nombre: " + self.nombre + " " +
-                self.apellido + "\nE-mail: " +
+                self.apellido + "Email: " +
                 self.email + " Password: "
                 + self.password)
 
