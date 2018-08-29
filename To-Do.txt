@@ -1,0 +1,4 @@
+-Mapa de navegacion
+-Completar mapa de actividades
+-Transcribir entrevista
+-Mejorar documentacion de requisitos

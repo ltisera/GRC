@@ -1,1 +1,5 @@
 1) ¿Puede una referencia tener mas de un url/libro?
+2) ¿Pueden, en un mismo grupo, haber mas de una referencia a un mismo libro/link?
+3) ¿Hay que guardar constancia de los registros de usuario rechazados?
+4) ¿Como es la validacion de usuarios? (Via email?)
+5) ¿Como son las invitaciones a los grupos? (Via email?)
