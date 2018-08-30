@@ -27,7 +27,7 @@ def rtaJason(environ, start_response):
     return udao.traerUsuario(1).aCadena()
 
 def run():
-    httpd = make_server('', 8006, hello_world)
+    httpd = make_server('localhost', 8006, hello_world)
     print('Serving on port 8006...')
     httpd.serve_forever()
 
