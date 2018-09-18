@@ -13,6 +13,9 @@ def hello_world(environ, start_response):
         print(laca)
         resp_archivo = udao.traerUsuario(1).aCadena()
         headers = [('Content-type', 'text/html')]
+    elif(environ.get("PATH_INFO") == "/tem"):
+        resp_archivo = open('template.html', "r")
+        headers = [('Content-type', 'text/html')]
     else:
         resp_archivo = open('hola.html', "r")
         headers = [('Content-type', 'text/html')]
