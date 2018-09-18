@@ -3,6 +3,17 @@
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
 
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
+
+
 
 <!-- Uses a transparent header that draws on top of the layout's background -->
 <style>
@@ -33,12 +44,19 @@
 
  position: absolute;
     left: 400px;
-    top: 250px;
+    top: 100px;
+
+}
+
+.algo2{
+
+ position: absolute;
+    left: 260px;
+    top: 450px;
 
 }
 </style>
 
-<body>
 <div class="demo-layout-transparent mdl-layout mdl-js-layout">
   <header class="mdl-layout__header mdl-layout__header--transparent">
     <div class="mdl-layout__header-row">
@@ -48,13 +66,65 @@
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation -->
       <nav class="mdl-navigation">
+        
+        <!-- Colored mini FAB button -->
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+          <i class="material-icons">add</i>
+        </button>
+
         <a class="mdl-navigation__link" href="">Link</a>
         <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
+        
+        <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="1">account_box</div>
+
       </nav>
     </div>
   </header>
+
+
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Title</span>
+    <nav class="mdl-navigation">
+<!-- Expandable Textfield -->
+<form action="#">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+    <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+      <i class="material-icons">search</i>
+    </label>
+    <div class="mdl-textfield__expandable-holder">
+      <input class="mdl-textfield__input" type="text" id="sample6">
+      <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+    </div>
+  </div>
+</form>
+
+
+      <a class="mdl-navigation__link" href="">Grupo A</a>
+      <a class="mdl-navigation__link" href="">Grupo B</a>
+      <a class="mdl-navigation__link" href="">Grupo C</a>
+      <a class="mdl-navigation__link" href="">Grupo D</a>
+
+
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+  </main>
+</div>
+
+ <div class="algo2"> 
+ <div id="summernote"></div>
+    <script>
+      $('#summernote').summernote({
+        placeholder: 'Aqui puedes escribir',
+        tabsize: 2,
+        height: 100,
+        minHeight: 100,
+        maxHeight: 100,
+        width: 800,
+        focus: true    
+      });
+    </script>
+  </div>
 
 <div class="algo"
     <!-- Wide card with share menu button -->
@@ -78,18 +148,3 @@
     </div>
   </div>
 </div>
-
-
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Title</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-    </nav>
-  </div>
-  <main class="mdl-layout__content">
-  </main>
-</div>
-</body>
