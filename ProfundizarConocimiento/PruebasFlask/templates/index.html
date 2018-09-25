@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Document titulooo</title>
+
+<script src="/js/jquery-3.3.1.js"></script>
+
+
+<script>
+    console.log("TOMAAAA LO LEVANTE")
+    $(document).ready(function(){
+        $("#boton1").click(boom);
+});
+
+function boom(){
+    console.log("Mandando ajax")
+    $.ajax({
+        url:"miajax",
+        success: function(response){
+            $("#div1").html(response)
+        },
+        error: function(response){
+            console.log("el recurso no es valido");
+        }
+    });
+    console.log("Enviado")
+}
+
+</script>
+
+</head>
+<body>
+    <button id="boton1">Clicka</button>
+    <div id="div1"></div>
+    <p>Aca te vamo a mandar la bienvenida, osea que te las precarga, ahora probemos servirla con JS</p>
+</body>
+</html> 
