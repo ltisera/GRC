@@ -47,6 +47,31 @@ class UsuarioDAO():
             self._micur = self._bd.cursor()
             self._bd.close()
 
+    def traerUsuarioXMail(self, mimail):
+        """Seguir haciendolo"""
+        self.crearConexion()
+        utraido = Usuario()
+        try:
+            if (self._bd.is_connected()):
+                print("la consulta es:::")
+                consulta = 'SELECT * FROM Usuario WHERE email = "{0}"'.format(mimail)
+                print(consulta)
+                reg = self._micur.execute(consulta)
+                for i in self._micur:
+                    utraido.idUsuario = i[0]
+                    utraido.nombre = i[1]
+                    utraido.apellido = i[2]
+                    utraido.email = i[3]
+                    utraido.password = i[4]
+                if(DBGI):
+                    print("Se Leyeron los datos en la BD")
+
+        except Error as e:
+            print("Error al conectar con la BD", e)
+        finally:
+            self.cerrarConexion()
+            return utraido
+
     def traerUsuario(self, id):
         """Seguir haciendolo"""
         self.crearConexion()

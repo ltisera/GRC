@@ -17,9 +17,16 @@
 function boom(){
     console.log("Mandando ajax")
     $.ajax({
+        data:{
+            "ussr":$("#ussr").val(),
+            "psswd":$("#psswd").val(),
+        },
+        type:"POST",
         url:"miajax",
         success: function(response){
-            $("#div1").html(response)
+            console.log("response MODIFICADA PUTO")
+            console.log(response)
+            $("#div1").html(response.nombre)
         },
         error: function(response){
             console.log("el recurso no es valido");
@@ -32,8 +39,14 @@ function boom(){
 
 </head>
 <body>
-    <button id="boton1">Clicka</button>
+    <p>Ingresate un usuario y contraseña</p>
+    <input type="text" id="ussr"></input>
+    <br>
+    <input type="text" id="psswd"></input>
+    <br>
+    <button id="boton1">Ingresar</button>
+    <br>
     <div id="div1"></div>
-    <p>Aca te vamo a mandar la bienvenida, osea que te las precarga, ahora probemos servirla con JS</p>
+    
 </body>
 </html> 
