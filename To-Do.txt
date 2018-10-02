@@ -1,4 +1,4 @@
--Mapa de navegacion
--Completar mapa de actividades
--Transcribir entrevista
--Mejorar documentacion de requisitos
+9/10 20 minutos Analisis/Diseño y 1era Maqueta con proyector
+	- Que hicieron
+	- Que esperan realizar en la segunda face
+	- Que problemas, dificultades, desafios tuvieron
