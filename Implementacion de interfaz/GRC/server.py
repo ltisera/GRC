@@ -31,6 +31,31 @@ def header1():
     return render_template('header1.html')
 
 
+@app.route('/header2')
+def header2():
+    return render_template('header2.html')
+
+
+@app.route('/registro')
+def registro():
+    return render_template('registro.html')
+
+
+@app.route('/inicio')
+def inicio():
+    return render_template('inicio.html')
+
+
+@app.route('/grupos')
+def grupos():
+    return render_template('grupos.html')
+
+
+@app.route('/publicar')
+def publicar():
+    return render_template('publicar.html')
+
+
 @app.route('/contacto')
 def contacto():
     return render_template('contacto.html')
