@@ -21,7 +21,7 @@ def cssbootstrapfile():
     return send_from_directory('static/css', 'bootstrap.min.css')
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index2.html')
 
@@ -36,12 +36,7 @@ def header2():
     return render_template('header2.html')
 
 
-@app.route('/registro')
-def registro():
-    return render_template('registro.html')
-
-
-@app.route('/inicio')
+@app.route('/inicio', methods=['GET', 'POST'])
 def inicio():
     return render_template('inicio.html')
 
