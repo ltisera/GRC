@@ -1,0 +1,50 @@
+{% extends "header.html" %}
+{% block title %}index{% endblock %}
+{% block body %}
+<link rel="stylesheet" href="/static/login.css" type="text/css">
+{% if session['logged_in'] %}
+<p>You're logged in already!</p>
+{% else %}
+<form action="/login" method="POST">
+	<div class="login">
+		<div class="login-screen">
+			<br>
+			<div class="app-title">
+				<h1>Iniciar Sesión</h1>
+			</div>
+			<p>
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+			{% for message in messages %}
+    		<h3 align="center" style="color: #FF0000;">{{ message }}</h3>
+			{% endfor %}
+			{% endif %}
+			{% endwith %}
+			<div class="login-form">
+				<div class="control-group">
+				<input type="text" class="login-field" value="" placeholder="Email" name="username">
+				<label class="login-field-icon fui-user" for="login-name"></label>
+				</div>
+					
+				<div class="control-group">
+				<input type="password" class="login-field" value="" placeholder="contraseña" name="password">
+				<label class="login-field-icon fui-lock" for="login-pass"></label>
+				</div>
+				<br>
+                <input type="submit" value="Entrar!" class="btn btn-primary btn-large btn-block" >
+			    <br>
+			</div>
+			<br>
+			<div align="center">
+				¿No es usuario? <a href="{{ url_for('signup') }}">Regístrate</a>
+			</div>
+			<br>
+			<div align="center">
+				<a href="{{ url_for('forgot') }}">¿Has olvidado los datos de la cuenta?</a>
+			</div>
+			<br>
+		</div>
+	</div>
+</form>
+{% endif %}
+{% endblock %}

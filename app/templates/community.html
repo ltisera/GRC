@@ -1,0 +1,32 @@
+{% extends "header.html" %}
+{% block title %}index{% endblock %}
+{% block body %}
+<link rel="stylesheet" href="/static/login.css" type="text/css">
+{% if session['logged_in'] %}
+<p>You're logged in already!</p>
+{% else %}
+<div class="login">
+  grupos = data
+</div>
+<div>
+  <table style="border: 1px solid #FFF;">
+    <thead>
+      <tr>
+        <td>Nombre</td>
+        <td>Descripción</td>
+      </tr>
+    </thead>
+    <tbody>
+    {% for grupo in grupos %}
+    <tr>
+      <td>{{grupo.1}}</td>
+      <td>{{grupo.2}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+{% endif %}
+{% endblock %}

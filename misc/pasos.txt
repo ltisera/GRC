@@ -1,0 +1,17 @@
+pip install virtualenv
+//crear el entorno virtual en la carpeta del proyecto
+vurtualenv venv
+//activar el entorno virtual
+venv/bin/activate
+
+//instalar
+pip install flask
+
+Set FLASK_APP=GCR.py
+
+pip install python-dotenv
+
+
+//debugg mode
+set FLASK_ENV=development
+$ flask run
