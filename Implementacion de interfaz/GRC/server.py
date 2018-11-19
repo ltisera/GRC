@@ -81,10 +81,9 @@ def cargarListaGrupo():
                     <img div="grupoFoto" class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
                     <h2 div="grupoNombre" class="fondoBlanco">""" + g.nombre + """</h2>
                     <p div="grupoDescripcion" class="fondoBlanco">""" + g.descripcion + """</p>
-                    <p><a id="Grupo"""+str(g.idGrupo)+""""class="btn btn-default" href="#" role="button">Entrar</a></p>
+                    <p><div id="Grupo"""+str(g.idGrupo)+""""class="btn btn-default btnGrupos">Entrar</div></p>
                     </div>\n\n"""
         num = 200
-    print(html)
     return html, str(num)
 
 
