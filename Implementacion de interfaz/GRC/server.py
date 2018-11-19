@@ -1,6 +1,6 @@
 from flask import Flask, render_template, send_from_directory, request, jsonify
 from UsuarioDAO import UsuarioDAO
-from GrupoDAO import GrupoDAO
+from Usuario import Usuario
 import json
 
 
@@ -61,6 +61,11 @@ def contacto():
 def info():
     return render_template('info.html')
 
+@app.route('/crearUsuario', methods=['GET', 'POST'])
+def crearUsuarioPOST():
+    respuesta = crearUsuario(request)
+    return str(respuesta)
+
 
 @app.route('/miajax', methods=['GET', 'POST'])
 def miajax():
@@ -74,8 +79,8 @@ def miajax():
                             apellido=objUsuario.apellido,
                             email=objUsuario.email)
     else:
-        jResponse = " NO EXISTIS"
-    return jResponse
+        jResponse = " NO EXISTIS" , 404
+    return jResponse, 200
 
     """
     Este Metodo funciona Correctamente
@@ -86,38 +91,33 @@ def miajax():
     """
 
 
-@app.route('/cargarListaGrupo', methods=['GET', 'POST'])
-def cargarListaGrupo():
-    html = ""
-    gdao = GrupoDAO()
-    lstGrupos = gdao.traerGrupos(request.values["usuario"])
-    print("lista: " + str(lstGrupos))
-    if(lstGrupos is not None):
-        for g in lstGrupos:
-            html += """<div class="col-lg-4">
-                    <img div="grupoFoto" class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                    <h2 div="grupoNombre" class="fondoBlanco">""" + g.nombre + """</h2>
-                    <p div="grupoDescripcion" class="fondoBlanco">""" + g.descripcion + """</p>
-                    <p><a class="btn btn-default" href="#" role="button">Entrar</a></p>
-                    </div>
-                    """
-    else:
-        html = """<div class="col-lg-4">El usuario no esta en ningun grupo </div>"""
-    return html
+def crearUsuario(request):
+    udao = UsuarioDAO()
+    nuevoUsuario = Usuario(request.values["apellido"],
+                           request.values["nombre"],
+                           request.values["email"],
+                           request.values["password"])
+    print("Intentando cargar",nuevoUsuario.aCadena())
+    print("Bien")
+    udao.agregarUsuario(nuevoUsuario)
+    return 200
+
 
 
 def validarUsuario(request):
     print("Printealo")
-    print("Usuario: " + request.values["ussr"])
-    print("Pass: " + request.values["psswd"])
+    print("Estoy imprimiendo")
+    print("Usuario: " + request.values["usuario"])
+    print("Pass: " + request.values["password"])
     print("Intentando traer usuario")
     udao = UsuarioDAO()
-    elusr = udao.traerUsuarioXMail(request.values["ussr"])
-    print(elusr.aCadena())
+    elusr = udao.traerUsuarioXMail(request.values["usuario"])
+    print(str(elusr))
 
-    if(elusr.password == request.values["psswd"]):
+    if(elusr.password == request.values["password"]):
         print("PIOLA LOCO, HABEMUS LOGIN")
     else:
+        print("que mal no hay login")
         elusr = None
     return elusr
 
