@@ -1,6 +1,6 @@
 class Grupo():
-    def __init__(self, nombre="", descripcion="", usuarioCreador=""):
-        self._idGrupo = None
+    def __init__(self, nombre="", descripcion="", usuarioCreador="", idG=None):
+        self._idGrupo = idG
         self._nombre = nombre
         self._descripcion = descripcion
         self._usuarioCreador = usuarioCreador
@@ -38,9 +38,9 @@ class Grupo():
     def usuarioCreador(self, usuarioCreador):
         self._usuarioCreador = usuarioCreador
 
-
     def __str__(self):
-        return str("id: " + str(self._idGrupo) +
-                " Nombre: " + self._nombre + " Descripcion: " +
-                self.descripcion )
+        return str("id: " + str(self.idGrupo) +
+                " Nombre: " + self.nombre + " Descripcion: " +
+                self.descripcion + " Usuario creador: [" +
+                str(self.usuarioCreador) + "]")
 

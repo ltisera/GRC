@@ -1,6 +1,7 @@
 from flask import Flask, render_template, send_from_directory, request, jsonify
 from UsuarioDAO import UsuarioDAO
 from Usuario import Usuario
+from GrupoDAO import GrupoDAO
 import json
 
 
@@ -61,10 +62,30 @@ def contacto():
 def info():
     return render_template('info.html')
 
+
 @app.route('/crearUsuario', methods=['GET', 'POST'])
 def crearUsuarioPOST():
     respuesta = crearUsuario(request)
     return str(respuesta)
+
+
+@app.route('/cargarListaGrupo', methods=['GET', 'POST'])
+def cargarListaGrupo():
+    html = ""
+    num = 404
+    gdao = GrupoDAO()
+    lstGrupos = gdao.traerGrupos(request.values["usuario"])
+    if(len(lstGrupos) != 0):
+        for g in lstGrupos:
+            html += """<div class="col-lg-4">
+                    <img div="grupoFoto" class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                    <h2 div="grupoNombre" class="fondoBlanco">""" + g.nombre + """</h2>
+                    <p div="grupoDescripcion" class="fondoBlanco">""" + g.descripcion + """</p>
+                    <p><a id="Grupo"""+str(g.idGrupo)+""""class="btn btn-default" href="#" role="button">Entrar</a></p>
+                    </div>\n\n"""
+        num = 200
+    print(html)
+    return html, str(num)
 
 
 @app.route('/miajax', methods=['GET', 'POST'])

@@ -65,22 +65,22 @@ class GrupoDAO():
             self.cerrarConexion()
            
 
-    def traerGrupos(self, usuario):
+    def traerGrupos(self, idUsuario):
         self.crearConexion()
-        lstGrupos = []
-        grupo = Grupo()
         try:
+            lista = []
             if (self._bd.is_connected()):
-                consulta = 'SELECT idGrupo, nombre, descripcion from grupo inner join grupo_has_usuario on grupo.idGrupo = grupo_has_usuario.Grupo_idGrupo where grupo_has_usuario.Usuario_idUsuario = "{0}"'.format(usuario.idUsuario)
-                self._micur.execute(consulta)
-                #lstGrupos.append()
-                self._micur.fetchall()
-                
+                self._micur.execute("SELECT grupo.idGrupo, grupo.nombre, grupo.descripcion from grupo inner join grupo_has_usuario as gxu on grupo.idGrupo = gxu.Grupo_idGrupo where gxu.Usuario_idUsuario = {0}".format(idUsuario))
+                reg = self._micur.fetchall()
+                if reg is not None:
+                    for g in reg:
+                        lista.append(Grupo(idG=g[0], nombre=g[1], descripcion=g[2]))
+
         except Error as e:
             print("Error al conectar con la BD", e)
         finally:
             self.cerrarConexion()
-        return lstGrupos
+        return lista
 
     def agregarUsuarioAGrupo(self, usuario, permisoUsuario, grupo):
         self.crearConexion()

@@ -8,21 +8,18 @@
             $(document).ready(function(){
                 $.ajax({
                     data : {
-                        "usuario" : 1,
+                        "usuario" : 3,
                     },
                     url : "cargarListaGrupo",
                     type : "POST",
                     beforeSend : function() {
-                        
+                        $('#gruposLista').html("Cargando Grupos");
                     },
                     success : function(response) {
-                        for(i in response){
-                            var g = document.getElementById("gruposLista");
-                            g.appendChild(i);
-                        }
+                        $('#gruposLista').html(response);
                     },
                     error : function(response) {
-
+                        $('#gruposLista').html("<div class=\"col-lg-4 fondoBlanco\">El usuario no esta en ningun grupo</div>");
                     }
                 });
             });
