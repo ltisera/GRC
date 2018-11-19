@@ -23,6 +23,9 @@ def jsbootstrapfile():
 def cssbootstrapfile():
     return send_from_directory('static/css', 'bootstrap.min.css')
 
+@app.route('/estilos.css')
+def cssestilos():
+    return render_template('estilos.css')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
