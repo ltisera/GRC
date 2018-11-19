@@ -91,7 +91,17 @@ class ReferenciaDAO():
             print("Error al conectar con la BD", e)      
       
 
-    #def comentarReferencia(self):
+    def comentarReferencia(self, comentario, referencia, fecha, usuario):
+        self.crearConexion()
+        try:
+            if (self._bd.is_connected()):
+                consulta = 'INSERT INTO comentario(`comentario`, `fechaHora`, `idReferencia`, `idUsuario`) values("{0}","{1}","{2}","{3}")'.format(comentario, fecha, referencia.idReferencia, usuario.idUsuario)
+                self._micur.execute(consulta)            
+                self._bd.commit()
+        except Error as e:
+            print("Error al conectar con la BD", e)
+        finally:
+            self.cerrarConexion()        
 
     #def eliminarReferencia(self):
 
