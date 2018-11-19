@@ -12,6 +12,7 @@ usuario1 = usuarioDao.traerUsuarioXId(1)
 grupo1 = grupoDao.traerGrupo(1)
 
 #metodos que andan
+"""
 referenciaDao.crearConexion()
 print(referenciaDao.traerCategoria(str("ASDdadad")) == None)
 referenciaDao.cerrarConexion()
@@ -27,10 +28,11 @@ referenciaDao.cerrarConexion()
 referenciaDao.crearConexion()
 print(referenciaDao.traerCategoria("Quimica"))
 referenciaDao.cerrarConexion()
+"""
+tags = ["Programacion", "Quimica", "Mecanica", "Arte"]
 
-#tags = ["Fisica", "Quimica", "Matematica", "Mecanica"]
+referenciaDao.publicarReferencia("otra cita","otra desc", "python.com", "2018-07-06 11:45:31", usuario1, grupo1, tags)
 
-#referenciaDao.publicarReferencia("Esto es una cita","Esto es una descripcion", "google.com", "2018-07-06 11:45:31", usuario1, grupo1, tags)
 
 
 

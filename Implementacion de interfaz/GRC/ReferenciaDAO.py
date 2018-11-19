@@ -58,10 +58,9 @@ class ReferenciaDAO():
                 self._micur.execute('SELECT * from referencia where idReferencia = (select max(idReferencia) from referencia)')
                 idReferencia = self._micur.fetchone()[0]
                 for i in tags:
-                    categoria = self.traerCategoria(str(i))
-                    print("I: "+str(i)+" categoria: "+str(categoria))
+                    categoria = self.traerCategoria(i)
                     if(categoria == None):
-                        self.crearCategoria(str(i))
+                        self.crearCategoria(i)
                         categoria = self.traerCategoria(i)
                     self._micur.execute('INSERT INTO tag_has_referencia(`idTag`, `idReferencia`) values ("{0}", "{1}")'.format(categoria.idCategoria, idReferencia))
                 self._bd.commit()
@@ -87,9 +86,10 @@ class ReferenciaDAO():
     def crearCategoria(self, categoria):
         try:
             if (self._bd.is_connected()):
-                self._micur.execute('INSERT INTO tag(`etiqueta`) values("{0}")'.format(str(i)))
+                self._micur.execute('INSERT INTO tag(`etiqueta`) values("{0}")'.format(categoria))
         except Error as e:
-            print("Error al conectar con la BD", e)
+            print("Error al conectar con la BD", e)      
+      
 
     #def comentarReferencia(self):
 
