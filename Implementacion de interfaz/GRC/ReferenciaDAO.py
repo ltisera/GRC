@@ -48,7 +48,29 @@ class ReferenciaDAO():
             self._bd.close()
 
 
-    #def publicarReferencia(self):
+    def publicarReferencia(self, cita, descripcion, link, fecha, usuario, grupo, tags):
+        self.crearConexion()
+        try:
+            if (self._bd.is_connected()):
+                consulta = 'INSERT INTO referencia(`cita`, `descripcion`, `link`, `fecha`, `idUsuario`, `idGrupo`) values("{0}","{1}","{2}","{3}","{4}","{5}")'.format(cita, descripcion, link, fecha, usuario.idUsuario, grupo.idGrupo)
+                self._micur.execute(consulta)
+                self._micur.execute('SELECT * from referencia where idReferencia = (select max(idReferencia) from referencia)')
+                idReferencia = self._micur.fetchone()[0]
+                for i in tags:
+                    self._micur.execute('')
+                self._bd.commit()
+        except Error as e:
+            print("Error al conectar con la BD", e)
+        finally:
+            self.cerrarConexion()
+
+
+    def traerCategoria(self, nombreCategoria):
+        categoria = None
+        self.crearConexion()
+        try:
+            if (self._bd.is_connected()):
+                consulta = 
 
     #def comentarReferencia(self):
 
