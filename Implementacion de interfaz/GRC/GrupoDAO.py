@@ -55,8 +55,8 @@ class GrupoDAO():
                 consulta = 'INSERT INTO grupo (`nombre`, `descripcion`) values ("{0}", "{1}")'.format(nombre, descripcion)
                 print(consulta)
                 stat = self._micur.execute(consulta)
-                self._micur.execute('SELECT MAX(grupo.idGrupo) from grupo')
-                idGrupo = self._micur.fetchone()
+                self._micur.execute('SELECT * from grupo where idGrupo = (select max(idGrupo) from grupo)')
+                idGrupo = self._micur.fetchone()[0]
                 print("ACA: "+str(idGrupo))
                 consulta = 'INSERT INTO grupo_has_usuario (`Grupo_idGrupo`, `Usuario_idUsuario`, `permisoUsuario`) values ("{0}", "{1}", "creador")'.format(idGrupo, usuarioCreador.idUsuario)
                 self._micur.execute(consulta)
