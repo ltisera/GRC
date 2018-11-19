@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_from_directory, request, jsonify
 from UsuarioDAO import UsuarioDAO
+from GrupoDAO import GrupoDAO
 import json
 
 
@@ -83,6 +84,26 @@ def miajax():
             "apellido=" + objUsuario.apellido + "," +
             "email=" + objUsuario.email + "}")
     """
+
+
+@app.route('/cargarListaGrupo', methods=['GET', 'POST'])
+def cargarListaGrupo():
+    html = ""
+    gdao = GrupoDAO()
+    lstGrupos = gdao.traerGrupos(request.values["usuario"])
+    print("lista: " + str(lstGrupos))
+    if(lstGrupos is not None):
+        for g in lstGrupos:
+            html += """<div class="col-lg-4">
+                    <img div="grupoFoto" class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                    <h2 div="grupoNombre" class="fondoBlanco">""" + g.nombre + """</h2>
+                    <p div="grupoDescripcion" class="fondoBlanco">""" + g.descripcion + """</p>
+                    <p><a class="btn btn-default" href="#" role="button">Entrar</a></p>
+                    </div>
+                    """
+    else:
+        html = """<div class="col-lg-4">El usuario no esta en ningun grupo </div>"""
+    return html
 
 
 def validarUsuario(request):

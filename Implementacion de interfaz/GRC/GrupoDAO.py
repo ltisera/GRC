@@ -67,13 +67,14 @@ class GrupoDAO():
             self.cerrarConexion()
            
 
-    def traerGrupos(self, usuario):
+    def traerGrupos(self, idUsuario):
         self.crearConexion()
-        lstGrupos = []
+        lstGrupos = None
         try:
             if (self._bd.is_connected()):
-                consulta = 'SELECT * from grupo inner join grupo_has_usuario on grupo.idGrupo = grupo_has_usuario.Grupo_idGrupo where grupo_has_usuario.Usuario_idUsuario = "{0}"'.format(usuario.idUsuario)
-                lstGrupos.extend(self._micur.execute(consulta))
+                consulta = 'SELECT * from grupo inner join grupo_has_usuario on grupo.idGrupo = grupo_has_usuario.Grupo_idGrupo where grupo_has_usuario.Usuario_idUsuario = "{0}"'.format(idUsuario)
+                lstGrupos = (self._micur.execute(consulta))
+                print("consulta" + str(self._micur.execute(consulta)))
         except Error as e:
             print("Error al conectar con la BD", e)
         finally:
