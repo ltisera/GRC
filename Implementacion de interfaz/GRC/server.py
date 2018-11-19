@@ -18,6 +18,14 @@ def jsfile():
 def jsbootstrapfile():
     return send_from_directory('static/js', 'bootstrap.min.js')
 
+@app.route('/sumer/dist/summernote.js')
+def sumernotejs():
+    return send_from_directory('static/sumer/dist', 'summernote.js')
+
+
+@app.route('/sumer/dist/summernote.css')
+def csssumernote():
+    return send_from_directory('static/sumer/dist', 'summernote.css')
 
 @app.route('/css/bootstrap.min.css')
 def cssbootstrapfile():
