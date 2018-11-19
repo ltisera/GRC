@@ -57,11 +57,18 @@ class Usuario():
         self._password = str(password)
 
     def aCadena(self):
-        return str("id: " + str(self.idUsuario) +
-                " Nombre: " + self.nombre + " " +
-                self.apellido + "Email: " +
-                self.email + " Password: "
-                + self.password)
+        return str("id: " + str(self._idUsuario) +
+                " Nombre: " + self._nombre + " " +
+                self._apellido + "Email: " +
+                self._email + " Password: "
+                + self._password)
+    
+    def __str__(self):
+        return str("id: " + str(self._idUsuario) +
+                " Nombre: " + self._nombre + " " +
+                self._apellido + "Email: " +
+                self._email + " Password: "
+                + self._password)
 
 if __name__ == '__main__':
     usrtst = Usuario

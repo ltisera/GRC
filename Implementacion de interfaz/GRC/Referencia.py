@@ -1,0 +1,69 @@
+class Referencia():
+    def __init__(self, cita, descripcion, link, fecha, usuario, grupo):
+        self._idReferencia = None
+        self._cita = 
+        self._descripcion = 
+        self._link = 
+        self._fecha
+        self._usuario
+        self._grupo
+
+    @property
+    def idReferencia(self):
+    	return self._idReferencia
+    
+    @idReferencia.setter
+    def idReferencia(self, idreferencia):
+    	self._idReferencia = idreferencia
+
+    @property
+    def cita(self):
+    	return self._cita
+    @cita.setter
+    def cita(self, cita):
+    	self._cita = cita
+
+    @property
+    def descripcion(self):
+    	return self._descripcion
+
+    @descripcion.setter
+    def descripcion(self, descripcion):
+    	self._descripcion = descripcion
+
+    @property
+    def link(self):
+    	return self._link
+
+    @link.setter
+    def link(self, link):
+    	self._link = link
+
+    @property
+    def fecha(self):
+    	return self._fecha
+    
+    @fecha.setter
+    def fecha(self, fecha):
+    	self._fecha = fecha
+
+    @property
+    def usuario(self):
+    	return self._usuario
+    
+    @usuario.setter
+    def usuario(self, usuario):
+    	self._usuario = usuario
+
+   	@property
+   	def grupo(self):
+   		return self._grupo
+       
+   	@grupo.setter
+   	def grupo(self, grupo):
+	   	self._grupo = grupo
+
+
+	def __str__(self):
+		return str("id: "+_idReferencia+" Cita: "+_cita+" Descripcion: "+_descripcion
+			+" link: "+_link+" fecha: "+_fecha+" usuario: "+_usuario+" grupo: "+_grupo)
