@@ -6,9 +6,24 @@
                 $("#includedContent").load("/header2");
             });
             $(document).ready(function(){
+                misCookies = document.cookie
+                listaCookies = misCookies.split(";")
+
+                for (i in listaCookies) {
+                    busca = listaCookies[i].search("idUsuarioLogueado");
+                    if (busca > -1) {
+                        micookie=listaCookies[i]
+                        igual = micookie.indexOf("=");
+                        valor = micookie.substring(igual+1);
+                    }
+                }
+                
+                console.log("Tengo: " + valor)
+                console.log("TengoMIS: " + misCookies)
+
                 $.ajax({
                     data : {
-                        "usuario" : 3,
+                        "usuario" : valor,
                     },
                     url : "cargarListaGrupo",
                     type : "POST",

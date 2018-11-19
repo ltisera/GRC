@@ -78,6 +78,10 @@ function inciarSesion(){
         },
         success: function(response){
             console.log(response);
+            idUsuarioLogueado = response.id;
+            console.log(idUsuarioLogueado);
+            document.cookie = "idUsuarioLogueado=" + idUsuarioLogueado;
+            window.location.href = ('http://localhost:5000/grupos')
             alert("Bien");
         },
         error: function(response){
