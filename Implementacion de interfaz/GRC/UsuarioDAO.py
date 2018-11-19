@@ -98,7 +98,7 @@ class UsuarioDAO():
         usuario = None
         if(isinstance(arg, str)):
             usuario = self.traerUsuarioXMail(arg)
-        elif(isinstance(arg, str)):
+        elif(isinstance(arg, int)):
             usuario = self.traerUsuarioXId(arg)
         return usuario
 
@@ -112,5 +112,7 @@ class UsuarioDAO():
 if __name__ == '__main__':
     udao = UsuarioDAO()
     elusr = udao.traerUsuario(1)
-    print("Nombre" + elusr.nombre)
+    print("Nombre " + elusr.nombre)
     print(elusr.aCadena())
+    print(elusr)
+    print(str(elusr))
