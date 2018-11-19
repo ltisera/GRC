@@ -1,12 +1,12 @@
 class Referencia():
     def __init__(self, cita, descripcion, link, fecha, usuario, grupo):
         self._idReferencia = None
-        self._cita = 
-        self._descripcion = 
-        self._link = 
-        self._fecha
-        self._usuario
-        self._grupo
+        self._cita = cita
+        self._descripcion = descripcion
+        self._link = link
+        self._fecha = fecha
+        self._usuario = usuario
+        self._grupo = grupo
 
     @property
     def idReferencia(self):
@@ -55,15 +55,15 @@ class Referencia():
     def usuario(self, usuario):
     	self._usuario = usuario
 
-   	@property
-   	def grupo(self):
+    @property
+    def grupo(self):
    		return self._grupo
-       
-   	@grupo.setter
-   	def grupo(self, grupo):
-	   	self._grupo = grupo
+
+    @grupo.setter
+    def grupo(self, grupo):
+        self._grupo = grupo
 
 
-	def __str__(self):
-		return str("id: "+_idReferencia+" Cita: "+_cita+" Descripcion: "+_descripcion
+    def __str__(self):
+        return str("id: "+_idReferencia+" Cita: "+_cita+" Descripcion: "+_descripcion
 			+" link: "+_link+" fecha: "+_fecha+" usuario: "+_usuario+" grupo: "+_grupo)

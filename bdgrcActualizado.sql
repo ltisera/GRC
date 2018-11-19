@@ -97,33 +97,8 @@ CREATE TABLE `grupo_has_usuario` (
 
 LOCK TABLES `grupo_has_usuario` WRITE;
 /*!40000 ALTER TABLE `grupo_has_usuario` DISABLE KEYS */;
-INSERT INTO `grupo_has_usuario` VALUES (1,1,'creador'),(1,2,'lectura'),(153,1,'creador');
+INSERT INTO `grupo_has_usuario` VALUES (1,1,'creador'),(153,1,'creador');
 /*!40000 ALTER TABLE `grupo_has_usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `libro`
---
-
-DROP TABLE IF EXISTS `libro`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `libro` (
-  `idLibro` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  `autor` varchar(45) NOT NULL,
-  `ISBN` varchar(45) NOT NULL,
-  PRIMARY KEY (`idLibro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `libro`
---
-
-LOCK TABLES `libro` WRITE;
-/*!40000 ALTER TABLE `libro` DISABLE KEYS */;
-/*!40000 ALTER TABLE `libro` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -135,20 +110,18 @@ DROP TABLE IF EXISTS `referencia`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `referencia` (
   `idReferencia` int(11) NOT NULL AUTO_INCREMENT,
-  `texto` varchar(300) DEFAULT NULL,
+  `cita` varchar(300) DEFAULT NULL,
+  `descripcion` varchar(300) DEFAULT NULL,
+  `link` varchar(300) DEFAULT NULL,
   `fechaHora` datetime NOT NULL,
-  `tags` varchar(200) DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   `idGrupo` int(11) NOT NULL,
-  `idLibro` int(11) DEFAULT NULL,
   PRIMARY KEY (`idReferencia`),
   KEY `fk_Referencia_Usuario1_idx` (`idUsuario`),
   KEY `fk_Referencia_Grupo1_idx` (`idGrupo`),
-  KEY `fk_Referencia_Libro1_idx` (`idLibro`),
   CONSTRAINT `fk_Referencia_Grupo1` FOREIGN KEY (`idGrupo`) REFERENCES `grupo` (`idGrupo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Referencia_Libro1` FOREIGN KEY (`idLibro`) REFERENCES `libro` (`idLibro`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Referencia_Usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,7 +144,7 @@ CREATE TABLE `tag` (
   `idTag` int(11) NOT NULL AUTO_INCREMENT,
   `etiqueta` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idTag`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,6 +153,7 @@ CREATE TABLE `tag` (
 
 LOCK TABLES `tag` WRITE;
 /*!40000 ALTER TABLE `tag` DISABLE KEYS */;
+INSERT INTO `tag` VALUES (1,'Quimica'),(2,'Fisica'),(3,'Matematica'),(4,'Mecanica');
 /*!40000 ALTER TABLE `tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,32 +185,6 @@ LOCK TABLES `tag_has_referencia` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `url`
---
-
-DROP TABLE IF EXISTS `url`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `url` (
-  `idURL` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(200) NOT NULL,
-  `idReferencia` int(11) NOT NULL,
-  PRIMARY KEY (`idURL`),
-  KEY `fk_URL_Referencia1_idx` (`idReferencia`),
-  CONSTRAINT `fk_URL_Referencia1` FOREIGN KEY (`idReferencia`) REFERENCES `referencia` (`idReferencia`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `url`
---
-
-LOCK TABLES `url` WRITE;
-/*!40000 ALTER TABLE `url` DISABLE KEYS */;
-/*!40000 ALTER TABLE `url` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `usuario`
 --
 
@@ -250,7 +198,7 @@ CREATE TABLE `usuario` (
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,7 +207,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'asd','bnm','abc@gmail.com','1234'),(2,'usuario','comun','usuariocomun@gmail.com','1234');
+INSERT INTO `usuario` VALUES (1,'asd','bnm','abc@gmail.com','1234'),(2,'usuario','comun','usuariocomun@gmail.com','1234'),(3,'asd','asd','asd','asd');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -272,4 +220,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-19 12:56:51
+-- Dump completed on 2018-11-19 18:08:13
