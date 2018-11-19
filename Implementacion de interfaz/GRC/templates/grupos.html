@@ -18,10 +18,9 @@
                     }
                 }
                 
-                $(".btnGrupos").click(function(){
-                    console.log("Entre")
-                    var id = this.id;
-                    console.log(id)
+                $("body").on("click",".btnGrupos",function(){
+                    document.cookie = "idGrupoLogueado=" + this.id.substring(this.id.indexOf("=")+1);
+                    window.location.href = ('http://localhost:5000/inicio')
                 });
 
 

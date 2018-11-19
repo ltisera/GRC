@@ -2,6 +2,7 @@ from flask import Flask, render_template, send_from_directory, request, jsonify
 from UsuarioDAO import UsuarioDAO
 from Usuario import Usuario
 from GrupoDAO import GrupoDAO
+from ReferenciaDAO import ReferenciaDAO
 import json
 
 
@@ -81,8 +82,35 @@ def cargarListaGrupo():
                     <img div="grupoFoto" class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
                     <h2 div="grupoNombre" class="fondoBlanco">""" + g.nombre + """</h2>
                     <p div="grupoDescripcion" class="fondoBlanco">""" + g.descripcion + """</p>
-                    <p><div id="Grupo"""+str(g.idGrupo)+""""class="btn btn-default btnGrupos">Entrar</div></p>
+                    <p><div id="Grupo="""+str(g.idGrupo)+""""class="btn btn-default btnGrupos">Entrar</div></p>
                     </div>\n\n"""
+        num = 200
+    return html, str(num)
+
+
+@app.route('/cargarListaReferencias', methods=['GET', 'POST'])
+def cargarListaReferencias():
+    html = ""
+    num = 404
+    rdao = ReferenciaDAO()
+    lista = rdao.traerReferenciasDeGrupo(request.values["grupo"])
+    if(len(lista) != 0):
+        for r in lista:
+            html += """ <div class="well">
+                        <div class="media">
+                        <div class="media-body">
+                            <h2 class="media-heading">""" + r.link + """</h2>
+                            <p class="text-right">Por""" + r.usuario + """</p>
+                            <p class="text-left">""" + r.cita + """</p>
+                            <p class="text-left">""" + r.descripcion + """</p>
+                            <br>
+                            <ul class="list-inline list-unstyled">
+                                <li><span><i class="glyphicon glyphicon-calendar"></i>""" + str(r.fecha) + """</span></li>
+                                <li><span><i class="glyphicon glyphicon-comment"></i> X comentarios</span></li>
+                            </ul>
+                        </div>
+                        </div>
+                        </div>\n\n"""
         num = 200
     return html, str(num)
 

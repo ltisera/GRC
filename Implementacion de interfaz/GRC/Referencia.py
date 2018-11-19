@@ -1,5 +1,5 @@
 class Referencia():
-    def __init__(self, cita, descripcion, link, fecha, usuario, grupo):
+    def __init__(self, cita, descripcion, link, fecha, usuario, grupo=""):
         self._idReferencia = None
         self._cita = cita
         self._descripcion = descripcion

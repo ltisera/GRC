@@ -95,6 +95,20 @@ class ReferenciaDAO():
 
     #def eliminarReferencia(self):
 
-    #def traerReferenciasDeGrupo(self):
+    def traerReferenciasDeGrupo(self, idGrupo):
+        self.crearConexion()
+        try:
+            lista = []
+            if (self._bd.is_connected()):
+                self._micur.execute("SELECT r.cita, r.descripcion, r.link, r.fechaHora, u.nombre, u.apellido FROM referencia as r inner join usuario as u on r.idUsuario = u.idUsuario where r.idGrupo = {0}".format(idGrupo))
+                reg = self._micur.fetchall()
+                if reg is not None:
+                    for r in reg:
+                        lista.append(Referencia(cita=r[0], descripcion=r[1], link=r[2], fecha=r[3], usuario=r[4] + " " + r[5]))
+        except Error as e:
+            print("Error al conectar con la BD", e)
+        finally:
+            self.cerrarConexion()
+        return lista
 
     #def buscarReferencias(self):
