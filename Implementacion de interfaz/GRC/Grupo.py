@@ -38,9 +38,9 @@ class Grupo():
     def usuarioCreador(self, usuarioCreador):
         self._usuarioCreador = usuarioCreador
 
+
     def __str__(self):
         return str("id: " + str(self._idGrupo) +
                 " Nombre: " + self._nombre + " Descripcion: " +
-                self.descripcion + " Usuario creador: [" +
-                str(self._usuarioCreador) + "]")
+                self.descripcion )
 
