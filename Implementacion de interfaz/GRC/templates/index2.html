@@ -69,25 +69,32 @@ function registrarUsuario(){
 }
 
 function inciarSesion(){
-    $.ajax({
-        url : "miajax",
-        type : "POST",
-        data : {
-          usuario : $("#email").val(),
-          password : $("#password").val()
-        },
-        success: function(response){
-            console.log(response);
-            idUsuarioLogueado = response.id;
-            console.log(idUsuarioLogueado);
-            document.cookie = "idUsuarioLogueado=" + idUsuarioLogueado;
-            window.location.href = ('http://localhost:5000/grupos')
-            alert("Bien");
-        },
-        error: function(response){
-            console.log("Error en algo");
-        }
-    });
+    if($("#email").val() == ""){
+      alert("Debe ingresar usuario");
+    }
+    else if($("#password").val() == ""){
+      alert("Debe ingresar password");
+    }
+    else{
+        $.ajax({
+            url : "miajax",
+            type : "POST",
+            data : {
+              usuario : $("#email").val(),
+              password : $("#password").val()
+            },
+            success: function(response){
+                console.log(response);
+                idUsuarioLogueado = response.id;
+                console.log(idUsuarioLogueado);
+                document.cookie = "idUsuarioLogueado=" + idUsuarioLogueado;
+                window.location.href = ('http://localhost:5000/grupos')
+            },
+            error: function(response){
+                alert("usuario o contraseña incorrectos");
+            }
+        });
+    }
 }
 
 
