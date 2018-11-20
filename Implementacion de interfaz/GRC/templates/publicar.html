@@ -11,22 +11,22 @@
     <script src="/js/jquery-3.3.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="sumer/dist/summernote.js"></script>
-    <script src="sumer/dist/lang/summernote-de-DE.js"></script>
+    <script src="sumer/dist/lang/summernote-es-ES.js"></script>
     
-
   </head>
   <body>
-    <div id="includedContent">VACIA</div>
-    <div class="summernote container">
-      <div id="summernote" class="span12">
-        <p>Adipisicing natus accusamus necessitatibus fuga accusamus aliquam sapiente numquam labore. Eaque impedit libero impedit quibusdam laboriosam. Hic explicabo minima sit eius vitae voluptates. Sit officia veniam accusamus suscipit pariatur alias.</p>
-      </div>
+    <div id="includedContent"></div>
+    <div class = "cambialenombre">
+        <div class="summernote container ">
+          <div id="summernote" class="cambialenombre" >
+            <p>Adipisicing natus accusamus necessitatibus fuga accusamus aliquam sapiente numquam labore. Eaque impedit libero impedit quibusdam laboriosam. Hic explicabo minima sit eius vitae voluptates. Sit officia veniam accusamus suscipit pariatur alias.</p>
+          </div>
+        </div>
+        <div class="summernote container">
+          <button id="edit" class="btn btn-primary">Edit</button>
+          <button id="save" class="btn btn-primary">Save</button>
+        </div>
     </div>
-    <div class="summernote container">
-      <button id="edit" class="btn btn-primary">Edit</button>
-      <button id="save" class="btn btn-primary">Save</button>
-    </div>
-     
     <script>
         $(function(){
             $("#includedContent").load("/header2");
@@ -37,7 +37,7 @@
           height: '300px',
         width: '600px',
         focus: true,
-        lang: 'de-DE',
+        lang: 'es-ES',
         oninit: function() {
           console.log('Summernote is launched');
         },
