@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Gestor Referencias Colaborativas</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="/static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <style>
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  .main {
+    flex: 1 0 auto;
+  }
+  </style>
+    
+</head>
+<body>
+  <nav class="teal lighten-1 white-text" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="{{ url_for('home') }}" class="brand-logo">Gestor Referencias Colaborativas</a>
+      <ul class="right hide-on-med-and-down">
+          <li><a href="/logout">Logout</a></li>
+      </ul>
+
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+    <div class="container main">
+        <div class="section">
+        <div class="col s6 m4">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+                <h3 align="center" style="color: #FF0000;">{{ message }}</h3>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <h2 class="center">Crear Grupo</h2>
+
+            <form action="/crearGrupoOK" method="POST">
+                <h3>Nombre del grupo:</h2>
+                <input type="text" value="" name="nombre">
+                <h3>Descripción:</h2>
+                <div style="max-width: 100%;">
+                    <textarea id="summernote" name="descripcion"></textarea>
+                </div>                                
+                <br>
+                <div class="center">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Agregar!
+                    <i class="material-icons right">send</i>
+                </button>
+                <br>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+    <footer class="page-footer teal lighten-1 center white-text">
+            <div class="footer-copyright">
+              <div class="container">
+              Made by <a class="orange-text text-lighten-3" href="http://www.unla.edu.ar/">UNLa</a>
+              </div>
+            </div>
+    </footer>
+        
+        
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="/static/js/materialize.js"></script>
+
+<script src="/static/js/materialize.js"></script>
+<script src="/static/js/init.js"></script>
+
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="/static/js/jquery-3.3.1.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
+<script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 150,                 // set editor height
+                
+                focus: true                  // set focus to editable area after initializing summernote
+            });
+        });
+</script>
+
+</body>
+</html>

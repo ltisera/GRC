@@ -27,6 +27,10 @@ body {
   font-weight: bold;
 }
 
+.header a.logo2 {
+  font-size: 25px;
+}
+
 .header a:hover {
   background-color: #ddd;
   color: black;
@@ -39,6 +43,10 @@ body {
 
 .header-right {
   float: right;
+}
+
+.header-left {
+  float: left;
 }
 
 @media screen and (max-width: 500px) {

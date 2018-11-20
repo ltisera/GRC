@@ -1,32 +1,123 @@
-{% extends "header.html" %}
-{% block title %}index{% endblock %}
-{% block body %}
-<link rel="stylesheet" href="/static/login.css" type="text/css">
-{% if session['logged_in'] %}
-<p>You're logged in already!</p>
-{% else %}
-<div class="login">
-  grupos = data
-</div>
-<div>
-  <table style="border: 1px solid #FFF;">
-    <thead>
-      <tr>
-        <td>Nombre</td>
-        <td>Descripción</td>
-      </tr>
-    </thead>
-    <tbody>
-    {% for grupo in grupos %}
-    <tr>
-      <td>{{grupo.1}}</td>
-      <td>{{grupo.2}}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Gestor Referencias Colaborativas</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="/static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <style>
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  .main {
+    flex: 1 0 auto;
+  }
+  </style>
+</head>
+<body>
+  <nav class="teal lighten-1 white-text" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="{{ url_for('home') }}" class="brand-logo">Gestor Referencias Colaborativas</a>
+      <ul class="right hide-on-med-and-down">
+          <li><a href="/logout">Logout</a></li>
+      </ul>
+
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div class="container main">
+    <div class="section">
+        <div>
+            <br>
+        </div>
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <br><br>
+          {% if session['admin'] == 1 %}
+          <br><br>
+          <form method="post" action="/grupo/{{session['grupo']}}/agregarUsuario" align="center">
+            <button class="btn waves-effect waves-light center" >
+              <i class="material-icons right">people</i>  
+              <input type="submit" class="white-text" value="Aceptar Nuevos Usuarios" name="crearGrupo"/>
+            </button>
+          </form>
+          <div>
+            <br>
+          </div>
+          {% endif %}
+          <form method="post" action="{{url_for('crearGrupo')}}" align="center">
+          <button class="btn waves-effect waves-light" >
+            <i class="material-icons right">add</i>  
+            <input type="submit" class="white-text" value="Crear Nuevo Grupo" name="crearGrupo"/>
+          </button>
+          </form>
+        </div>
+        
+        <div class="col s12 m5"  
+         
+        <h5>Tabla de Grupos</h5>
+      
+        <hr/>
+        <h3>Grupos</h3>
+        <table class = "striped bordered">
+         <thead>
+            <tr>
+                <th>nº Grupo</th>
+                <th>Nombre Grupo</th>
+                <th>Descripción</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% if grupos is not none %}
+            {% set cnt = 0 %} 
+            {% for grupo in grupos %}
+              {% set cnt = cnt + 1 %}
+            <tr>
+              <td><a href="/grupo/{{grupo.0}}">{{cnt}}</a></td>
+              <td>{{grupo.1}}</td>
+              <td>{{grupo.2|safe}}</td>
+            </tr>
+            
+            {% endfor %}
+            {% else %}
+            <tr>
+               <td></td>
+               <td></td>
+               <td></td>
+            </tr>
+            {% endif %}
+          </tbody>
+          </table>
+      
+      
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer teal lighten-1 center white-text">
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="orange-text text-lighten-3" href="http://www.unla.edu.ar/">UNLa</a>
+      </div>
+    </div>
+  </footer>
 
 
-{% endif %}
-{% endblock %}
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="/static/js/materialize.js"></script>
+  <script src="/static/js/init.js"></script>
+
+  </body>
+</html>

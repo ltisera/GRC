@@ -2,20 +2,60 @@
 {% block title %}index{% endblock %}
 {% block body %}
 <link rel="stylesheet" href="/static/login.css" type="text/css">
+<link rel="stylesheet" href="/static/tabla.css" type="text/css">
 {% if session['logged_in'] %}
-<p>You're logged in already!</p>
-{% else %}
 
 
-<tbody>
-    {% for contact in contacts %}
+
+<table class="width200">
+  <thead>
     <tr>
-      <td>{{contact.1}}</td>
-      <td>{{contact.2}}</td>
-      <td>
-        <a href="/edit/{{contact.0}}" class="btn btn-secondary">edit</a>
-        <a href="/delete/{{contact.0}}" class="btn btn-danger btn-delete">delete</a>
-      </td>
+      <th>Nombre</th>
+      <th>Apellidos</th>
     </tr>
+  </thead>
+    <tbody>
+    {% for contact in contacts %}
+      <tr>
+        <td>Mart&iacute;n</td>
+        <td>Iglesias Lenci</td>
+        <td>Desarrollador</td>
+      </tr>
     {% endfor %}
-  </tbody>
+   </tbody>
+</table>
+        
+{% else %}
+<p>You're logged in already!</p>
+{% endif %}
+{% endblock %}
+
+
+
+{% if grupos is not none %}
+  <table class="width200" >
+    <thead>
+      <tr>
+        <th>n</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+      </tr>
+    </thead>
+      <tbody>
+        {% set cnt = 0 %} 
+        {% for grupo in grupos %}
+        {% set cnt = cnt + 1 %}
+        <tr>
+          <a href="{{ url_for('/grupo/{{grupo.0}}') }}">{{cnt}}</td>
+          <td>{{grupo.1}}</td>
+          <td>{{grupo.2}}</td>
+        </tr>
+      {% endfor %}
+        <tr h2>
+          <td class="tdv"> </td>
+          <td class="tdv"> </td>  
+          <td class="tdv"> </td>
+        </tr>
+     </tbody>
+  </table>
+  {% endif %}

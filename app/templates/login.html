@@ -1,50 +1,92 @@
-{% extends "header.html" %}
-{% block title %}index{% endblock %}
-{% block body %}
-<link rel="stylesheet" href="/static/login.css" type="text/css">
-{% if session['logged_in'] %}
-<p>You're logged in already!</p>
-{% else %}
-<form action="/login" method="POST">
-	<div class="login">
-		<div class="login-screen">
-			<br>
-			<div class="app-title">
-				<h1>Iniciar Sesión</h1>
-			</div>
-			<p>
-			{% with messages = get_flashed_messages() %}
-			{% if messages %}
-			{% for message in messages %}
-    		<h3 align="center" style="color: #FF0000;">{{ message }}</h3>
-			{% endfor %}
-			{% endif %}
-			{% endwith %}
-			<div class="login-form">
-				<div class="control-group">
-				<input type="text" class="login-field" value="" placeholder="Email" name="username">
-				<label class="login-field-icon fui-user" for="login-name"></label>
-				</div>
-					
-				<div class="control-group">
-				<input type="password" class="login-field" value="" placeholder="contraseña" name="password">
-				<label class="login-field-icon fui-lock" for="login-pass"></label>
-				</div>
-				<br>
-                <input type="submit" value="Entrar!" class="btn btn-primary btn-large btn-block" >
-			    <br>
-			</div>
-			<br>
-			<div align="center">
-				¿No es usuario? <a href="{{ url_for('signup') }}">Regístrate</a>
-			</div>
-			<br>
-			<div align="center">
-				<a href="{{ url_for('forgot') }}">¿Has olvidado los datos de la cuenta?</a>
-			</div>
-			<br>
-		</div>
-	</div>
-</form>
-{% endif %}
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Gestor Referencias Colaborativas</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="/static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <style>
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  .main {
+    flex: 1 0 auto;
+  }
+  </style>
+</head>
+<body>
+  <nav class="teal lighten-1 white-text" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="{{ url_for('home') }}" class="brand-logo">Gestor Referencias Colaborativas</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/logout">About</a></li>
+      </ul>
+
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div class="container main">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4 offset-m4">
+          <br>
+          <div class="card">
+            <div class="card-action teal lighten-1 white-text">
+              <h3 class="center">Iniciar Sesión</h3>
+            </div>
+            <form action="/login" method="POST">
+            <div class="card-content">
+              <div class="form-field">
+                <label for="login-name">Email</label>
+                <input type="text" name="username" placeholder="Email">
+              </div><br>
+
+              <div class="form-field">
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" placeholder="Password">
+              </div><br>
+              
+              <div class="form-field">
+                <button class="btn-large waves-effect waves-dark" type="submit" style="width:100%;">Entrar!</button>
+              </div><br><br>
+              </form>
+              <div align="center">
+                  ¿No es usuario? <a href="{{ url_for('signup') }}">Regístrate</a>
+                </div>
+                <br>
+                <div align="center">
+                  <a href="{{ url_for('forgot') }}">¿Has olvidado los datos de la cuenta?</a>
+              </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer teal lighten-1 center white-text">
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="orange-text text-lighten-3" href="http://www.unla.edu.ar/">UNLa</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="/static/js/materialize.js"></script>
+  <script src="/static/js/init.js"></script>
+
+  </body>
+</html>

@@ -2,6 +2,7 @@
 from flask import render_template, request, redirect, url_for, flash, session, abort
 from flaskext.mysql import MySQL
 from flask_mail import Mail, Message
+from datetime import datetime
 from app import app
 
 app.config.from_pyfile('config.cfg')
@@ -13,7 +14,7 @@ def home():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        return "Hello Boss!  <a href='/logout'>Logout</a>"
+        return redirect(url_for('community'))
  
 @app.route('/login', methods=['POST'])
 def do_admin_login():
@@ -22,7 +23,7 @@ def do_admin_login():
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT COUNT(1) FROM usuario WHERE email = %s', (email))
     if cursor.fetchone()[0]:
-        cursor.execute("SELECT password, confirm, idUsuario FROM usuario WHERE email = %s;", [email]) # FETCH THE HASHED PASSWORD
+        cursor.execute("SELECT password, confirm, idUsuario, admin FROM usuario WHERE email = %s;", [email]) # FETCH THE HASHED PASSWORD
         pwd = cursor.fetchone()
         print pwd
         #para validar si me esta devolviendo bien
@@ -30,6 +31,7 @@ def do_admin_login():
             if pwd[1] == 1:
                 session['logged_in'] = True
                 session['id_Usuario'] = pwd[2]
+                session['admin'] = pwd[3]
                 return redirect(url_for('community'))
             else:
                 flash('Usuario no autorizado!')
@@ -44,7 +46,7 @@ def logout():
     session['logged_in'] = False
     return home()
 
-@app.route('/signupOK')
+@app.route('/signup/#')
 def signup():
     if not session.get('logged_in'):
         return render_template('signup.html')
@@ -83,7 +85,7 @@ def add_usuario():
 def forgot():
     return render_template('forgot.html', title='forgot?')
 
-@app.route('/community')
+@app.route('/community', methods = ['POST','GET'])
 def community():
     if not session.get('logged_in'):
         return render_template(url_for('home'))
@@ -94,8 +96,112 @@ def community():
         INNER JOIN grupo g ON g.idGrupo = gxu.idGrupo \
         WHERE u.idUsuario= %s', session.get('id_Usuario')) 
         data = cursor.fetchall()
-        print data
-        return render_template('community.html')
+        return render_template('community.html', grupos = data)
+
+@app.route('/crearGrupo', methods=['GET', 'POST'])
+def crearGrupo():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return render_template('crearGrupo.html')
+
+@app.route('/crearGrupoOK', methods=['POST'])
+def addGrupo():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        descripcion = request.form['descripcion']
+        cursor = mysql.get_db().cursor()
+        cursor.execute("SELECT MAX(idGrupo) FROM grupo")
+        maxid = cursor.fetchone()
+        cursor.execute("INSERT INTO `grupo` (`idGrupo`, `nombre`, `descripcion`)" "VALUES (%s, %s, %s)", (maxid[0]+1, nombre, descripcion))
+        mysql.get_db().commit()
+        nivelUsuario='a'
+        idUsuario=session.get('id_Usuario')
+        cursor.execute("INSERT INTO `grupoxusuario` (`idGrupo`, `idUsuario`, `nivelUsuario`)" "VALUES (%s, %s, %s)", (maxid[0]+1, idUsuario, nivelUsuario))
+        mysql.get_db().commit()
+        flash('Grupo Creado')
+        return redirect(url_for('community'))
+    else:
+            flash('ERROR')
+            return redirect(url_for('home'))
+
+@app.route('/grupo/<string:id>', methods = ['POST','GET'])
+def grupo(id):
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT gxu.nivelUsuario FROM grupo g \
+        INNER JOIN grupoxusuario gxu ON g.idGrupo = gxu.idGrupo \
+        WHERE g.idGrupo= %s', id)
+    permiso = cursor.fetchone()
+    session['permiso'] = permiso
+    session['grupo'] = id
+    cursor.execute('SELECT nombre FROM grupo WHERE idGrupo = %s', (id))
+    session['nombregrupo'] = cursor.fetchone()
+    cursor.execute('SELECT r.idReferencia, r.descripcion, r.link, r.cita, r.fechaHora, r.idUsuario FROM grupo g \
+        INNER JOIN referencia r ON g.idGrupo = r.idGrupo \
+        INNER JOIN usuario u ON u.idUsuario = r.idUsuario \
+        WHERE g.idGrupo= %s', id)
+    data = cursor.fetchall()
+    print data
+    return render_template('referencia.html', referencias = data)
+
+@app.route('/grupo/<int:id>/agregarUsuario', methods=['GET', 'POST'])
+def agregarUsuario(id):
+    return render_template('agregarUsuario.html')
+
+@app.route('/grupo/<int:id>/agregarUsuario2', methods=['GET', 'POST'])
+def agregarUsuarioForm(id):
+    email = request.form['email']
+    nivelUsuario = request.form.get('nivelUsuario')
+    nivelUsuario='b'
+    print "fijate acaaaaaa"
+    print nivelUsuario
+    if nivelUsuario != 'c':
+        nivelUsuario='b'
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT idUsuario FROM usuario WHERE email = %s', (email))
+    idUsuario = cursor.fetchone()
+    if idUsuario is not None:
+        cursor.execute("INSERT INTO `grupoxusuario` (`idGrupo`, `idUsuario`, `nivelUsuario`)" "VALUES (%s, %s, %s)", (id, idUsuario, nivelUsuario))
+        mysql.get_db().commit()
+        flash('Usuario agregado al grupo')
+    else: flash('No se agrego al grupo') 
+    return redirect("/grupo/%s" % id )
+
+@app.route('/grupo/<int:id>/listaUsuarios', methods=['GET', 'POST'])
+def listaUsuarios(id):
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT u.nombre, u.apellido, u.email FROM grupo g \
+        INNER JOIN grupoxusuario gxu ON g.idGrupo = gxu.idGrupo \
+        INNER JOIN usuario u ON u.idUsuario = gxu.idUsuario \
+        WHERE g.idGrupo= %s', id)
+    data = cursor.fetchall()
+    print data
+    #return redirect("/grupo/%s/listaUsuarios" % id , usuarios = data)
+    return render_template('listaUsuarios.html', usuarios = data)
+
+@app.route('/volverRef')
+def volverRef():
+    return redirect("/grupo/%s" % id )
+
+@app.route('/grupo/<int:id>/crearReferencia', methods=['GET', 'POST'])
+def crearReferencia(id):
+    return render_template('crearReferencia.html')    
+
+@app.route('/grupo/<int:id>/crearReferencia2', methods=['GET', 'POST'])
+def crearReferenciaForm(id):
+    if request.method == 'POST':
+        descripcion = request.form['descripcion']
+        link = request.form['link']
+        cita = request.form['cita']
+        fechaHora = datetime.now()
+        idUsuario = session['id_Usuario']
+        cursor = mysql.get_db().cursor()
+        cursor.execute("SELECT MAX(idReferencia) FROM referencia")
+        maxid = cursor.fetchone()
+        cursor.execute("INSERT INTO `referencia` (`idReferencia`, `descripcion`,`link`, `cita`, `fechaHora`,`idUsuario`, `idGrupo`)" "VALUES (%s, %s, %s, %s, %s, %s, %s)", (maxid[0]+1, descripcion, link, cita, fechaHora,idUsuario,id))
+        mysql.get_db().commit()
+        flash('Referencia agregada al grupo')
+        return redirect("/grupo/%s" % id )
 
 @app.route('/index')
 def index():

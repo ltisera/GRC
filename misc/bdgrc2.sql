@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2018 a las 10:54:25
+-- Tiempo de generación: 17-11-2018 a las 19:49:59
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -48,16 +48,6 @@ CREATE TABLE `grupo` (
   `descripcion` varchar(300) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `grupo`
---
-
-INSERT INTO `grupo` (`idGrupo`, `nombre`, `descripcion`) VALUES
-(1, 'asd', '<p>asdasd</p>'),
-(2, 'asd', '<p>asdasd</p>'),
-(3, 'hola', '<p>hola</p>'),
-(4, 'prueba', '<p>prueba</p>');
-
 -- --------------------------------------------------------
 
 --
@@ -67,16 +57,8 @@ INSERT INTO `grupo` (`idGrupo`, `nombre`, `descripcion`) VALUES
 CREATE TABLE `grupoxusuario` (
   `idGrupo` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `nivelUsuario` set('a','b','c') COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `nivelUsuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `grupoxusuario`
---
-
-INSERT INTO `grupoxusuario` (`idGrupo`, `idUsuario`, `nivelUsuario`) VALUES
-(3, 1, 'a'),
-(4, 1, 'a');
 
 -- --------------------------------------------------------
 
@@ -93,15 +75,6 @@ CREATE TABLE `referencia` (
   `idUsuario` int(11) NOT NULL,
   `idGrupo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `referencia`
---
-
-INSERT INTO `referencia` (`idReferencia`, `descripcion`, `link`, `cita`, `fechaHora`, `idUsuario`, `idGrupo`) VALUES
-(1, 'es una prueba', 'google.com', 'cita de google', '0000-00-00 00:00:00', 1, 3),
-(2, '<p>a</p>', 'b', '<p>v</p>', '0000-00-00 00:00:00', 1, 3),
-(3, '<p>Prueba</p>', 'www.google.com', '<p>que tal?</p>', '2018-11-20 05:20:04', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -218,13 +191,13 @@ ALTER TABLE `comentario`
 -- AUTO_INCREMENT de la tabla `grupo`
 --
 ALTER TABLE `grupo`
-  MODIFY `idGrupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idGrupo` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `referencia`
 --
 ALTER TABLE `referencia`
-  MODIFY `idReferencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idReferencia` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tag`
@@ -236,7 +209,7 @@ ALTER TABLE `tag`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
