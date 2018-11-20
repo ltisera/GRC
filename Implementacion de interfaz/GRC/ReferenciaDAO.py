@@ -1,5 +1,6 @@
 from Referencia import Referencia
 from Categoria import Categoria
+from Comentario import Comentario
 import mysql.connector
 from mysql.connector import Error
 import sys
@@ -103,22 +104,56 @@ class ReferenciaDAO():
         finally:
             self.cerrarConexion()        
 
-    #def eliminarReferencia(self):
+    
 
     def traerReferenciasDeGrupo(self, idGrupo):
         self.crearConexion()
         try:
             lista = []
             if (self._bd.is_connected()):
-                self._micur.execute("SELECT r.cita, r.descripcion, r.link, r.fechaHora, u.nombre, u.apellido FROM referencia as r inner join usuario as u on r.idUsuario = u.idUsuario where r.idGrupo = {0}".format(idGrupo))
+                self._micur.execute("SELECT r.idReferencia, r.cita, r.descripcion, r.link, r.fechaHora, u.nombre, u.apellido FROM referencia as r inner join usuario as u on r.idUsuario = u.idUsuario where r.idGrupo = {0}".format(idGrupo))
                 reg = self._micur.fetchall()
                 if reg is not None:
                     for r in reg:
-                        lista.append(Referencia(cita=r[0], descripcion=r[1], link=r[2], fecha=r[3], usuario=r[4] + " " + r[5]))
+                        lista.append(Referencia(idReferencia=r[0], cita=r[1], descripcion=r[2], link=r[3], fecha=r[4], usuario=r[5] + " " + r[6]))
         except Error as e:
             print("Error al conectar con la BD", e)
         finally:
             self.cerrarConexion()
         return lista
 
+
+    def traerComentariosDeReferencia(self, idReferencia):
+        self.crearConexion()
+        try:
+            lista = []
+            if (self._bd.is_connected()):
+                self._micur.execute('SELECT c.idComentario, c.comentario, c.fechaHora, c.idReferencia, c.idUsuario FROM comentario as c inner join usuario as u on c.idUsuario = u.idUsuario inner join referencia as r on c.idReferencia = r.idReferencia')
+                reg = self._micur.fetchall()
+                if reg is not None:
+                    for c in reg:
+                        lista.append(Comentario(idComentario=c[0], comentario=c[1], fecha=c[2], idReferencia=c[3], idUsuario=c[4]))
+        except Error as e:
+            print("Error al conectar con la BD", e)
+        finally:
+            self.cerrarConexion()
+        return lista  
+
+    def eliminarReferencia(self, idReferencia):
+        self.crearConexion()
+        try:
+            if (self._bd.is_connected()):
+                self._micur.execute('DELETE FROM comentario WHERE idReferencia = "{0}"'.format(idReferencia))
+                self._micur.execute ('DELETE FROM tag_has_referencia WHERE idReferencia = "{0}"'.format(idReferencia)) 
+                self._micur.execute('DELETE FROM referencia WHERE idReferencia = "{0}"'.format(idReferencia))     
+                self._bd.commit()
+        except Error as e:
+            print("Error al conectar con la BD", e)
+        finally:
+            self.cerrarConexion()     
+
     #def buscarReferencias(self):
+
+    
+
+

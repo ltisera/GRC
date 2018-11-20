@@ -29,9 +29,19 @@ referenciaDao.crearConexion()
 print(referenciaDao.traerCategoria("Quimica"))
 referenciaDao.cerrarConexion()
 """
-tags = ["Programacion", "Quimica", "Mecanica", "Arte"]
+#tags = ["Programacion", "Quimica", "Mecanica", "Arte"]
 
-referenciaDao.publicarReferencia("otra cita","otra desc", "python.com", "2018-07-06 11:45:31", usuario1, grupo1, tags)
+#referenciaDao.publicarReferencia("otra cita","otra desc", "python.com", "2018-07-06 11:45:31", usuario1, grupo1, tags)
+
+
+
+#referenciaDao.comentarReferencia("comentario 1", referenciaDao.traerReferenciasDeGrupo(1)[0], "2018-07-06 11:45:31", usuario1)
+
+#idReferencia = referenciaDao.traerReferenciasDeGrupo(1)[0].idReferencia
+#for i in referenciaDao.traerComentariosDeReferencia(idReferencia):
+#	print(str(i))
+
+referenciaDao.eliminarReferencia(27)
 
 
 

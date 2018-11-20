@@ -1,6 +1,6 @@
 class Referencia():
-    def __init__(self, cita, descripcion, link, fecha, usuario, grupo=""):
-        self._idReferencia = None
+    def __init__(self, idReferencia=None, cita="", descripcion="", link="", fecha="", usuario="", grupo=""):
+        self._idReferencia = idReferencia
         self._cita = cita
         self._descripcion = descripcion
         self._link = link
@@ -10,7 +10,7 @@ class Referencia():
 
     @property
     def idReferencia(self):
-    	return self._idReferencia
+        return self._idReferencia
     
     @idReferencia.setter
     def idReferencia(self, idreferencia):
@@ -65,5 +65,5 @@ class Referencia():
 
 
     def __str__(self):
-        return str("id: "+_idReferencia+" Cita: "+_cita+" Descripcion: "+_descripcion
-			+" link: "+_link+" fecha: "+_fecha+" usuario: "+_usuario+" grupo: "+_grupo)
+        return str("id: "+str(self.idReferencia)+" Cita: "+str(self.cita)+" Descripcion: "+str(self.descripcion)
+			+" link: "+str(self.link)+" fecha: "+str(self.fecha)+" usuario: "+str(self.usuario)+" grupo: "+str(self.grupo))
