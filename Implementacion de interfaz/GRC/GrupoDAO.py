@@ -1,7 +1,10 @@
-from Grupo import Grupo
+import sys
+
 import mysql.connector
 from mysql.connector import Error
-import sys
+
+from Grupo import Grupo
+from ConexionBD import ConexionBD
 
 DBGI = False
 
@@ -12,55 +15,21 @@ connectionDict = {
     'database': 'bdgrc'
 }
 
-class GrupoDAO():
-    def __init__(self):
-        pass
 
-    def cerrarCursor(self):
-        self._micur.close()
-
-    def crearConexion(self):
-        if(DBGI):
-            print("DBGI: Conectando a BD")
-        """
-        self._bd = mysql.connector.connect(
-            host="localhost",
-            user="admingrc",
-            passwd="1234",
-            database="bdgrc")
-        """
-        self._bd = mysql.connector.connect(**connectionDict)
-
-        if(DBGI):
-            print("DBGI:Conectado")
-        if(DBGI):
-            print("DBGI: Creando Cursor")
-        self._micur = self._bd.cursor()
-        if(DBGI):
-            print("DBGI: cursor creado")
-
-
-    def cerrarConexion(self):
-        if(self._bd.is_connected()):
-            if(DBGI):
-                print("DBGI: cerrando cursor y conexion")
-            self._micur = self._bd.cursor()
-            self._bd.close()
-
+class GrupoDAO(ConexionBD):
     def crearGrupo(self, nombre, descripcion, usuarioCreador):
         self.crearConexion()
-        grupoCreado = Grupo(nombre, descripcion, usuarioCreador)
+        # grupoCreado = Grupo(nombre, descripcion, usuarioCreador)
         try:
-            if (self._bd.is_connected()):
-                consulta = 'INSERT INTO grupo (`nombre`, `descripcion`) values ("{0}", "{1}")'.format(nombre, descripcion)
-                stat = self._micur.execute(consulta)
-                self._micur.execute('SELECT * from grupo where idGrupo = (select max(idGrupo) from grupo)')
-                idGrupo = self._micur.fetchone()[0]
-                consulta = 'INSERT INTO grupo_has_usuario (`Grupo_idGrupo`, `Usuario_idUsuario`, `permisoUsuario`) values ("{0}", "{1}", "creador")'.format(idGrupo, usuarioCreador.idUsuario)
-                self._micur.execute(consulta)
-                self._bd.commit()
+            consulta = 'INSERT INTO grupo (`nombre`, `descripcion`) values ("{0}", "{1}")'.format(nombre, descripcion)
+            stat = self._micur.execute(consulta)
+            self._micur.execute('SELECT * from grupo where idGrupo = (select max(idGrupo) from grupo)')
+            idGrupo = self._micur.fetchone()[0]
+            consulta = 'INSERT INTO grupo_has_usuario (`Grupo_idGrupo`, `Usuario_idUsuario`, `permisoUsuario`) values ("{0}", "{1}", "creador")'.format(idGrupo, usuarioCreador.idUsuario)
+            self._micur.execute(consulta)
+            self._bd.commit()
         except Error as e:
-            print("Error al conectar con la BD", e)
+            print("Error al cargar grupo en la BD", e)
         finally:
             self.cerrarConexion()
            
@@ -93,7 +62,6 @@ class GrupoDAO():
             print("Error al conectar con la BD", e)
         finally:
             self.cerrarConexion()
-        
 
     def traerGrupo(self, idGrupo):
         self.crearConexion()
@@ -111,9 +79,6 @@ class GrupoDAO():
         finally:
             self.cerrarConexion()
         return grupo
-
-
-    
 
     def consultarPermisos(self, usuario, grupo):
         self.crearConexion()

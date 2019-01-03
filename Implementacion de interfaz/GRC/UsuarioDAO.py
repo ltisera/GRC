@@ -2,91 +2,99 @@ from Usuario import Usuario
 import mysql.connector
 from mysql.connector import Error
 import sys
+import configs
+from ConexionBD import ConexionBD
 
 DBGI = False
 
-connectionDict = {
-    'host': 'localhost',
-    'user': 'admingrc',
-    'password': '1234',
-    'database': 'bdgrc'
-}
 
-class UsuarioDAO():
+class UsuarioDAO(ConexionBD):
     def __init__(self):
         pass
 
-    def cerrarCursor(self):
-        self._micur.close()
+    def agregarUsuario(self, usser):
+        """Agrega un usuario, validando que el mail contenga "@"
+            :Parameters:
+                -'usser': Usuario que desea agregarse
+            :Return:
+                (valido, str):
+                    -"valido":
+                        True si se agrego a la BD
+                        False si no se agrego
 
-    def crearConexion(self):
-        if(DBGI):
-            print("DBGI: Conectando a BD")
+                    -"mensaje" :
+                        un mensaje de por que no se pudo agregar
+            TO-DO: -Corregir mensajes de devolucion
         """
-        self._bd = mysql.connector.connect(
-            host="localhost",
-            user="admingrc",
-            passwd="1234",
-            database="bdgrc")
-        """
-        self._bd = mysql.connector.connect(**connectionDict)
+        valido = False
+        try:
+            self.crearConexion()
 
-        if(DBGI):
-            print("DBGI:Conectado")
-        if(DBGI):
-            print("DBGI: Creando Cursor")
-        self._micur = self._bd.cursor()
-        if(DBGI):
-            print("DBGI: cursor creado")
+            consulta = "INSERT INTO Usuario(nombre, apellido, email, password) \
+                        VALUES('{0}','{1}','{2}','{3}')".format(usser.nombre,
+                                                                usser.apellido,
+                                                                usser.email,
+                                                                usser.password)
+            mailValido = False
+            for i in usser.email:
+                if(i == "@"):
+                    mailValido = True
+            if(mailValido is True):
+                self._micur.execute(consulta)
+                self._bd.commit()
+                valido = True
+            else:
+                valido = "No lo se rick, parece falso"
 
+        except mysql.connector.errors.IntegrityError as e:
+            valido = "Usuario Usuario Duplicado"
 
-    def cerrarConexion(self):
-        if(self._bd.is_connected()):
-            if(DBGI):
-                print("DBGI: cerrando cursor y conexion")
-            self._micur = self._bd.cursor()
-            self._bd.close()
+        finally:
+            self.cerrarConexion()
+
+        return valido
+
+    """
+    Chequear estos metodos
+    """
 
     def traerUsuarioXMail(self, mimail):
         """Seguir haciendolo"""
-        self.crearConexion()
-        utraido = Usuario()
+        utraido = None
         try:
+            self.crearConexion()
             if (self._bd.is_connected()):
-                print("la consulta es:::")
-                consulta = 'SELECT * FROM Usuario WHERE email = "{0}"'.format(mimail)
-                print(consulta)
-                reg = self._micur.execute(consulta)
-                for i in self._micur:
-                    utraido.idUsuario = i[0]
-                    utraido.nombre = i[1]
-                    utraido.apellido = i[2]
-                    utraido.email = i[3]
-                    utraido.password = i[4]
-                if(DBGI):
-                    print("Se Leyeron los datos en la BD")
+                consulta = 'SELECT * FROM Usuario WHERE \
+                            email = "{0}"'.format(mimail)
+
+                self._micur.execute(consulta)
+                resultado = self._micur.fetchone()
+                i = resultado
+                utraido = Usuario(i[1], i[2], i[3], i[4], i[0])
 
         except Error as e:
             print("Error al conectar con la BD", e)
+
         finally:
             self.cerrarConexion()
             return utraido
 
     def traerUsuarioXId(self, id):
         """Seguir haciendolo"""
-        self.crearConexion()
         utraido = Usuario()
         try:
+            self.crearConexion()
             if (self._bd.is_connected()):
-                reg = self._micur.execute("SELECT * FROM Usuario WHERE idUsuario = {0}".format(id))
+                consulta = "SELECT * FROM Usuario WHERE \
+                            idUsuario = {0}".format(id)
+
+                self._micur.execute(consulta)
                 for i in self._micur:
                     utraido.idUsuario = i[0]
                     utraido.nombre = i[1]
                     utraido.apellido = i[2]
                     utraido.email = i[3]
                     utraido.password = i[4]
-                if(DBGI):
-                    print("Se Leyeron los datos en la BD")
 
         except Error as e:
             print("Error al conectar con la BD", e)
@@ -102,13 +110,27 @@ class UsuarioDAO():
             usuario = self.traerUsuarioXId(arg)
         return usuario
 
-    def agregarUsuario(self, usser):
-        self.crearConexion()
-        stat = self._micur.execute("INSERT INTO Usuario(nombre, apellido, email, password) VALUES('{0}','{1}','{2}','{3}')".format(usser.nombre, usser.apellido, usser.email, usser.password))
-        self._bd.commit()
-        self.cerrarConexion()
+    """
+        Implementar estos metodos
+    """
+
+    def modificarUsuario(self, id):
+        pass
+
+    def eliminarUsurio(self, id):
+        pass
 
 
 if __name__ == '__main__':
+    print("iniciando la pruba unitaria para UsuarioDAO")
     udao = UsuarioDAO()
-    udao.agregarUsuario(Usuario("lolo","perez", "algo@algo.com", "1234"))
+    nus = Usuario("nata", "lia", "sipu@contador.com", "1234")
+    st = udao.agregarUsuario(nus)
+    if(st is not True):
+        print(st)
+
+    us = udao.traerUsuario("mas")
+    print("trajo el usuario:")
+
+    print(us.__str__())
+

@@ -1,15 +1,7 @@
-
-
-
-
-
-
-
-
-
 class Usuario():
-    def __init__(self, nombre="", apellido="", email="", password=""):
-        self._idUsuario = None
+    def __init__(self, nombre="", apellido="",
+                 email="", password="", idUsuario=None):
+        self._idUsuario = idUsuario
         self._nombre = nombre
         self._apellido = apellido
         self._email = email
@@ -58,10 +50,10 @@ class Usuario():
 
     def __str__(self):
         return str("id: " + str(self.idUsuario) +
-                " Nombre: " + self.nombre + " " +
-                self.apellido + " Email: " +
-                self.email + " Password: "
-                + self.password)
+                   " Nombre: " + str(self.nombre) + " " +
+                   str(self.apellido) + " Email: " +
+                   str(self.email) + " Password: " +
+                   str(self.password))
 
 if __name__ == '__main__':
     usrtst = Usuario

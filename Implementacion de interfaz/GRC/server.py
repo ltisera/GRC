@@ -37,7 +37,7 @@ def cssestilos():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index2.html')
+    return render_template('index.html')
 
 
 @app.route('/header1')
@@ -133,13 +133,17 @@ def miajax():
     print("Y ESTE ES EL return")
 
     if(objUsuario is not None):
+        print("Tirand")
         jResponse = jsonify(nombre=objUsuario.nombre,
                             id=objUsuario.idUsuario,
                             apellido=objUsuario.apellido,
                             email=objUsuario.email)
+        
     else:
-        jResponse = " NO EXISTIS" , 404
-    return jResponse, 200
+        print("Errorr")
+        jResponse = 404
+    
+    return jResponse
 
     """
     Este Metodo funciona Correctamente
@@ -156,9 +160,13 @@ def crearUsuario(request):
                            request.values["nombre"],
                            request.values["email"],
                            request.values["password"])
-    print("Intentando cargar",nuevoUsuario.aCadena())
+    print("Intentando cargar",nuevoUsuario.__str__())
     print("Bien")
-    udao.agregarUsuario(nuevoUsuario)
+    stAgregarUsuario = udao.agregarUsuario(nuevoUsuario)
+    if(stAgregarUsuario is True):
+        print("Se agrego Correctamente")
+    else:
+        print("Error", stAgregarUsuario)
     return 200
 
 
@@ -188,4 +196,4 @@ def traerUsuario(id):
     return elusr
 
 
-app.run(host='localhost', port="5000")
+app.run()

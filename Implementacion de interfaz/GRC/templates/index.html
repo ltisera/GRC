@@ -1,83 +1,304 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-<LINK rel=StyleSheet href="static/fonticon/style.css">
-<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-<!-- Uses a transparent header that draws on top of the layout's background -->
-<style>
-.demo-layout-transparent {
-    background: url('http://rajchamber.com/old/img/back1.png') center / cover;
-}
-.demo-layout-transparent .mdl-layout__header,
-.demo-layout-transparent .mdl-layout__drawer-button {
-  /* This background is dark, so we set text to white. Use 87% black instead if
-     your background is light. */
-    color: white;
-}
-.inpMargin{
-    margin-left: 1%;
-    margin-right: 1%;
-}
-.fuenteNegra{
-    color: black;
-    margin-left: 1%;
-}
-.divConBorde{
-    margin: auto;
-    border: solid;
-    width: 80;
-    height: 80;
-}
-.bgcol1{
-    background-color: white;
-}
-</style>
+<html>
+    <head>
+        <script src="/js/jquery-3.3.1.js"></script>
+        <script>
+            $(function(){
+                $("#includedContent").load("/header1");
+            });
 
-<div class="demo-layout-transparent mdl-layout mdl-js-layout">
-    <header class="mdl-layout__header mdl-layout__header--transparent">
-        <div class="mdl-layout__header-row">
-        <!-- Title -->
-        <div class="mdl-layout-title">Gestor de Referencias Colaborativas</div>
-        <!-- Add spacer, to align navigation to the right -->
-        <div class="mdl-layout-spacer"></div>
-        <!-- Navigation -->
-        <nav class="mdl-navigation">
-            <!-- Right aligned menu below button -->
+            $(function() {
+              $('#login-form-link').click(function(e) {
+                $("#login-form").delay(100).fadeIn(100);
+                $("#register-form").fadeOut(100);
+                $('#register-form-link').removeClass('active');
+                $(this).addClass('active');
+                e.preventDefault();
+              });
 
-            <button id="demo-menu-lower-right"
-                class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">more_vert</i>
-            </button>
+              $('#register-form-link').click(function(e) {
+                $("#register-form").delay(100).fadeIn(100);
+                $("#login-form").fadeOut(100);
+                $('#login-form-link').removeClass('active');
+                $(this).addClass('active');
+                e.preventDefault();
+              });
+            });
 
-            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                for="demo-menu-lower-right">
-                <div id="divFotoLogin" class="divConBorde fuenteNegra">
-                    <span class="icon-048"></span>
-                </div>
-                <br>
-                <label class="fuenteNegra">Usuario:</label>
-                <input type="text" class="inpMargin" name=""></input>
-                <br>
-                <label class="fuenteNegra">Contraseña:</label>
-                <input type="text" class="inpMargin" name=""></input>
+            $(document).ready(function(){
+                $("#login-submit").click(function(){
+                    inciarSesion();
+                });
                 
-                <li disabled class="mdl-menu__item">Publicar Referencias</li>
-                <li disabled class="mdl-menu__item">salir</li>
-            </ul>
-        </nav>
+                $("#register-submit").click(function(){
+                    registrarUsuario();
+                });
+});
+
+function registrarUsuario(){
+    if($("#apellido").val() != "" &&
+       $("#nombre").val() != "" &&
+       $("#emailr").val() != "" &&
+       $("#passwordr").val() != "" &&
+       $("#confirm-password").val() != ""){
+          console.log($("#apellido").val());
+          console.log($("#nombre").val());
+          console.log($("#emailr").val());
+          console.log($("#passwordr").val());
+
+          $.ajax({
+            url : "crearUsuario",
+            type : "POST",
+            data : {
+              apellido : $("#apellido").val(),
+              nombre : $("#nombre").val(),
+              email : $("#emailr").val(),
+              password : $("#passwordr").val()
+            },
+            success: function(response){
+                console.log(response);
+                alert("Bien");
+            },
+            error: function(response){
+                console.log("Error en algo");
+            }
+          });
+      }
+      else{
+        alert("Completa todos los campos");
+      }
+}
+
+function inciarSesion(){
+    if($("#email").val() == ""){
+      alert("Debe ingresar usuario");
+    }
+    else if($("#password").val() == ""){
+      alert("Debe ingresar password");
+    }
+    else{
+        $.ajax({
+            url : "miajax",
+            type : "POST",
+            data : {
+              usuario : $("#email").val(),
+              password : $("#password").val()
+            },
+            success: function(response){
+                console.log(response);
+                idUsuarioLogueado = response.id;
+                console.log(idUsuarioLogueado);
+                document.cookie = "idUsuarioLogueado=" + idUsuarioLogueado;
+                window.location.href = ('http://localhost:5000/grupos')
+            },
+            error: function(response){
+                alert("usuario o contraseña incorrectos");
+            }
+        });
+    }
+}
+
+
+
+
+
+        </script>
+    </head>
+
+    <style type="text/css">
+
+    body {
+    padding-top: 90px;
+}
+.panel-login {
+  border-color: #ccc;
+  -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  color: #666;
+}
+.panel-login>.panel-heading {
+  color: #00415d;
+  background-color: #fff;
+  border-color: #fff;
+  text-align:center;
+}
+.panel-login>.panel-heading a{
+  text-decoration: none;
+  color: #666;
+  font-weight: bold;
+  font-size: 15px;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+.panel-login>.panel-heading a.active{
+  color: #53A3CD;
+  font-size: 18px;
+}
+.panel-login>.panel-heading hr{
+  margin-top: 10px;
+  margin-bottom: 0px;
+  clear: both;
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+  background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+  background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+  background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+}
+.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+  height: 45px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+.panel-login input:hover,
+.panel-login input:focus {
+  outline:none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: #ccc;
+}
+.btn-login {
+  background-color: #59B2E0;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  height: auto;
+  font-weight: normal;
+  padding: 14px 0;
+  border-color: #59B2E6;
+}
+.btn-login:hover,
+.btn-login:focus {
+  color: #fff;
+  background-color: #53A3CD;
+  border-color: #53A3CD;
+}
+.forgot-password {
+  text-decoration: underline;
+  color: #888;
+}
+.forgot-password:hover,
+.forgot-password:focus {
+  text-decoration: underline;
+  color: #666;
+}
+
+.btn-register {
+  background-color: #1CB94E;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  height: auto;
+  font-weight: normal;
+  padding: 14px 0;
+  border-color: #1CB94A;
+}
+.btn-register:hover,
+.btn-register:focus {
+  color: #fff;
+  background-color: #53A3CD;
+  border-color: #53A3CD;
+}
+
+
+    </style>
+    
+    <div id="includedContent"></div>
+
+    <body>
+        
+        <div class="container">
+
+          <div class="starter-template">
+            <h1 class="fondoBlanco">Gestor de Referencias Colaborativas</h1>
+          </div>
+
+      <div class="container">
+      <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-login">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-6">
+                <a href="#" class="active" id="login-form-link">Iniciar</a>
+              </div>
+              <div class="col-xs-6">
+                <a href="#" id="register-form-link">Registrarse</a>
+              </div>
+            </div>
+            <hr>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <form id="login-form" role="form" style="display: block;">
+                  <div class="form-group">
+                    <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                  </div>
+                  <div class="form-group text-center">
+                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                    <label for="remember"> Recuerdame</label>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-6 col-sm-offset-3">
+                        <input name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Entrar">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="text-center">
+                          <a href="/" tabindex="5" class="forgot-password">Olvidaste tu contraseña?</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <form id="register-form" role="form" style="display: none;">
+                  <div class="form-group">
+                    <input type="text" name="apellido" id="apellido" tabindex="1" class="form-control" placeholder="Apellido" value="">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="nombre" id="nombre" tabindex="1" class="form-control" placeholder="Nombre" value="">
+                  </div>
+                  <div class="form-group">
+                    <input type="email" name="emailr" id="emailr" tabindex="1" class="form-control" placeholder="Email" value="">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="passwordr" id="passwordr" tabindex="2" class="form-control" placeholder="Password">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confimar Password">
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-6 col-sm-offset-3">
+                        <input name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Registrar">
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-    </header>
-<!--
-    <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Title</span>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-        </nav>
+      </div>
     </div>
--->
-    <main class="mdl-layout__content">
-        wiofjñijgi
-    </main>
-</div>
+  </div>
+
+    </div> <!-- /container -->
+
+
+      </body>
+</html>
+

@@ -4,15 +4,11 @@ from Comentario import Comentario
 import mysql.connector
 from mysql.connector import Error
 import sys
+import configs
 
 DBGI = False
 
-connectionDict = {
-    'host': 'localhost',
-    'user': 'admingrc',
-    'password': '1234',
-    'database': 'bdgrc'
-}
+
 
 class ReferenciaDAO():
     def __init__(self):
@@ -31,6 +27,7 @@ class ReferenciaDAO():
             passwd="1234",
             database="bdgrc")
         """
+        connectionDict = configs.getConfigDB()
         self._bd = mysql.connector.connect(**connectionDict)
 
         if(DBGI):
