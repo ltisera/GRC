@@ -33,7 +33,7 @@ def cssbootstrapfile():
 
 @app.route('/estilos.css')
 def cssestilos():
-    return render_template('estilos.css')
+    return send_from_directory('static/css', 'estilos.css')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -57,6 +57,7 @@ def inicio():
 
 @app.route('/grupos')
 def grupos():
+    print("Dale que va")
     return render_template('grupos.html')
 
 
@@ -126,8 +127,8 @@ def cargarListaReferencias():
     return html, str(num)
 
 
-@app.route('/miajax', methods=['GET', 'POST'])
-def miajax():
+@app.route('/loguearUsuario', methods=['GET', 'POST'])
+def loguearUsuario():
     objUsuario = validarUsuario(request)
     print("Este es el usuario que voy a devolver JSONIFYCADO")
     print("Y ESTE ES EL return")
