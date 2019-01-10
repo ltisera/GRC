@@ -3,9 +3,14 @@
         <script src="/js/jquery-3.3.1.js"></script>
         <script>
             $(function(){
-                $("#includedContent").load("/header2");
+                $("#includedContent").load("/header1");
             });
             $(document).ready(function(){
+
+                $("#divBoton").mouseenter(entraMouse());
+                $("#divBoton").mouseenter(saleMouse());
+
+
                 misCookies = document.cookie
                 listaCookies = misCookies.split(";")
 
@@ -35,29 +40,51 @@
                     },
                     success : function(response) {
                         $('#gruposLista').html(response);
+                        alert("Tengo un response");
                     },
                     error : function(response) {
-                        $('#gruposLista').html("<div class=\"col-lg-4 fondoBlanco\">El usuario no esta en ningun grupo</div>");
+                        $('#divUsuarioSinGrupo').show()
+                        $.ajax({
+                            url: "traerTodosGrupos",
+                            success: function(response){
+                                $('#lblCantGrupos').text(response.length);
+                                console.log(response);
+                                var opcion = document.createElement("option");
+                                $('#lstGrupos').empty();
+                                opcion.text = "Seleccione un grupo"
+                                opcion.value = "vacio"
+                                $('#lstGrupos').append(opcion);
+                                for (i = 0; i < response.length;i++){
+                                    var opcion = document.createElement("option");
+                                    opcion.text = response[i][1];
+                                    opcion.value = i
+                                    $('#lstGrupos').append(opcion);
+                                    console.log("Agregando: ", response[i][1])
+                                }
+                            },
+                            error: function(response){alert("error")}
+                        });
+
                     }
                 });
             });
+
+function entraMouse(){
+    miboton=document.getElementById("divBoton");
+    console.log("entra");
+}
+function saleMouse(){
+    miboton=document.getElementById("divBoton");
+    console.log("Sale")
+}
+
         </script>
+        <link rel="stylesheet" href="static/css/estilos.css" />
     </head>
 
     <style type="text/css">
         
-        .col-lg-4 {
-          margin-bottom: 20px;
-          text-align: center;
-        }
-        .col-lg-4 p {
-          margin-right: 10px;
-          margin-left: 10px;
-        }
-
-        .row{
-            padding-top: 50px;
-        }
+        
 
     </style>
     
@@ -65,16 +92,26 @@
 
     <body>
         
-        <div class="container">
+        <div id = "divUsuarioSinGrupo" class="container row fondoBlanco">
+            <div>
+                No estas en ningun grupo amiguen!
+                <div>
+                    Grupos Disponibles: <label id = lblCantGrupos>0</label>
+                    <br>
+                    <select id="lstGrupos">
+                        
+                    </select>
+                    <input type="button" value=""></input>
+                    <div class = "divBoton">Solicitar ingreso</div>
+                </div>
 
-            <div id="gruposLista" class="row">
-            
-                
-                
-            </div><!-- /.row -->
+            </div>
         
         </div><!-- /.container -->
 
-      </body>
-
+    </body>
+    <nav class="navbar navbar-inverse navbar-expand-sm navbar-fixed-bottom miPie">
+        <a>Fixed bottom</a>
+    </nav>
+            
 </html>

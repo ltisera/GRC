@@ -31,9 +31,9 @@ def csssumernote():
 def cssbootstrapfile():
     return send_from_directory('static/css', 'bootstrap.min.css')
 
-@app.route('/estilos.css')
+@app.route('/static/css/estilos.css')
 def cssestilos():
-    return send_from_directory('static/css', 'estilos.css')
+    return send_from_directory('static/css','estilos.css')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -76,6 +76,13 @@ def info():
     return render_template('info.html')
 
 
+@app.route('/traerTodosGrupos')
+def traerTodosGrupos():
+    gdao = GrupoDAO()
+
+    return jsonify(gdao.traerGrupos())
+
+
 @app.route('/crearUsuario', methods=['GET', 'POST'])
 def crearUsuarioPOST():
     respuesta = crearUsuario(request)
@@ -87,7 +94,7 @@ def cargarListaGrupo():
     html = ""
     num = 404
     gdao = GrupoDAO()
-    lstGrupos = gdao.traerGrupos(request.values["usuario"])
+    lstGrupos = gdao.traerGruposDeUsuario(request.values["usuario"])
     if(len(lstGrupos) != 0):
         for g in lstGrupos:
             html += """<div class="col-lg-4">
@@ -197,4 +204,4 @@ def traerUsuario(id):
     return elusr
 
 
-app.run()
+app.run(debug=True)

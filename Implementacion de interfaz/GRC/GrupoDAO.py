@@ -32,9 +32,22 @@ class GrupoDAO(ConexionBD):
             print("Error al cargar grupo en la BD", e)
         finally:
             self.cerrarConexion()
-           
 
-    def traerGrupos(self, idUsuario):
+    def traerGrupos(self):
+        self.crearConexion()
+        dctGrupos = None
+        try:
+            if (self._bd.is_connected()):
+                consulta = 'SELECT * from grupo'
+                self._micur.execute(consulta)
+                dctGrupos = self._micur.fetchall()
+        except Error as e:
+            print("Error al conectar con la BD", e)
+        finally:
+            self.cerrarConexion()
+        return dctGrupos
+
+    def traerGruposDeUsuario(self, idUsuario):
         self.crearConexion()
         try:
             lista = []
@@ -105,3 +118,8 @@ class GrupoDAO(ConexionBD):
             print("Error al conectar con la BD", e)
         finally:
             self.cerrarConexion()
+
+if __name__ == '__main__':
+    print("Test de traerGrupo:")
+    gdao = GrupoDAO()
+    print(gdao.traerGrupos())
