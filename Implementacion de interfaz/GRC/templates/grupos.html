@@ -7,8 +7,9 @@
             });
             $(document).ready(function(){
 
-                $("#divBoton").mouseenter(entraMouse());
-                $("#divBoton").mouseenter(saleMouse());
+                $("#divBoton").mouseenter(entraMouse);
+                $("#divBoton").mouseleave(saleMouse);
+                $("#divBoton").mouseup(clickMouse);
 
 
                 misCookies = document.cookie
@@ -77,7 +78,12 @@ function saleMouse(){
     miboton=document.getElementById("divBoton");
     console.log("Sale")
 }
-
+function clickMouse(){
+    console.log("Ac")
+}
+function mouseUp(){
+    console.log("click")
+}
         </script>
         <link rel="stylesheet" href="static/css/estilos.css" />
     </head>
@@ -102,7 +108,7 @@ function saleMouse(){
                         
                     </select>
                     <input type="button" value=""></input>
-                    <div class = "divBoton">Solicitar ingreso</div>
+                    <div id = "divBoton" class = "divBoton">Crear grupo</div>
                 </div>
 
             </div>
