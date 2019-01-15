@@ -6,12 +6,6 @@
                 $("#includedContent").load("/header1");
             });
             $(document).ready(function(){
-                
-
-                $("#divBoton").mouseenter(entraMouse);
-                $("#divBoton").mouseleave(saleMouse);
-                $("#divBoton").mouseup(clickMouse);
-                
 
                 misCookies = document.cookie
                 listaCookies = misCookies.split(";")
@@ -42,12 +36,14 @@
                     },
                     success : function(response) {
                         $('#gruposLista').html(response);
-                        console.log("Asi llega");
                         console.log(response);
                         for(i=0; i < response.length; i++){
-                            $("#columnaIzquierda").append('<br><img id = "IMG'+String(i)+'" div="grupoFoto" class="img-circle GrupIMG" src="https://image.flaticon.com/icons/svg/25/25340.svg" alt="Generic placeholder image" width="50" height="50"><br>'+response[i][1]);
-                            console.log("El id del grupo es lalala:",response[i][0])
-                            $("#IMG"+i).data('elNombre', String(response[i][1]))
+                            var nombre = response[i][1]
+                            if(nombre.length > 7){
+                                nombre = response[i][1].slice(0, 5) + "..."
+                            }
+                            $("#columnaIzquierda").append('<br><img id = "IMG'+String(i)+'" div="grupoFoto" class="img-circle GrupIMG" src="https://image.flaticon.com/icons/svg/25/25340.svg" alt="Generic placeholder image" width="50" height="50"><br>'+ nombre);
+                            $("#IMG"+i).data('elNombre', String(response[i][1]));
                             
 
                         }
@@ -84,31 +80,9 @@
             });
               
             $(document).on('click', ".GrupIMG", function() {
-                    console.log("click en img " + $(this).attr('id') );
-                    console.log($(this).data('elNombre'));
+                    console.log($(this).attr('id') + ": " + $(this).data('elNombre'));
             });
             
-function clickEnFuncion(){
-    console.log("SOY EL GRUPO 1");
-}
-function entraIMG0(){
-    console.log("Soy el grupo 0");
-}
-
-function entraMouse(){
-    miboton=document.getElementById("divBoton");
-    console.log("entra");
-}
-function saleMouse(){
-    miboton=document.getElementById("divBoton");
-    console.log("Sale")
-}
-function clickMouse(){
-    console.log("Ac")
-}
-function mouseUp(){
-    console.log("click")
-}
         </script>
         <link rel="stylesheet" href="static/css/estilos.css" />
     </head>
@@ -124,28 +98,14 @@ function mouseUp(){
     <body>
         
         <div id = "divUsuarioSinGrupo" class="container row fondoBlanco">
-            <div id="columnaIzquierda">
-                SOY LA DIV WUJUJUUUUUUUUUUUUUUUUUUU            </div>
-            <div>
-
-                No estas en ningun grupo amiguen!
-                <div>
-                    Grupos Disponibles: <label id = lblCantGrupos>0</label>
-                    <br>
-                    <select id="lstGrupos">
-                        
-                    </select>
-                    <input type="button" value=""></input>
-                    
-                </div>
-
+            <div id="columnaIzquierda" style="background-color: blue">
+                Grupos:           
             </div>
-        
+            <div id="columnaDerecha" style="background-color: red">
+                Aca van las referencias:         
+            </div>
         </div><!-- /.container -->
 
     </body>
-    <nav class="navbar navbar-inverse navbar-expand-sm navbar-fixed-bottom miPie">
-        <a>Fixed bottom</a>
-    </nav>
             
 </html>
