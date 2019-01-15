@@ -128,8 +128,10 @@ body{
 /*Header 1*/
 body {
   padding-top: 20px;
-  color: #666;      
-  background: url('https://img.freepik.com/free-vector/triangle-background-pattern_1319-107.jpg?size=338&ext=jpg') repeat;
+  color: #666;
+  background-position: 50% 50%;
+  background-repeat: repeat;    
+  background: url('https://img.freepik.com/free-vector/triangle-background-pattern_1319-107.jpg?size=338&ext=jpg');
 }
 
 .cuerpo{
@@ -171,4 +173,28 @@ body {
   left: 10;
   color: black;
   text-align: center;
+}
+
+#columnaIzquierda {
+  height: 100%;
+  width: 70px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: grey; 
+  overflow-x: hidden;
+  padding-top: 50px;
+  text-align: center;
+  color: white;
+
+}
+#columnaDerecha {
+  margin-left: 80px;
+  padding-top: 40px;
+  color: black;
+}
+
+.referencia{
+  background:rgba(255,255,255,0.7);
 }
