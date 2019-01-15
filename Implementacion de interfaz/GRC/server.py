@@ -96,15 +96,11 @@ def cargarListaGrupo():
     gdao = GrupoDAO()
     lstGrupos = gdao.traerGruposDeUsuario(request.values["usuario"])
     if(len(lstGrupos) != 0):
-        for g in lstGrupos:
-            html += """<div class="col-lg-4">
-                    <img div="grupoFoto" class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                    <h2 div="grupoNombre" class="fondoBlanco">""" + g.nombre + """</h2>
-                    <p div="grupoDescripcion" class="fondoBlanco">""" + g.descripcion + """</p>
-                    <p><div id="Grupo="""+str(g.idGrupo)+""""class="btn btn-default btnGrupos">Entrar</div></p>
-                    </div>\n\n"""
+        print("ACA TENEMOS EL PRINT DE MMM GRUPOS?")
+        print(lstGrupos)
+        respuesta = jsonify(lstGrupos)    
         num = 200
-    return html, str(num)
+    return respuesta, str(num)
 
 
 @app.route('/cargarListaReferencias', methods=['GET', 'POST'])
