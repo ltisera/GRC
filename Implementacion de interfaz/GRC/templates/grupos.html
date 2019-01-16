@@ -44,7 +44,7 @@
                             }
                             $("#columnaIzquierda").append('<br><img id = "IMG'+String(i)+'" div="grupoFoto" class="img-circle GrupIMG" src="https://image.flaticon.com/icons/svg/25/25340.svg" alt="Generic placeholder image" width="50" height="50"><br>'+ nombre);
                             $("#IMG"+i).data('elNombre', String(response[i][1]));
-                            
+                            $("#IMG"+i).tooltip({title: String(response[i][1]), trigger: "hover", placement: "right"});
 
                         }
                     },
@@ -101,7 +101,7 @@
                     <br>
                     Sollicitudin hendrerit tincidunt torquent tempus vestibulum tellus volutpat luctus, suscipit taciti ac quisque ultrices dignissim cras. Suscipit dui ultricies id est mus tempor taciti ante laoreet natoque nisi, torquent rhoncus curae mattis lectus pulvinar ad libero nisl pellentesque. Ut netus suspendisse posuere viverra iaculis augue, pellentesque cursus vestibulum euismod vel, erat eu ultrices in fermentum.
                 </div>
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                
 
             </div>
     </body>

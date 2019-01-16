@@ -131,7 +131,7 @@ body {
   color: #666;
   background-position: 50% 50%;
   background-repeat: repeat;    
-  background: url('https://img.freepik.com/free-vector/triangle-background-pattern_1319-107.jpg?size=338&ext=jpg');
+  background: url('http://www.psdgraphics.com/file/beautiful-abstract-background.jpg');
 }
 
 .cuerpo{
@@ -183,7 +183,7 @@ body {
   top: 0;
   left: 0;
   background-color: grey; 
-  overflow-x: hidden;
+  overflow-x: visible;
   padding-top: 50px;
   text-align: center;
   color: white;
@@ -196,5 +196,6 @@ body {
 }
 
 .referencia{
-  background:rgba(255,255,255,0.7);
+  color: white;
+  background:rgba(255,255,255,0.5);
 }
