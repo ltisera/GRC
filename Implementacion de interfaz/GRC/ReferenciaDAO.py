@@ -112,7 +112,7 @@ class ReferenciaDAO():
                 reg = self._micur.fetchall()
                 if reg is not None:
                     for r in reg:
-                        lista.append(Referencia(idReferencia=r[0], cita=r[1], descripcion=r[2], link=r[3], fecha=r[4], usuario=r[5] + " " + r[6]))
+                        lista.append(Referencia(idReferencia=r[0], cita=r[1], descripcion=r[2], link=r[3], fecha=r[4], usuario=r[5] + " " + r[6], grupo=idGrupo))
         except Error as e:
             print("Error al conectar con la BD", e)
         finally:
@@ -149,8 +149,19 @@ class ReferenciaDAO():
         finally:
             self.cerrarConexion()     
 
-    #def buscarReferencias(self):
-
-    
-
-
+    def buscarReferencias(self, idGrupo, busqueda):
+        self.crearConexion()
+        consulta = 'SELECT * FROM bdgrc.referencia as r inner join tag_has_referencia as tr on r.idReferencia = tr.idReferencia inner join tag as t on tr.idTag = t.idTag where (r.cita like "{0}" or r.descripcion like "{0}" or r.link like "{0}" or t.etiqueta like "{0}") and r.idGrupo = "{1}"'.format(("%"+busqueda+"%"), idGrupo)
+        try:
+            lista = []
+            if (self._bd.is_connected()):
+                self._micur.execute(consulta)
+                reg = self._micur.fetchall()
+                if reg is not None:
+                    for r in reg:
+                        lista.append(Referencia(idReferencia=r[0], cita=r[1], descripcion=r[2], link=r[3], fecha=r[4], usuario=r[5], grupo=r[6] ))
+        except Error as e:
+            print("Error al conectar con la BD", e)
+        finally:
+            self.cerrarConexion()
+        return lista

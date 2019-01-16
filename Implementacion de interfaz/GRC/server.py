@@ -199,5 +199,76 @@ def traerUsuario(id):
     print("El usr es:" + elusr.password)
     return elusr
 
+@app.route('/crearGrupo', methods=['GET', 'POST'])
+def crearGrupo():
+    gdao = GrupoDAO()
+    gdao.crearGrupo(request.values["nombreGrupo"], request.values["descripcion"], request.values["usuarioCredor"])
+    jResponse = 200
+    return jResponse
 
+@app.route('/invitarUsuario', methods=['GET', 'POST'])
+def invitarUsuario():
+    udao = UsuarioDAO()
+    gdao = GrupoDAO()
+    user = udao.traerUsuarioXMail(request.values["usuario"])
+    grupo = gdao.traerGrupo(request.values["grupoid"])
+
+    if(user is not None):
+        gdao.agregarUsuarioAGrupo(user,request.values["permisoUsuario"],grupo)
+        jResponse = 200
+        
+    else:
+        print("El usuario no existe")
+        jResponse = 404
+
+    return jResponse
+
+@app.route('/publicarReferencia', methods=['GET', 'POST'])
+def publicarReferencia():
+    refdao = ReferenciaDAO()
+    refdao.publicarReferencia(request.values["cita"], request.values["descripcion"], request.values["link"],
+        request.values["fecha"], request.values["usuario"], request.values["grupo"], request.values["tags"])
+    jResponse = 200
+    return jResponse
+
+@app.route('/comentarReferencia', methods=['GET', 'POST'])
+def comentarReferencia():
+   refdao = ReferenciaDAO()
+   refdao.comentarReferencia(request.values["comentario"], request.values["referencia"], request.values["fecha"], request.values["usuario"])
+    jResponse = 200
+    return jResponse
+
+@app.route('/eliminarReferencia', methods=['GET', 'POST'])
+def eliminarReferencia():
+    refdao = ReferenciaDAO()
+    refdao.eliminarReferencia(request.values["idReferencia"])
+     jResponse = 200
+    return jResponse
+       
+@app.route('/buscarReferencia', methods=['GET', 'POST'])
+def buscarReferencia():
+    html = ""
+    num = 404
+    refdao = ReferenciaDAO()
+    lista = refdao.buscarReferencia(request.values["idGrupo"], request.values["busqueda"])
+    if(len(lista) != 0):
+        for r in lista:
+            html += """ <div class="well">
+                        <div class="media">
+                        <div class="media-body">
+                            <h2 class="media-heading">""" + r.link + """</h2>
+                            <p class="text-right">Por""" + r.usuario + """</p>
+                            <p class="text-left">""" + r.cita + """</p>
+                            <p class="text-left">""" + r.descripcion + """</p>
+                            <br>
+                            <ul class="list-inline list-unstyled">
+                                <li><span><i class="glyphicon glyphicon-calendar"></i>""" + str(r.fecha) + """</span></li>
+                                <li><span><i class="glyphicon glyphicon-comment"></i> X comentarios</span></li>
+                            </ul>
+                        </div>
+                        </div>
+                        </div>\n\n"""
+        num = 200
+    return html, str(num)
+	
 app.run(debug=True)

@@ -36,13 +36,19 @@ referenciaDao.cerrarConexion()
 
 
 #referenciaDao.comentarReferencia("comentario 1", referenciaDao.traerReferenciasDeGrupo(1)[0], "2018-07-06 11:45:31", usuario1)
-
-#idReferencia = referenciaDao.traerReferenciasDeGrupo(1)[0].idReferencia
+"""
+lista = referenciaDao.traerReferenciasDeGrupo(1)
+for i in lista:
+	print(str(i))"""
 #for i in referenciaDao.traerComentariosDeReferencia(idReferencia):
-#	print(str(i))
+	#print(str(i))
 
-referenciaDao.eliminarReferencia(27)
+#referenciaDao.eliminarReferencia(27)
 
 
+
+lista = referenciaDao.buscarReferencias(1,"cita")
+for i in lista:
+	print(i)
 
 
