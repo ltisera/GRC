@@ -1,5 +1,5 @@
 @echo off
-set "VIRTUAL_ENV=C:\Users\Lucas\Dropbox\FAcultad\PROYEC~1\GRC\GRCLocal\IMPLEM~1\GRC\design"
+set "VIRTUAL_ENV=D:\DropBox\Dropbox\FAcultad\proyecto de software\GRC2\GRC\Implementacion de interfaz\GRC\design"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"

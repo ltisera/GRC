@@ -233,8 +233,8 @@ def publicarReferencia():
 
 @app.route('/comentarReferencia', methods=['GET', 'POST'])
 def comentarReferencia():
-   refdao = ReferenciaDAO()
-   refdao.comentarReferencia(request.values["comentario"], request.values["referencia"], request.values["fecha"], request.values["usuario"])
+    refdao = ReferenciaDAO()
+    refdao.comentarReferencia(request.values["comentario"], request.values["referencia"], request.values["fecha"], request.values["usuario"])
     jResponse = 200
     return jResponse
 
@@ -242,7 +242,7 @@ def comentarReferencia():
 def eliminarReferencia():
     refdao = ReferenciaDAO()
     refdao.eliminarReferencia(request.values["idReferencia"])
-     jResponse = 200
+    jResponse = 200
     return jResponse
        
 @app.route('/buscarReferencia', methods=['GET', 'POST'])
