@@ -1,8 +1,9 @@
-from Usuario import Usuario
+from DML.Usuario import Usuario
 import mysql.connector
 from mysql.connector import Error
 import sys
-import configs
+sys.path.append("..")
+from CONFIGS import configs
 from ConexionBD import ConexionBD
 
 DBGI = False

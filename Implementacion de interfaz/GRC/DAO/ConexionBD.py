@@ -1,4 +1,6 @@
-import configs
+import sys
+sys.path.append("..")
+from CONFIGS import configs
 import mysql.connector
 from mysql.connector import Error
 

@@ -1,11 +1,11 @@
-from Referencia import Referencia
-from Categoria import Categoria
-from Comentario import Comentario
+from DML.Referencia import Referencia
+from DML.Categoria import Categoria
+from DML.Comentario import Comentario
 import mysql.connector
 from mysql.connector import Error
 import sys
-import configs
-
+sys.path.append("..")
+from CONFIGS import configs
 DBGI = False
 
 

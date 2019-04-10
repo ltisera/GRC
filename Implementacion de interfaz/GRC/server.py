@@ -1,8 +1,10 @@
 from flask import Flask, render_template, send_from_directory, request, jsonify
-from UsuarioDAO import UsuarioDAO
-from Usuario import Usuario
-from GrupoDAO import GrupoDAO
-from ReferenciaDAO import ReferenciaDAO
+from DAO.UsuarioDAO import UsuarioDAO
+from DAO.GrupoDAO import GrupoDAO
+from DAO.ReferenciaDAO import ReferenciaDAO
+from DML.Usuario import Usuario
+
+
 import json
 
 
