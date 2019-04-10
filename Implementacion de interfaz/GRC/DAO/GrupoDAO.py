@@ -6,15 +6,6 @@ from mysql.connector import Error
 from DML.Grupo import Grupo
 from ConexionBD import ConexionBD
 
-DBGI = False
-
-connectionDict = {
-    'host': 'localhost',
-    'user': 'admingrc',
-    'password': '1234',
-    'database': 'bdgrc'
-}
-
 
 class GrupoDAO(ConexionBD):
     def crearGrupo(self, nombre, descripcion, usuarioCreador):

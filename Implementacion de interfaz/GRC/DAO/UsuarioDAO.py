@@ -1,12 +1,7 @@
 from DML.Usuario import Usuario
 import mysql.connector
 from mysql.connector import Error
-import sys
-sys.path.append("..")
-from CONFIGS import configs
 from ConexionBD import ConexionBD
-
-DBGI = False
 
 
 class UsuarioDAO(ConexionBD):

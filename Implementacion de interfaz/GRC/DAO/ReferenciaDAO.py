@@ -3,48 +3,14 @@ from DML.Categoria import Categoria
 from DML.Comentario import Comentario
 import mysql.connector
 from mysql.connector import Error
-import sys
-sys.path.append("..")
-from CONFIGS import configs
+from ConexionBD import ConexionBD
 DBGI = False
 
 
 
-class ReferenciaDAO():
+class ReferenciaDAO(ConexionBD):
     def __init__(self):
         pass
-
-    def cerrarCursor(self):
-        self._micur.close()
-
-    def crearConexion(self):
-        if(DBGI):
-            print("DBGI: Conectando a BD")
-        """
-        self._bd = mysql.connector.connect(
-            host="localhost",
-            user="admingrc",
-            passwd="1234",
-            database="bdgrc")
-        """
-        connectionDict = configs.getConfigDB()
-        self._bd = mysql.connector.connect(**connectionDict)
-
-        if(DBGI):
-            print("DBGI:Conectado")
-        if(DBGI):
-            print("DBGI: Creando Cursor")
-        self._micur = self._bd.cursor()
-        if(DBGI):
-            print("DBGI: cursor creado")
-
-
-    def cerrarConexion(self):
-        if(self._bd.is_connected()):
-            if(DBGI):
-                print("DBGI: cerrando cursor y conexion")
-            self._micur = self._bd.cursor()
-            self._bd.close()
 
 
     def publicarReferencia(self, cita, descripcion, link, fecha, usuario, grupo, tags):

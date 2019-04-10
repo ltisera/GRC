@@ -1,6 +1,5 @@
 import sys
-sys.path.append("..")
-from CONFIGS import configs
+from CONFIGS.configs import getConfigDB
 import mysql.connector
 from mysql.connector import Error
 
@@ -17,7 +16,7 @@ class ConexionBD:
         self._micur = None
 
     def crearConexion(self):
-        connectionDict = configs.getConfigDB()
+        connectionDict = getConfigDB()
         self._bd = mysql.connector.connect(**connectionDict)
         self._micur = self._bd.cursor()
 
