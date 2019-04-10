@@ -80,9 +80,8 @@ def info():
 
 @app.route('/traerTodosGrupos')
 def traerTodosGrupos():
-    gdao = GrupoDAO()
-
-    return jsonify(gdao.traerGrupos())
+    gOll = GrupoOLL()
+    return gOll.traerGrupos()
 
 
 @app.route('/crearUsuario', methods=['GET', 'POST'])
@@ -93,16 +92,8 @@ def crearUsuarioPOST():
 
 @app.route('/cargarListaGrupo', methods=['GET', 'POST'])
 def cargarListaGrupo():
-    html = ""
-    num = 404
-    gdao = GrupoDAO()
-    lstGrupos = gdao.traerGruposDeUsuario(request.values["usuario"])
-    if(len(lstGrupos) != 0):
-        print("ACA TENEMOS EL PRINT DE MMM GRUPOS?")
-        print(lstGrupos)
-        respuesta = jsonify(lstGrupos)    
-        num = 200
-    return respuesta, str(num)
+    gOll = GrupoOLL()
+    return gOll.traerGruposDeUsuario(request.values["usuario"].idUsuario)
 
 
 @app.route('/cargarListaReferencias', methods=['GET', 'POST'])
@@ -203,20 +194,20 @@ def traerUsuario(id):
 
 @app.route('/crearGrupo', methods=['GET', 'POST'])
 def crearGrupo():
-    gdao = GrupoDAO()
-    gdao.crearGrupo(request.values["nombreGrupo"], request.values["descripcion"], request.values["usuarioCredor"])
+    gOll = GrupoOLL()
+    gOll.crearGrupo(request.values["nombreGrupo"], request.values["descripcion"], request.values["usuarioCredor"])
     jResponse = 200
     return jResponse
 
 @app.route('/invitarUsuario', methods=['GET', 'POST'])
 def invitarUsuario():
     udao = UsuarioDAO()
-    gdao = GrupoDAO()
+    gOll = GrupoOLL()
     user = udao.traerUsuarioXMail(request.values["usuario"])
-    grupo = gdao.traerGrupo(request.values["grupoid"])
+    grupo = gOll.traerGrupo(request.values["grupoid"])
 
     if(user is not None):
-        gdao.agregarUsuarioAGrupo(user,request.values["permisoUsuario"],grupo)
+        gOll.agregarUsuarioAGrupo(user,request.values["permisoUsuario"],grupo)
         jResponse = 200
         
     else:
