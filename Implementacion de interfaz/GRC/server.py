@@ -86,8 +86,8 @@ def traerTodosGrupos():
 
 @app.route('/crearUsuario', methods=['GET', 'POST'])
 def crearUsuarioPOST():
-    respuesta = crearUsuario(request)
-    return str(respuesta)
+    usser = UsuarioOLL()
+    return jsonify(usser.crearUsuario(request))
 
 
 @app.route('/cargarListaGrupo', methods=['GET', 'POST'])
