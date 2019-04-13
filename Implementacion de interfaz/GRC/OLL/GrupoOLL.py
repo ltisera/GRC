@@ -1,6 +1,6 @@
 from DML.Grupo import Grupo
 from DAO.GrupoDAO import GrupoDAO
-import json
+from flask import jsonify
 
 grupoDao = GrupoDAO()
 
@@ -8,7 +8,7 @@ grupoDao = GrupoDAO()
 class GrupoOLL(object):
     def __init__(self):
         pass
-        
+
     def crearGrupo(self, nombre, descripcion, usuarioCreador):
         grupoDao.crearGrupo(nombre, descripcion, usuarioCreador)
 
@@ -18,13 +18,18 @@ class GrupoOLL(object):
     def traerGruposDeUsuario(self, idUsuario):
         html = ""
         num = 404
+        respuesta = None
         lstGrupos = grupoDao.traerGruposDeUsuario(idUsuario)
         if(len(lstGrupos) != 0):
             print("ACA TENEMOS EL PRINT DE MMM GRUPOS?")
             print(lstGrupos)
-            respuesta = jsonify(lstGrupos)    
+            respuesta = lstGrupos
             num = 200
-        return respuesta, str(num)
+        else:
+            print("ACA TENEMOS EL PRINT vacio")
+            print(lstGrupos)
+            num = 200
+        return jsonify(respuesta, str(num))
 
     def agregarUsuarioAGrupo(self, usuario, permisoUsuario, grupo):
         if(usuario!=None and not (grupo in traerGruposDeUsuario(usuario))):

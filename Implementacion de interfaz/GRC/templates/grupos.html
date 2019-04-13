@@ -9,7 +9,7 @@
 
                 misCookies = document.cookie
                 listaCookies = misCookies.split(";")
-
+                console.log("ACA TA LERROR1")
                 for (i in listaCookies) {
                     busca = listaCookies[i].search("idUsuarioLogueado");
                     if (busca > -1) {
@@ -32,21 +32,28 @@
                     url : "cargarListaGrupo",
                     type : "POST",
                     beforeSend : function() {
+                        console.log("ACA TA LERROR2")
                         $('#gruposLista').html("Cargando Grupos");
                     },
                     success : function(response) {
                         $('#gruposLista').html(response);
                         console.log(response);
-                        for(i=0; i < response.length; i++){
-                            var nombre = response[i][1]
-                            if(nombre.length > 7){
-                                nombre = response[i][1].slice(0, 5) + "..."
-                            }
-                            $("#columnaIzquierda").append('<br><img id = "IMG'+String(i)+'" div="grupoFoto" class="img-circle GrupIMG" src="https://image.flaticon.com/icons/svg/25/25340.svg" alt="Generic placeholder image" width="50" height="50"><br>'+ nombre);
-                            $("#IMG"+i).data('elNombre', String(response[i][1]));
-                            $("#IMG"+i).tooltip({title: String(response[i][1]), trigger: "hover", placement: "right"});
-
+                        if(response[0]==null){
+                            console.log("SOY NULL");
                         }
+                        else{
+                            for(i=0; i < response.length; i++){
+                            var nombre = response[0][i][1]
+                            if(nombre.length > 7){
+                                nombre = response[0][i][1].slice(0, 5) + "..."
+                            }
+                            
+                            $("#columnaIzquierda").append('<br><img id = "IMG'+String(i)+'" div="grupoFoto" class="img-circle GrupIMG" src="https://image.flaticon.com/icons/svg/25/25340.svg" alt="Generic placeholder image" width="50" height="50"><br>'+ nombre);
+                            $("#IMG"+i).data('elNombre', String(response[0][i][1]));
+                            $("#IMG"+i).tooltip({title: String(response[0][i][2]), trigger: "hover", placement: "right"});
+                            }
+                        }
+                        
                     },
                     error : function(response) {
                         $('#divUsuarioSinGrupo').show()

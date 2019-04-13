@@ -1,12 +1,12 @@
 from flask import Flask, render_template, send_from_directory, request, jsonify
 from DAO.UsuarioDAO import UsuarioDAO
 from DAO.GrupoDAO import GrupoDAO
+
 from DAO.ReferenciaDAO import ReferenciaDAO
+
+from OLL.UsuarioOLL import UsuarioOLL
+from OLL.GrupoOLL import GrupoOLL
 from DML.Usuario import Usuario
-
-
-import json
-
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 
@@ -93,7 +93,7 @@ def crearUsuarioPOST():
 @app.route('/cargarListaGrupo', methods=['GET', 'POST'])
 def cargarListaGrupo():
     gOll = GrupoOLL()
-    return gOll.traerGruposDeUsuario(request.values["usuario"].idUsuario)
+    return gOll.traerGruposDeUsuario(request.values["usuario"])
 
 
 @app.route('/cargarListaReferencias', methods=['GET', 'POST'])
@@ -135,7 +135,7 @@ def loguearUsuario():
                             id=objUsuario.idUsuario,
                             apellido=objUsuario.apellido,
                             email=objUsuario.email)
-        
+
     else:
         print("Errorr")
         jResponse = 404
@@ -192,12 +192,16 @@ def traerUsuario(id):
     print("El usr es:" + elusr.password)
     return elusr
 
+
 @app.route('/crearGrupo', methods=['GET', 'POST'])
 def crearGrupo():
     gOll = GrupoOLL()
-    gOll.crearGrupo(request.values["nombreGrupo"], request.values["descripcion"], request.values["usuarioCredor"])
+    gOll.crearGrupo(request.values["nombreGrupo"],
+                    request.values["descripcion"],
+                    request.values["usuarioCredor"])
     jResponse = 200
     return jResponse
+
 
 @app.route('/invitarUsuario', methods=['GET', 'POST'])
 def invitarUsuario():
@@ -207,9 +211,10 @@ def invitarUsuario():
     grupo = gOll.traerGrupo(request.values["grupoid"])
 
     if(user is not None):
-        gOll.agregarUsuarioAGrupo(user,request.values["permisoUsuario"],grupo)
+        gOll.agregarUsuarioAGrupo(user, request.values["permisoUsuario"],
+                                  grupo)
+
         jResponse = 200
-        
     else:
         print("El usuario no existe")
         jResponse = 404
