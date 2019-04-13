@@ -129,4 +129,3 @@ if __name__ == '__main__':
     print("trajo el usuario:")
 
     print(us.__str__())
-

@@ -8,6 +8,8 @@ from OLL.UsuarioOLL import UsuarioOLL
 from OLL.GrupoOLL import GrupoOLL
 from DML.Usuario import Usuario
 
+from datetime import datetime
+
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 
@@ -20,6 +22,7 @@ def jsfile():
 def jsbootstrapfile():
     return send_from_directory('static/js', 'bootstrap.min.js')
 
+
 @app.route('/sumer/dist/summernote.js')
 def sumernotejs():
     return send_from_directory('static/sumer/dist', 'summernote.js')
@@ -29,13 +32,16 @@ def sumernotejs():
 def csssumernote():
     return send_from_directory('static/sumer/dist', 'summernote.css')
 
+
 @app.route('/css/bootstrap.min.css')
 def cssbootstrapfile():
     return send_from_directory('static/css', 'bootstrap.min.css')
 
+
 @app.route('/static/css/estilos.css')
 def cssestilos():
-    return send_from_directory('static/css','estilos.css')
+    return send_from_directory('static/css', 'estilos.css')
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -65,7 +71,7 @@ def grupos():
 
 @app.route('/publicar')
 def publicar():
-    return render_template('publicar.html')
+    return render_template('publicar2.html')
 
 
 @app.route('/contacto')
@@ -139,7 +145,6 @@ def loguearUsuario():
     else:
         print("Errorr")
         jResponse = 404
-    
     return jResponse
 
     """
@@ -157,7 +162,7 @@ def crearUsuario(request):
                            request.values["nombre"],
                            request.values["email"],
                            request.values["password"])
-    print("Intentando cargar",nuevoUsuario.__str__())
+    print("Intentando cargar", nuevoUsuario.__str__())
     print("Bien")
     stAgregarUsuario = udao.agregarUsuario(nuevoUsuario)
     if(stAgregarUsuario is True):
@@ -165,7 +170,6 @@ def crearUsuario(request):
     else:
         print("Error", stAgregarUsuario)
     return 200
-
 
 
 def validarUsuario(request):
@@ -221,13 +225,15 @@ def invitarUsuario():
 
     return jResponse
 
+
 @app.route('/publicarReferencia', methods=['GET', 'POST'])
 def publicarReferencia():
     refdao = ReferenciaDAO()
     refdao.publicarReferencia(request.values["cita"], request.values["descripcion"], request.values["link"],
-        request.values["fecha"], request.values["usuario"], request.values["grupo"], request.values["tags"])
+        datetime.now(), request.values["usuario"], request.values["grupo"], request.values["tags"])
     jResponse = 200
-    return jResponse
+    return str(jResponse)
+
 
 @app.route('/comentarReferencia', methods=['GET', 'POST'])
 def comentarReferencia():
@@ -236,13 +242,15 @@ def comentarReferencia():
     jResponse = 200
     return jResponse
 
+
 @app.route('/eliminarReferencia', methods=['GET', 'POST'])
 def eliminarReferencia():
     refdao = ReferenciaDAO()
     refdao.eliminarReferencia(request.values["idReferencia"])
     jResponse = 200
     return jResponse
-       
+
+
 @app.route('/buscarReferencia', methods=['GET', 'POST'])
 def buscarReferencia():
     html = ""
