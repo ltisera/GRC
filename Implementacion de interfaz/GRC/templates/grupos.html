@@ -38,6 +38,7 @@
                     success : function(response) {
                         $('#gruposLista').html(response);
                         console.log(response);
+                        $("#columnaIzquierda").append('<br><img id = "IMGagregar" div="grupoFoto" class="img-circle GrupIMG" src="https://image.flaticon.com/icons/svg/25/25340.svg" alt="Generic placeholder image" width="50" height="50"><br>'+ "AGREGAR");
                         if(response[0]==null){
                             console.log("SOY NULL");
                         }
@@ -48,7 +49,7 @@
                                 nombre = response[0][i][1].slice(0, 5) + "..."
                             }
                             
-                            $("#columnaIzquierda").append('<br><img id = "IMG'+String(i)+'" div="grupoFoto" class="img-circle GrupIMG" src="https://image.flaticon.com/icons/svg/25/25340.svg" alt="Generic placeholder image" width="50" height="50"><br>'+ nombre);
+                            $("#columnaIzquierda").append('<br><img id = "IMG'+String(i)+'" div="grupoFoto" class="img-circle GrupIMG" src="https://images.emojiterra.com/google/android-oreo/512px/1f625.png" alt="Generic placeholder image" width="50" height="50"><br>'+ nombre);
                             $("#IMG"+i).data('elNombre', String(response[0][i][1]));
                             $("#IMG"+i).tooltip({title: String(response[0][i][2]), trigger: "hover", placement: "right"});
                             }
@@ -84,8 +85,16 @@
             });
               
             $(document).on('click', ".GrupIMG", function() {
-                    console.log($(this).attr('id') + ": " + $(this).data('elNombre'));
-
+                console.log($(this).attr('id') + ": " + $(this).data('elNombre'));
+                if($(this).attr('id') == "IMGagregar"){
+                    console.log("CLICKITO");
+                    if($('#divAgregarGrupo').is(':visible')){
+                        $('#divAgregarGrupo').hide();
+                    }
+                    else{
+                        $('#divAgregarGrupo').show();
+                    }
+                }
             });
             
         </script>
@@ -103,6 +112,32 @@
                 Grupos:           
             </div>
             <div id="columnaDerecha">
+                <div id="divAgregarGrupo" class="referencia">
+                    <div class="clsTitulo"> Creacion de Grupos</div>
+                    <div class="container">
+                        Nombre Del Grupo:<br>
+                        <input type="text" name=""><br>
+                        Descripcion Del Grupo:<br>
+                        <input type="text" name=""><br>
+                        Fotico:<br>
+                        <input type="text" name=""><br>
+                        <button id="save" class="btn btn-primary">Crear Grupo</button>
+                    </div>
+                </div>
+                <br>
+                <div id="divAdminGrupo" class="referencia">
+                    <div class="clsTitulo"> Panel de control... MATAR USUARIOS</div>
+                    <div class="container">
+                        Invitar USUSARIO:<br>
+                        <input type="text" name=""><br>
+                        Expulsar Usuario:<br>
+                        <input type="text" name=""><br>
+                        Chupala usuario:<br>
+                        <input type="text" name=""><br>
+                        <button id="save" class="btn btn-primary">EXPULSAR</button>
+                    </div>
+                </div>
+                <br>
                 <div class="referencia">
                     Lorem ipsum dolor sit amet consectetur adipiscing elit proin, consequat quam placerat conubia volutpat aptent fames habitasse, risus mus enim dis ut posuere massa. Potenti etiam habitasse risus arcu sem facilisis penatibus diam, bibendum taciti dis vestibulum habitant cubilia lobortis in aenean, convallis tincidunt nibh mauris fringilla ultrices lacus. Molestie fusce aliquam suscipit id aptent taciti ante risus, pellentesque sociis conubia inceptos aliquet curabitur sapien, semper nostra tempus ligula ad habitant consequat.
                     <br>
