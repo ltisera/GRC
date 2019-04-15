@@ -42,7 +42,9 @@ class GrupoOLL(object):
         permiso = None
         if(usuario!=None and grupo in traerGruposDeUsuario(usuario)):
             permiso = grupoDao.consultarPermisos(usuario, grupo)
-        return permiso
+            print("rev PERMISO")
+            print(jsonify(permiso))
+        return jsonify(permiso)
 
     def eliminarUsuarioDelGrupo(self, usuario, grupo):
         if(usuario!=None and grupo in traerGruposDeUsuario(usuario)):

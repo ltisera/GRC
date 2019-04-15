@@ -9,13 +9,13 @@
 
                 misCookies = document.cookie
                 listaCookies = misCookies.split(";")
-                console.log("ACA TA LERROR1")
                 for (i in listaCookies) {
                     busca = listaCookies[i].search("idUsuarioLogueado");
                     if (busca > -1) {
                         micookie=listaCookies[i]
                         igual = micookie.indexOf("=");
                         valor = micookie.substring(igual+1);
+                        idUsuarioLogueado = valor;
                     }
                 }
                 
@@ -26,13 +26,13 @@
 
 
                 $.ajax({
+                    async: true,
                     data : {
                         "usuario" : valor,
                     },
                     url : "cargarListaGrupo",
                     type : "POST",
                     beforeSend : function() {
-                        console.log("ACA TA LERROR2")
                         $('#gruposLista').html("Cargando Grupos");
                     },
                     success : function(response) {
@@ -50,6 +50,7 @@
                             }
                             
                             $("#columnaIzquierda").append('<br><img id = "IMG'+String(i)+'" div="grupoFoto" class="img-circle GrupIMG" src="https://images.emojiterra.com/google/android-oreo/512px/1f625.png" alt="Generic placeholder image" width="50" height="50"><br>'+ nombre);
+                            $("#IMG"+i).data('idGrupo', String(response[0][i][0]));
                             $("#IMG"+i).data('elNombre', String(response[0][i][1]));
                             $("#IMG"+i).tooltip({title: String(response[0][i][2]), trigger: "hover", placement: "right"});
                             }
@@ -59,6 +60,7 @@
                     error : function(response) {
                         $('#divUsuarioSinGrupo').show()
                         $.ajax({
+                            async: true,
                             url: "traerTodosGrupos",
                             success: function(response){
                                 $('#lblCantGrupos').text(response.length);
@@ -85,7 +87,11 @@
             });
               
             $(document).on('click', ".GrupIMG", function() {
+
+                console.log("Id de usuario: ", idUsuarioLogueado);
                 console.log($(this).attr('id') + ": " + $(this).data('elNombre'));
+                $('#lblNombreGrupo').html("_"+$(this).data('elNombre')+"")
+                $('#lblIdGrupo').html("_"+$(this).data('idGrupo')+" <--- Ya funciona")
                 if($(this).attr('id') == "IMGagregar"){
                     console.log("CLICKITO");
                     if($('#divAgregarGrupo').is(':visible')){
@@ -112,6 +118,14 @@
                 Grupos:           
             </div>
             <div id="columnaDerecha">
+                <div id="divGrupoActual" class="referencia">
+                    <div class="clsTitulo"> Grupo Actual</div>
+                    <div class="container">
+                        Nombre Del Grupo:<label id="lblNombreGrupo"></label><br>
+                        ID Del Grupo:<label id="lblIdGrupo"></label><br>
+                        
+                    </div>
+                </div>
                 <div id="divAgregarGrupo" class="referencia">
                     <div class="clsTitulo"> Creacion de Grupos</div>
                     <div class="container">
@@ -124,7 +138,7 @@
                         <button id="save" class="btn btn-primary">Crear Grupo</button>
                     </div>
                 </div>
-                <br>
+                
                 <div id="divAdminGrupo" class="referencia">
                     <div class="clsTitulo"> Panel de control... MATAR USUARIOS</div>
                     <div class="container">
@@ -137,7 +151,6 @@
                         <button id="save" class="btn btn-primary">EXPULSAR</button>
                     </div>
                 </div>
-                <br>
                 <div class="referencia">
                     Lorem ipsum dolor sit amet consectetur adipiscing elit proin, consequat quam placerat conubia volutpat aptent fames habitasse, risus mus enim dis ut posuere massa. Potenti etiam habitasse risus arcu sem facilisis penatibus diam, bibendum taciti dis vestibulum habitant cubilia lobortis in aenean, convallis tincidunt nibh mauris fringilla ultrices lacus. Molestie fusce aliquam suscipit id aptent taciti ante risus, pellentesque sociis conubia inceptos aliquet curabitur sapien, semper nostra tempus ligula ad habitant consequat.
                     <br>

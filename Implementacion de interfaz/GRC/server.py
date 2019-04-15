@@ -90,6 +90,13 @@ def traerTodosGrupos():
     return gOll.traerGrupos()
 
 
+@app.route('/consultarPermiso')
+def consultarPermiso():
+    gOll = GrupoOLL()
+    return gOll.consultarPermisos(request.values['idUsuario'],
+                                  request.values['idUsuario'])
+
+
 @app.route('/crearUsuario', methods=['GET', 'POST'])
 def crearUsuarioPOST():
     usser = UsuarioOLL()

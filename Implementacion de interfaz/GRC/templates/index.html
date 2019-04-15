@@ -3,8 +3,12 @@
         <link rel="stylesheet" href="static/css/estilos.css" />
         <script src="/js/jquery-3.3.1.js"></script>
         <script>
+            
             $(function(){
+                
+                console.log("Antes de cargar")
                 $("#includedContent").load("/header1");
+                console.log("Despues de cargar")
             });
 
             $(function() {
@@ -34,7 +38,9 @@
                 $("#register-submit").click(function(){
                     registrarUsuario();
                 });
+                console.log("El fin del inicio");
             });
+
             
 function limpiameLaCoockie(){
     console.log("Te voy a borrar la cookie")
@@ -103,11 +109,8 @@ function inciarSesion(){
     }
 }
 
-
-
-
-
         </script>
+
     </head>
 
     
