@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, request, jsonify
+from flask import Flask, render_template, send_from_directory, request, jsonify, Response
 from DAO.UsuarioDAO import UsuarioDAO
 from DAO.GrupoDAO import GrupoDAO
 
@@ -211,27 +211,25 @@ def crearGrupo():
                     request.values["descripcion"],
                     request.values["usuarioCredor"])
     jResponse = 200
-    return jResponse
+    return jsonify(jResponse)
 
 
 @app.route('/invitarUsuario', methods=['GET', 'POST'])
 def invitarUsuario():
     udao = UsuarioDAO()
     gOll = GrupoOLL()
-    user = udao.traerUsuarioXMail(request.values["usuario"])
-    grupo = gOll.traerGrupo(request.values["grupoid"])
-
+    user = udao.traerUsuarioXMail(request.values["mailDeUsuario"])
     if(user is not None):
-        gOll.agregarUsuarioAGrupo(user, request.values["permisoUsuario"],
-                                  grupo)
+        idUsuario = user.idUsuario
+        idGrupo = gOll.traerGrupo(request.values["idDelGrupo"]).idGrupo
+        status = 500
+        return gOll.agregarUsuarioAGrupo(idUsuario, request.values["permisoUsuario"], idGrupo)
+    return jsonify(200,"El usuario no Existe")
 
-        jResponse = 200
-    else:
-        print("El usuario no existe")
-        jResponse = 404
 
-    return jResponse
-
+@app.route('/tstResponse', methods=['GET', 'POST'])
+def tstResponse():
+    return jsonify("Te respondo"), 200
 
 @app.route('/publicarReferencia', methods=['GET', 'POST'])
 def publicarReferencia():

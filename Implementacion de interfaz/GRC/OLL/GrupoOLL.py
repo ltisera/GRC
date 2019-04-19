@@ -10,7 +10,7 @@ class GrupoOLL(object):
         pass
 
     def crearGrupo(self, nombre, descripcion, usuarioCreador):
-        grupoDao.crearGrupo(nombre, descripcion, usuarioCreador)
+        return jsonify(grupoDao.crearGrupo(nombre, descripcion, usuarioCreador))
 
     def traerGrupos(self):
         return jsonify(grupoDao.traerGrupos())
@@ -31,9 +31,20 @@ class GrupoOLL(object):
             num = 200
         return jsonify(respuesta, str(num))
 
-    def agregarUsuarioAGrupo(self, usuario, permisoUsuario, grupo):
-        if(usuario!=None and not (grupo in traerGruposDeUsuario(usuario))):
-            grupoDao.agregarUsuarioAGrupo(usuario, permisoUsuario, grupo)
+    def agregarUsuarioAGrupo(self, idUsuario, permisoUsuario, idGrupo):
+        msg = None
+        status = 200
+        if(grupoDao.estaUsuarioEnGrupo(idUsuario, idGrupo) == False):
+            if(grupoDao.agregarUsuarioAGrupo(idUsuario, permisoUsuario, idGrupo) is True):
+                msg = "Usuario Agregado"
+            else:
+                msg = "Error al agregar el usuario"
+
+        else:
+            msg = "El usuario ya pertenence al grupo"
+
+        return jsonify(status,msg)
+
 
     def traerGrupo(self, idGrupo):
         return grupoDao.traerGrupo(idGrupo)

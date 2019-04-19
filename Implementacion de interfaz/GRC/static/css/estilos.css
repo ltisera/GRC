@@ -2,7 +2,9 @@
 body{
     padding-top: 90px;
 }
-
+input{
+  color: black;
+}
 .panel-login {
   border-color: #ccc;
   -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
@@ -131,7 +133,7 @@ body {
   color: #666;
   background-position: 50% 50%;
   background-repeat: repeat;    
-  background: url('http://www.psdgraphics.com/file/beautiful-abstract-background.jpg');
+  background: url('http://www.psdgraphics.com/file/beautiful-abstract-background.jpg') fixed;
 }
 
 .cuerpo{
@@ -189,6 +191,15 @@ body {
   color: white;
 
 }
+
+.refColumnaIzquierda{
+  width: 50%;
+  float: left;
+}
+.refColumnaDerecha{
+  width: 50%;
+  float: left;
+}
 #columnaDerecha {
   margin-left: 80px;
   padding-top: 40px;
@@ -203,7 +214,26 @@ body {
   margin-right: 1%;
   padding-bottom: 1%;
 }
+
+.referenciaStick{
+  margin-top: 1%;
+  margin-bottom: 1%;
+  color: white;
+  background:rgba(255,255,255,0.5);
+  margin-right: 1%;
+  padding-bottom: 1%;
+  position: fixed;
+}
+
 .clsTitulo{
   font-size: 18px;
   text-align: center;
 }
+
+se deben periodos
+4 del 2016
+5,6 2018
+
+3,4 2019
+
+4166,52
