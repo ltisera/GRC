@@ -140,6 +140,35 @@ def cargarListaReferencias():
         num = 200
     return html, str(num)
 
+@app.route('/cargarReferenciaTest', methods=['GET', 'POST'])
+def cargarReferenciaTest():
+    print("Estoy devolviendo una ref 6666666666666666666666666")
+    num = 200
+    rdao = ReferenciaDAO()
+    lista = rdao.traerReferenciasDeGrupo(request.values["grupo"])
+    lstRefJson = []
+    print(len(lista))
+    for i in lista:
+        
+        print("otro asd")
+        if(len(lista)>0):
+            
+            refJson = {}
+            refJson["id"] = i.idReferencia
+            refJson["cita"] = i.cita
+            refJson["descripcion"] = i.descripcion
+            refJson["link"] = i.link
+            refJson["fecha"] = i.fecha
+            refJson["usuario"] = i.usuario
+            refJson["grupo"] = i.grupo
+
+            lstRefJson.append(refJson)
+
+         
+    print("ASDASDASDASDASDASD")
+    print(lstRefJson)
+
+    return jsonify(lstRefJson)
 
 @app.route('/loguearUsuario', methods=['GET', 'POST'])
 def loguearUsuario():
@@ -287,5 +316,8 @@ def buscarReferencia():
                         </div>\n\n"""
         num = 200
     return html, str(num)
+
+
+
 	
 app.run(debug=True)

@@ -129,7 +129,40 @@
                         $('#divAdminGrupo').hide();
                     }    
                 }
-                
+                $.ajax({
+                    url:'cargarReferenciaTest', 
+                    type:'POST',
+                    data:{
+                        "grupo": idGrupoActual,
+                    },
+                    success: function(response){
+                        console.log(response.length)
+                        if(response.length != 0){
+                            $("#divUnaRef").hide()
+                            for(i=0;i<response.length;i++){
+                                $("#divContenedorReferencias").append("<div class='referencia'></div>")
+                            }
+                            console.log(response["cita"])
+                            $("#lblCita").html(response["cita"])
+                            $("#lblDescripcion").html(response["descripcion"])
+                            $("#lblFecha").html(response["fecha"])
+                            $("#lblLink").html(response["link"])
+                            $("#lblUsuario").html(response["usuario"])
+
+                            $("#divUnaRef").show()
+                        }
+                        else
+                        {
+                            $("#divUnaRef").show()
+                            $("#divUnaRef").html("no hay ninguna cita en el grupo")
+                        }
+
+                    },
+                    error: function(response){
+                        console.log(response)
+                    },
+
+                })
             });
 function primeraCarga(){
     console.log("Esto se imprime 1 vez en la primera cargas");
@@ -300,12 +333,10 @@ function invitarUsuarioAGrupo(){
                         <button id="btnInvitarUsuario" class="btn btn-primary">Invitar</button>
                     </div>
                 </div>
-                <div class="referencia">
-                    Lorem i<br><br><br><br><br><br><br>psum dolor sit amet consectetur adipiscing elit proin, consequat quam placerat conubia volutpat aptent fames habitass<br><br><br><br><br><br>e, risus mus enim dis ut posuere massa. Potenti etiam habitasse risus arcu sem facilisi<br><br><br>s penatibus diam, bibendum <br><br><br><br><br>taciti dis vestibulum habitant cubilia lobortis in aenean, convallis tincidunt nibh mauris fringilla ultrices lacus. Molestie fusce aliqua<br><br>m suscipit id aptent taciti an<br><br><br><br>te risus, pellentesque sociis conubia inceptos aliquet curabitur<br> sapien, se<br>mper nostra tempus ligula ad habitant consequat.
-                    <br>
-                    Sollicitudin hendrerit tincidunt torquent temp<br>us vestibulum tellus vol<br><br>utpat luctus, suscipit taciti ac quisque ultrices dignissim cras. Suscipit dui ultr<br>icies id est mus tempor taciti ante laoreet natoque nis<br>i, torquent rhoncus curae mat<br>tis lectus pulvinar ad libero nisl pellentesque. Ut netus suspe<br>ndisse posuere viverra i<br>aculis augue, pellentesque cursus vestibulum <br>euismod vel, erat eu ultrices in fermentum.
+                <div id="divContenedorReferencias">
+                    <div id="divSinRef" class="referencia" >
+                    </div>
                 </div>
-                
 
             </div>
     </body>
