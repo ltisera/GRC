@@ -143,7 +143,7 @@
                             $("#divSinRef").hide()
                             for(i=0;i<response.length;i++){
                                 console.log(response[i].cita)
-                                $("#divContenedorReferencias").append("<div class='referencia'><label>"+response[i].descripcion+"</label><label class='fderecha' align='center'>Fecha: "+response[i].fecha+"</label><br><br><label>"+response[i].cita+"</label><br><label>Link: "+response[i].link+"</label><br><label>Usuario: "+response[i].usuario+"</label><br></div>")
+                                $("#divContenedorReferencias").append("<div class='referencia'><div class='divEncabezado'><div class='fizquierda' >Fecha:"+response[i].fecha+"</div><div class='fderecha'>"+response[i].descripcion+"</div></div><br><br><label>"+response[i].cita+"</label><br><label>Link: "+response[i].link+"</label><br><label>Usuario: "+response[i].usuario+"</label><br></div>")
                             }
                         }
                         else

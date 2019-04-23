@@ -225,7 +225,7 @@ body {
   background:rgba(155,155,255,0.9);
   margin-right: 1%;
   padding-bottom: 1%;
-  padding-left: 10; 
+  padding-left: 0; 
   border-width: 2px;
   border-color: white;
   border-style: inset;
@@ -241,11 +241,27 @@ body {
   position: fixed;
 }
 
+.fizquierda{
+  float: left;
+  padding-right: 150px;
+  padding-left: 10px;
+  background:rgba(105,105,205,0.9);
+  
+}
+
 .fderecha{
-  text-align: right;
+  background:rgba(105,105,205,0.9);
 }
 .clsTitulo{
   font-size: 18px;
   text-align: center;
 }
+
+.divEncabezado{
+  border-bottom: solid;
+  border-color: white;
+  border-width: 1px;
+  
+}
+
 
