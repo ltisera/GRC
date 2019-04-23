@@ -136,25 +136,20 @@
                         "grupo": idGrupoActual,
                     },
                     success: function(response){
-                        console.log(response.length)
-                        if(response.length != 0){
-                            $("#divUnaRef").hide()
+                        console.log(response)
+                        $("#lblCantidadCitas").html(String(response.length))
+                        $("#divContenedorReferencias").html("<div id='divSinRef' class='referencia'></div>")
+                        if(response.length != 0 ){
+                            $("#divSinRef").hide()
                             for(i=0;i<response.length;i++){
-                                $("#divContenedorReferencias").append("<div class='referencia'></div>")
+                                console.log(response[i].cita)
+                                $("#divContenedorReferencias").append("<div class='referencia'><label>"+response[i].descripcion+"</label><label class='fderecha' align='center'>Fecha: "+response[i].fecha+"</label><br><br><label>"+response[i].cita+"</label><br><label>Link: "+response[i].link+"</label><br><label>Usuario: "+response[i].usuario+"</label><br></div>")
                             }
-                            console.log(response["cita"])
-                            $("#lblCita").html(response["cita"])
-                            $("#lblDescripcion").html(response["descripcion"])
-                            $("#lblFecha").html(response["fecha"])
-                            $("#lblLink").html(response["link"])
-                            $("#lblUsuario").html(response["usuario"])
-
-                            $("#divUnaRef").show()
                         }
                         else
                         {
-                            $("#divUnaRef").show()
-                            $("#divUnaRef").html("no hay ninguna cita en el grupo")
+                            
+                            $("#divSinRef").html("no hay ninguna cita en el grupo")
                         }
 
                     },
@@ -289,6 +284,7 @@ function invitarUsuarioAGrupo(){
                         Descripcion del Grupo:<label id="lblDescripcionGrupo"></label><br>
                         ID Del Grupo:<label id="lblIdGrupo"></label><br>
                         Usuario Logueado: <label id="lblUsuarioLogueado"></label><br>
+                        Cantidad de citas: <label id="lblCantidadCitas"></label><br>
                         
                     </div>
                 </div>
@@ -333,9 +329,7 @@ function invitarUsuarioAGrupo(){
                         <button id="btnInvitarUsuario" class="btn btn-primary">Invitar</button>
                     </div>
                 </div>
-                <div id="divContenedorReferencias">
-                    <div id="divSinRef" class="referencia" >
-                    </div>
+                <div id="divContenedorReferencias" class="referenciaContenedora">
                 </div>
 
             </div>
