@@ -11,6 +11,7 @@
             
 
             $(document).ready(function(){
+                
                 $("#btnEnviar").click(publicarReferencia);
                 $("#btnCrearGrupo").click(agregarGrupo);
                 
@@ -29,6 +30,7 @@
                         idUsuarioLogueado = valor;
                     }
                 }
+                primeraCarga();
                 
                 $("body").on("click",".btnGrupos",function(){
                     document.cookie = "idGrupoLogueado=" + this.id.substring(this.id.indexOf("=")+1);
@@ -129,7 +131,11 @@
                 }
                 
             });
-
+function primeraCarga(){
+    console.log("Esto se imprime 1 vez en la primera cargas");
+    $("#lblUsuarioLogueado").html(String(idUsuarioLogueado));
+    $("#lblIdGrupo").html(idGrupoActual);
+}
 function tstResponse(){
     $.ajax({
         url: 'traerR',
@@ -249,6 +255,7 @@ function invitarUsuarioAGrupo(){
                     <div class="container">
                         Descripcion del Grupo:<label id="lblDescripcionGrupo"></label><br>
                         ID Del Grupo:<label id="lblIdGrupo"></label><br>
+                        Usuario Logueado: <label id="lblUsuarioLogueado"></label><br>
                         
                     </div>
                 </div>
