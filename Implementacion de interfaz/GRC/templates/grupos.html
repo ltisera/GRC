@@ -11,7 +11,7 @@
             
 
             $(document).ready(function(){
-
+                $("#btnEnviar").click(publicarReferencia);
                 $("#btnCrearGrupo").click(agregarGrupo);
                 
                 $("#btnTST").click(tstResponse);
@@ -132,8 +132,11 @@
 
 function tstResponse(){
     $.ajax({
-        url: 'tstResponse',
+        url: 'traerR',
         type: 'POST',
+        data:{
+
+        },
         success: function(response){
             console.log("dale bien");
             console.log(response)},
@@ -161,6 +164,46 @@ function agregarGrupo(){
             console.log(response)
         },
     });
+}
+
+
+function publicarReferencia(){
+if($("#cita").val() == "" || $("#cita").val().localeCompare("Escriba aqui") == 0){
+  alert("Debe ingresar una cita");
+}
+else if($("#descripcion").val() == "" || $("#descripcion").val().localeCompare("Escriba aqui") == 0){
+  alert("Debe ingresar una descripcion");
+}
+else if($("#link").val() == "" || $("#link").val().localeCompare("Escriba aqui") == 0){
+  alert("Debe ingresar un link");
+}
+else{
+    console.log("este es mi json")
+    console.log("idUsuarioLogueado: ", idUsuarioLogueado)
+    console.log("grupo: ", idGrupoActual)
+    console.log("cita: ", $("#cita").val())
+    console.log("descripcion:",$("#descripcion").val())
+    console.log("link: ",$("#link").val())
+    console.log("tags:", "algo")
+    $.ajax({
+        url : "publicarReferencia",
+        type : "POST",
+        data : {
+          usuario : idUsuarioLogueado,
+          grupo : idGrupoActual,
+          cita : $("#cita").val(),
+          descripcion : $("#descripcion").val(),
+          link : $("#link").val(),
+          tags : "algo",
+        },
+        success: function(response){
+            console.log(response);
+        },
+        error: function(response){
+            alert("Error al cargar la referencia");
+        }
+    });
+}
 }
 
 function invitarUsuarioAGrupo(){
@@ -222,15 +265,20 @@ function invitarUsuarioAGrupo(){
                             <button id="btnCrearGrupo" class="btn btn-primary">Crear Grupo</button>
                         </div>
                         <div class="refColumnaDerecha">
-                            Previsualizacion del Grupo a crear<br>
-                            <input id="txtNombreDelGrupo" type="text" name=""><br>
-                            Descripcion Del Grupo:<br>
-                            <input id="txtDescripcionDelGrupo" type="text" name=""><br>
-                            Fotico:<br>
-                            <input type="text" name=""><br>
-                            <button id="btnTST" class="btn btn-primary">TST</button>
+                            
+
+                        
                         </div>
                     </div>
+                </div>
+                <div div id="divPublicarReferencia" class="referencia">
+                    <h1 >Publicar</h1>
+                    <br>
+                    <p>Referencia:</p> 
+                    Cita: <input type="text" id="cita" value="Escriba aqui"><br>
+                    Descripcion : <input type="text" id="descripcion" value="Escriba aqui"><br>
+                    Link: <input type="text" id="link" value="Escriba aqui"><br>
+                    <button id="btnEnviar" class="btn btn-primary">Publicar</button>
                 </div>
                 
                 <div id="divAdminGrupo" class="referencia">

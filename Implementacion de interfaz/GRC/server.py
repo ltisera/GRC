@@ -108,6 +108,11 @@ def cargarListaGrupo():
     gOll = GrupoOLL()
     return gOll.traerGruposDeUsuario(request.values["usuario"])
 
+@app.route('/traerR')
+def traerR():
+    lista = rdao.traerReferenciasDeGrupo(request.values["grupo"])
+    print(lista)
+    return jsonify(lista)
 
 @app.route('/cargarListaReferencias', methods=['GET', 'POST'])
 def cargarListaReferencias():
@@ -254,6 +259,7 @@ def eliminarReferencia():
     refdao.eliminarReferencia(request.values["idReferencia"])
     jResponse = 200
     return jResponse
+
 
 
 @app.route('/buscarReferencia', methods=['GET', 'POST'])
