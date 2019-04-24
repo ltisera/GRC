@@ -224,7 +224,7 @@ body {
   color: white;
   background:rgba(155,155,255,0.9);
   margin-right: 1%;
-  padding-bottom: 1%;
+  padding-bottom: 0%;
   padding-left: 0; 
   border-width: 2px;
   border-color: white;
@@ -264,4 +264,32 @@ body {
   
 }
 
+.divPiePagina{
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: white;
+}
+
+.divUsuario{
+  float: left;
+  width: 20%;
+  background:rgba(105,105,205,0.9);
+}
+
+.divLink{
+  width: 70%;
+  background:rgba(105,105,205,0.9);
+  border-left-style: solid;
+  border-color: white;
+  border-width: 1px;
+  margin-left: 20%;
+}
+
+.divIconComentario{
+  background: url("/recursos/icons/iconComentario.png") no-repeat;
+  float: right;
+  width: 10%;
+  z-index: 100px;
+  text-align: right;
+}
 

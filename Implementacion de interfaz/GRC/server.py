@@ -319,5 +319,9 @@ def buscarReferencia():
 
 
 
+@app.route('/recursos/icons/iconComentario.png')
+def iconComentario():
+    return send_from_directory('static/recursos/icons', 'iconComentario.png')
+
 	
 app.run(debug=True)
