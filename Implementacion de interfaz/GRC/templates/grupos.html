@@ -102,7 +102,11 @@
                 });
         
             });
-              
+            $(document).on('click', ".divIconComentario", function() {
+                console.log($(this).attr('id'));
+                var qweid = $(this).attr('id').substring(13);
+                console.log(qweid)
+            });
             $(document).on('click', ".GrupIMG", function() {
 
                 console.log("Id de usuario: ", idUsuarioLogueado);
@@ -143,7 +147,7 @@
                             $("#divSinRef").hide()
                             for(i=0;i<response.length;i++){
                                 console.log(response[i].cita)
-                                $("#divContenedorReferencias").append("<div class='referencia'><div class='divEncabezado'><div class='fizquierda' >Fecha:"+response[i].fecha+"</div><div class='fderecha'>"+response[i].descripcion+"</div></div><br><br><label>"+response[i].cita+"</label><br><div class='divPiePagina'><div class='divUsuario'>"+response[i].usuario+"</div><div class='divLink'> Link: "+response[i].link+"</div><div class='divIconComentario'></div></div></div>")
+                                $("#divContenedorReferencias").append("<div class='referencia'><div class='divEncabezado'><div class='fizquierda' >Fecha:"+response[i].fecha+"</div><div class='fderecha'>"+response[i].descripcion+"</div></div><br><br><label>"+response[i].cita+"</label><br><div class='divPiePagina'><div class='divUsuario'>"+response[i].usuario+"</div><div class='divLink'> Link: "+response[i].link+"</div><div class='divIconComentario' id='btnComentario"+String(response[i].id)+"'></div></div></div>")
                             }
                         }
                         else
@@ -340,14 +344,14 @@ function invitarUsuarioAGrupo(){
                     <div class='divPiePagina'>
                         <div class='divUsuario'>"+response[i].usuario+"</div>
                         <div class='divLink'>Link: "+response[i].link+"
-                            <div class="divIconComentario">.</div>
+                            <div class="divIconComentario"></div>
                         </div>
-                        
                     </div>
-
+                    
                 </div>
 
             </div>
+
     </body>
             
 </html>

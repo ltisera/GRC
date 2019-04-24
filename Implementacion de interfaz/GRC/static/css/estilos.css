@@ -277,19 +277,23 @@ body {
 }
 
 .divLink{
-  width: 70%;
+  width: 80%;
   background:rgba(105,105,205,0.9);
   border-left-style: solid;
   border-color: white;
   border-width: 1px;
   margin-left: 20%;
+  
+
 }
 
 .divIconComentario{
   background: url("/recursos/icons/iconComentario.png") no-repeat;
   float: right;
-  width: 10%;
+  width: 32px;
+  height: 32px;
+  margin-top:-32px;
   z-index: 100px;
-  text-align: right;
+
 }
 
