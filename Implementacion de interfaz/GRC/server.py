@@ -6,6 +6,8 @@ from DAO.ReferenciaDAO import ReferenciaDAO
 
 from OLL.UsuarioOLL import UsuarioOLL
 from OLL.GrupoOLL import GrupoOLL
+from OLL.ComentarioOLL import ComentarioOLL
+from OLL.ReferenciaOLL import ReferenciaOLL
 from DML.Usuario import Usuario
 
 from datetime import datetime
@@ -118,8 +120,8 @@ def traerR():
 def cargarListaReferencias():
     html = ""
     num = 404
-    rdao = ReferenciaDAO()
-    lista = rdao.traerReferenciasDeGrupo(request.values["grupo"])
+    refoll = ReferenciaOLL()
+    lista = refoll.traerReferenciasDeGrupo(request.values["grupo"])
     if(len(lista) != 0):
         for r in lista:
             html += """ <div class="well">
@@ -267,8 +269,8 @@ def tstResponse():
 
 @app.route('/publicarReferencia', methods=['GET', 'POST'])
 def publicarReferencia():
-    refdao = ReferenciaDAO()
-    refdao.publicarReferencia(request.values["cita"], request.values["descripcion"], request.values["link"],
+    refoll = ReferenciaOLL()
+    refoll.publicarReferencia(request.values["cita"], request.values["descripcion"], request.values["link"],
         datetime.now(), request.values["usuario"], request.values["grupo"], request.values["tags"])
     jResponse = 200
     return str(jResponse)
@@ -276,16 +278,16 @@ def publicarReferencia():
 
 @app.route('/comentarReferencia', methods=['GET', 'POST'])
 def comentarReferencia():
-    refdao = ReferenciaDAO()
-    refdao.comentarReferencia(request.values["comentario"], request.values["referencia"], request.values["fecha"], request.values["usuario"])
+    comoll = ComentarioOLL()
+    comoll.comentarReferencia(request.values["comentario"], request.values["referencia"], request.values["fecha"], request.values["usuario"])
     jResponse = 200
     return jResponse
 
 
 @app.route('/eliminarReferencia', methods=['GET', 'POST'])
 def eliminarReferencia():
-    refdao = ReferenciaDAO()
-    refdao.eliminarReferencia(request.values["idReferencia"])
+    refoll = ReferenciaOLL()
+    refoll.eliminarReferencia(request.values["idReferencia"])
     jResponse = 200
     return jResponse
 
@@ -295,8 +297,8 @@ def eliminarReferencia():
 def buscarReferencia():
     html = ""
     num = 404
-    refdao = ReferenciaDAO()
-    lista = refdao.buscarReferencia(request.values["idGrupo"], request.values["busqueda"])
+    refoll = ReferenciaOLL()
+    lista = refoll.buscarReferencia(request.values["idGrupo"], request.values["busqueda"])
     if(len(lista) != 0):
         for r in lista:
             html += """ <div class="well">
@@ -317,6 +319,15 @@ def buscarReferencia():
         num = 200
     return html, str(num)
 
+@app.route('/cargarComentarios', methods=['GET', 'POST'])
+def cargarComentarios():
+    comoll = ComentarioOLL()
+    return comoll.traerComentariosDeReferencia(request.values["idReferencia"])
+
+@app.route('/eliminarComentario', methods=['GET', 'POST'])
+def eliminarComentario():
+    comoll = ComentarioOLL()
+    return comoll.eliminarComentario(request.values["idComentario"])
 
 
 @app.route('/recursos/icons/iconComentario.png')

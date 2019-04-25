@@ -22,42 +22,7 @@ class ReferenciaDAO(ConexionBD):
                 idReferencia = self._micur.fetchone()[0]
                 for i in tags:
                     categoria = self.traerCategoria(i)
-                    if(categoria is None):
-                        self.crearCategoria(i)
-                        categoria = self.traerCategoria(i)
                     self._micur.execute('INSERT INTO tag_has_referencia(`idTag`, `idReferencia`) values ("{0}", "{1}")'.format(categoria.idCategoria, idReferencia))
-                self._bd.commit()
-        except Error as e:
-            print("Error al conectar con la BD", e)
-        finally:
-            self.cerrarConexion()
-
-    def traerCategoria(self, nombreCategoria):
-        categoria = None
-        try:
-            if (self._bd.is_connected()):
-                consulta = 'SELECT * from tag where tag.etiqueta = "{0}"'.format(nombreCategoria)
-                self._micur.execute(consulta)
-                for i in self._micur:
-                    categoria = Categoria(i[0], i[1])
-
-        except Error as e:
-            print("Error al conectar con la BD", e)
-        return categoria
-
-    def crearCategoria(self, categoria):
-        try:
-            if (self._bd.is_connected()):
-                self._micur.execute('INSERT INTO tag(`etiqueta`) values("{0}")'.format(categoria))
-        except Error as e:
-            print("Error al conectar con la BD", e)
-
-    def comentarReferencia(self, comentario, referencia, fecha, usuario):
-        self.crearConexion()
-        try:
-            if (self._bd.is_connected()):
-                consulta = 'INSERT INTO comentario(`comentario`, `fechaHora`, `idReferencia`, `idUsuario`) values("{0}","{1}","{2}","{3}")'.format(comentario, fecha, referencia.idReferencia, usuario.idUsuario)
-                self._micur.execute(consulta)
                 self._bd.commit()
         except Error as e:
             print("Error al conectar con la BD", e)
@@ -74,22 +39,6 @@ class ReferenciaDAO(ConexionBD):
                 if reg is not None:
                     for r in reg:
                         lista.append(Referencia(idReferencia=r[0], cita=r[1], descripcion=r[2], link=r[3], fecha=r[4], usuario=r[5] + " " + r[6], grupo=idGrupo))
-        except Error as e:
-            print("Error al conectar con la BD", e)
-        finally:
-            self.cerrarConexion()
-        return lista
-
-    def traerComentariosDeReferencia(self, idReferencia):
-        self.crearConexion()
-        try:
-            lista = []
-            if (self._bd.is_connected()):
-                self._micur.execute('SELECT c.idComentario, c.comentario, c.fechaHora, c.idReferencia, c.idUsuario FROM comentario as c inner join usuario as u on c.idUsuario = u.idUsuario inner join referencia as r on c.idReferencia = r.idReferencia')
-                reg = self._micur.fetchall()
-                if reg is not None:
-                    for c in reg:
-                        lista.append(Comentario(idComentario=c[0], comentario=c[1], fecha=c[2], idReferencia=c[3], idUsuario=c[4]))
         except Error as e:
             print("Error al conectar con la BD", e)
         finally:
