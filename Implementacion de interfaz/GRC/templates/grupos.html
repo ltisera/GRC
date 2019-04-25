@@ -1,6 +1,12 @@
 <html>
     <head>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/sumer/dist/summernote.css" />
+        
         <script src="/js/jquery-3.3.1.js"></script>
+        
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/sumer/dist/summernote.js"></script>
         <script>
             $(function(){
                 $("#includedContent").load("/header1");
@@ -12,6 +18,25 @@
 
             $(document).ready(function(){
                 
+
+                $('#summernote').summernote({
+                    height: '300px',
+                    width: '600px',
+                    focus: true,
+                    lang: 'es-ES',
+                    toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['insert', ['link']],
+                    ]
+                });
+
+
+
+
                 $("#btnEnviar").click(publicarReferencia);
                 $("#btnCrearGrupo").click(agregarGrupo);
                 
@@ -102,18 +127,30 @@
                 });
         
             });
+            /*
+                Click en nueva Publicacion
+            */
+            $(document).on('click', "#detectame123", function() {
+                console.log("click DETECATADO")
+                $("#divPublicarReferencia").show();
+            });
+
+            /*Click en COMENTARIO*/
             $(document).on('click', ".divIconComentario", function() {
                 console.log($(this).attr('id'));
                 var qweid = $(this).attr('id').substring(13);
                 console.log(qweid)
             });
-            $(document).on('click', ".GrupIMG", function() {
 
+            /*Click en BARRA DE GRUPOS*/
+            $(document).on('click', ".GrupIMG", function() {
+                $("#divPublicarReferencia").hide();
                 console.log("Id de usuario: ", idUsuarioLogueado);
                 console.log($(this).attr('id') + ": " + $(this).data('elNombre'));
                 $('#lblNombreGrupo').html("_"+$(this).data('elNombre')+"");
                 $('#lblDescripcionGrupo').html("_"+$(this).data('laDescripcion')+"");
                 $('#lblIdGrupo').html("_"+$(this).data('idGrupo'));
+                $("#lblPermisoEnGrupo").html(uDataGlobal[$(this).data('posEnArray')][3])
                 idGrupoActual = $(this).data('idGrupo');
                 if($(this).attr('id') == "IMGagregar"){
                     console.log("CLICKITO");
@@ -130,8 +167,17 @@
                         $('#divAdminGrupo').show();
                     }
                     else{
+
                         $('#divAdminGrupo').hide();
-                    }    
+                    }
+                    if(uDataGlobal[$(this).data('posEnArray')][3] == 'lectura'){
+                        document.getElementById("detectame123").style.visibility = "hidden";
+                        console.log("Oculta")
+                    }
+                    else{
+                        document.getElementById("detectame123").style.visibility = "visible";
+                        console.log("Muestra")
+                    }
                 }
                 $.ajax({
                     url:'cargarReferenciaTest', 
@@ -140,13 +186,11 @@
                         "grupo": idGrupoActual,
                     },
                     success: function(response){
-                        console.log(response)
                         $("#lblCantidadCitas").html(String(response.length))
                         $("#divContenedorReferencias").html("<div id='divSinRef' class='referencia'></div>")
                         if(response.length != 0 ){
                             $("#divSinRef").hide()
                             for(i=0;i<response.length;i++){
-                                console.log(response[i].cita)
                                 $("#divContenedorReferencias").append("<div class='referencia'><div class='divEncabezado'><div class='fizquierda' >Fecha:"+response[i].fecha+"</div><div class='fderecha'>"+response[i].descripcion+"</div></div><br><br><label>"+response[i].cita+"</label><br><div class='divPiePagina'><div class='divUsuario'>"+response[i].usuario+"</div><div class='divLink'> Link: "+response[i].link+"</div><div class='divIconComentario' id='btnComentario"+String(response[i].id)+"'></div></div></div>")
                             }
                         }
@@ -163,10 +207,19 @@
 
                 })
             });
+
+
+function imprimi(){
+    console.log("click");
+}
+
+
 function primeraCarga(){
     console.log("Esto se imprime 1 vez en la primera cargas");
     $("#lblUsuarioLogueado").html(String(idUsuarioLogueado));
     $("#lblIdGrupo").html(idGrupoActual);
+    $("#divPublicarReferencia").hide();
+
 }
 function tstResponse(){
     $.ajax({
@@ -206,10 +259,10 @@ function agregarGrupo(){
 
 
 function publicarReferencia(){
-if($("#cita").val() == "" || $("#cita").val().localeCompare("Escriba aqui") == 0){
-  alert("Debe ingresar una cita");
-}
-else if($("#descripcion").val() == "" || $("#descripcion").val().localeCompare("Escriba aqui") == 0){
+    var aHTML = $('#summernote').summernote("code"); //save HTML If you need(aHTML: array).
+    console.log(aHTML);
+
+if($("#descripcion").val() == "" || $("#descripcion").val().localeCompare("Escriba aqui") == 0){
   alert("Debe ingresar una descripcion");
 }
 else if($("#link").val() == "" || $("#link").val().localeCompare("Escriba aqui") == 0){
@@ -219,7 +272,7 @@ else{
     console.log("este es mi json")
     console.log("idUsuarioLogueado: ", idUsuarioLogueado)
     console.log("grupo: ", idGrupoActual)
-    console.log("cita: ", $("#cita").val())
+    console.log(aHTML)
     console.log("descripcion:",$("#descripcion").val())
     console.log("link: ",$("#link").val())
     console.log("tags:", "algo")
@@ -229,7 +282,7 @@ else{
         data : {
           usuario : idUsuarioLogueado,
           grupo : idGrupoActual,
-          cita : $("#cita").val(),
+          cita : aHTML,
           descripcion : $("#descripcion").val(),
           link : $("#link").val(),
           tags : "algo",
@@ -276,7 +329,13 @@ function invitarUsuarioAGrupo(){
     </style>
     
     <div id="includedContent"></div>
-
+  <style>
+  .mitest{
+    margin-top: 50px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+</style>
     <body>
             <div id="columnaIzquierda">
                 Grupos:           
@@ -289,6 +348,7 @@ function invitarUsuarioAGrupo(){
                         ID Del Grupo:<label id="lblIdGrupo"></label><br>
                         Usuario Logueado: <label id="lblUsuarioLogueado"></label><br>
                         Cantidad de citas: <label id="lblCantidadCitas"></label><br>
+                        Permiso En el grupo:<label id="lblPermisoEnGrupo"></label><br>
                         
                     </div>
                 </div>
@@ -304,6 +364,18 @@ function invitarUsuarioAGrupo(){
                             <input type="text" name=""><br>
                             <button id="btnCrearGrupo" class="btn btn-primary">Crear Grupo</button>
                         </div>
+                        <div id="divAdminGrupo" class="referencia">
+                            <div class="clsTitulo"> Panel de control... MATAR USUARIOS</div>
+                            <div class="container">
+                                Invitar USUSARIO:<br>
+                                <input id="txtMailDeUsuario" type="text" name=""><br>
+                                ste inmp no lo uso:<br>
+                                <input type="text" name=""><br>
+                                Este tampoco:<br>
+                                <input type="text" name=""><br>
+                                <button id="btnInvitarUsuario" class="btn btn-primary">Invitar</button>
+                            </div>
+                        </div>
                         <div class="refColumnaDerecha">
                             
 
@@ -315,40 +387,23 @@ function invitarUsuarioAGrupo(){
                     <h1 >Publicar</h1>
                     <br>
                     <p>Referencia:</p> 
-                    Cita: <input type="text" id="cita" value="Escriba aqui"><br>
+                    <div class = "mitest">
+                        <div class="container">
+                            <div id="summernote">
+                                <p>Escriba su publicacion.</p>
+                            </div>
+                        </div>
+                        
+                    </div>
                     Descripcion : <input type="text" id="descripcion" value="Escriba aqui"><br>
                     Link: <input type="text" id="link" value="Escriba aqui"><br>
                     <button id="btnEnviar" class="btn btn-primary">Publicar</button>
                 </div>
                 
-                <div id="divAdminGrupo" class="referencia">
-                    <div class="clsTitulo"> Panel de control... MATAR USUARIOS</div>
-                    <div class="container">
-                        Invitar USUSARIO:<br>
-                        <input id="txtMailDeUsuario" type="text" name=""><br>
-                        ste inmp no lo uso:<br>
-                        <input type="text" name=""><br>
-                        Este tampoco:<br>
-                        <input type="text" name=""><br>
-                        <button id="btnInvitarUsuario" class="btn btn-primary">Invitar</button>
-                    </div>
-                </div>
+                
                 <div id="divContenedorReferencias" class="referenciaContenedora">
                 </div>
-                <div class='referencia'>
-                    <div class='divEncabezado'>
-                        <div class='fizquierda' >Fecha:"+response[i].fecha+"</div>
-                        <div class='fderecha'>"+response[i].descripcion+"</div>
-                    </div><br><br>
-                    <label>"+response[i].cita+"</label><br>
-                    <div class='divPiePagina'>
-                        <div class='divUsuario'>"+response[i].usuario+"</div>
-                        <div class='divLink'>Link: "+response[i].link+"
-                            <div class="divIconComentario"></div>
-                        </div>
-                    </div>
-                    
-                </div>
+                
 
             </div>
 

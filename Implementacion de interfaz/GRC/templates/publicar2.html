@@ -1,63 +1,76 @@
 <html>
     <head>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/sumer/dist/summernote.css" />
+        
         <script src="/js/jquery-3.3.1.js"></script>
-        <script>
-            $(function(){
-                $("#includedContent").load("/header1");
-            });
+        
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/sumer/dist/summernote.js"></script>
 
-            $(document).ready(function(){
-                $("#publicar-submit").click(function(){
-                    publicarReferencia();
-                });
-            });
-
-            function publicarReferencia(){
-                if($("#cita").val() == "" || $("#cita").val().localeCompare("Escriba aqui") == 0){
-                  alert("Debe ingresar una cita");
-                }
-                else if($("#descripcion").val() == "" || $("#descripcion").val().localeCompare("Escriba aqui") == 0){
-                  alert("Debe ingresar una descripcion");
-                }
-                else if($("#link").val() == "" || $("#link").val().localeCompare("Escriba aqui") == 0){
-                  alert("Debe ingresar un link");
-                }
-                else{
-                    $.ajax({
-                        url : "publicarReferencia",
-                        type : "POST",
-                        data : {
-                          usuario : 1,
-                          grupo : 1,
-                          cita : $("#cita").val(),
-                          descripcion : $("#descripcion").val(),
-                          link : $("#link").val(),
-                          tags : "algo",
-                        },
-                        success: function(response){
-                            console.log(response);
-                        },
-                        error: function(response){
-                            alert("Error al cargar la referencia");
-                        }
-                    });
-                }
-            }
-        </script>
     </head>
-    
+
+<script>
+
+        $(document).ready(function() {
+            $('#summernote').summernote({
+            height: '300px',
+            width: '600px',
+            focus: true,
+            lang: 'es-ES',
+            toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert', ['link']],
+            ]
+        });
+      
+        $('#save').on('click', function() {
+          var aHTML = $('#summernote').summernote("code"); //save HTML If you need(aHTML: array).
+          console.log(aHTML);
+        });
+
+      });
+      $(function(){
+          $("#includedContent").load("/header1");
+      });
+    </script>
+
+
+  <style>
+  .mitest{
+    margin-top: 50px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+</style>
+
+
     <div id="includedContent"></div>
 
     <body>
-        
+        <div class = "mitest">
+                        <div class="container">
+                            <div id="summernote">
+                                <p>Escriba su publicacion.</p>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <button id="save" class="btn btn-primary">Publicar</button>
+                        </div>
+                    </div>
         <div class="container">
 
-	        <div class="starter-template">
+	        <div class="">
 		        <h1 class="fondoBlanco">Publicar</h1>
                 <div class="fondoBlanco cuerpo">
                     <br>
                     <p>Referencia:</p> 
-                    Cita: <input type="text" id="cita" value="Escriba aqui"><br>
+                    
+            <br>
                     Descripcion : <input type="text" id="descripcion" value="Escriba aqui"><br>
                     Link: <input type="text" id="link" value="Escriba aqui"><br>
                     <input type="submit" id="publicar-submit" value="Enviar">
