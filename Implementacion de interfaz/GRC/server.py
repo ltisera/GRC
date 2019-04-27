@@ -15,6 +15,21 @@ from datetime import datetime
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 
+@app.route('/banner')
+def banner():
+    return send_from_directory('static', 'banner.jpg')
+
+
+@app.route('/menu.js')
+def jsMenu():
+    return send_from_directory('static/js', 'menu.js')
+
+
+@app.route('/estilo.css')
+def cssestilo():
+    return send_from_directory('static/css', 'estilo.css')
+
+
 @app.route('/js/jquery-3.3.1.js')
 def jsfile():
     return send_from_directory('static/js', 'jquery-3.3.1.js')
@@ -261,6 +276,7 @@ def publicarReferencia():
 def comentarReferencia():
     comoll = ComentarioOLL()
     fecha = datetime.now()
+    print(request)
     comoll.comentarReferencia(request.values["comentario"], request.values["idReferencia"], fecha, request.values["idUsuario"])
     jResponse = 200
     return jsonify(jResponse)
