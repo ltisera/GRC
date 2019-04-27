@@ -20,8 +20,21 @@ class ReferenciaOLL(object):
 
     def traerReferenciasDeGrupo(self, idGrupo):
         resp = referenciaDAO.traerReferenciasDeGrupo(idGrupo)
-        print("ACA TE LO PRINTEO ATENCIONNNNNNNNNNNN")
         print(resp)
+        laLista = []
+        for i in resp:
+            diccios = {}
+            diccios["idReferencia"] = i.idReferencia
+            diccios["cita"] = i.cita
+            diccios["link"] = i.link
+            diccios["descripcion"] = i.descripcion
+            diccios["fechaHora"] = i.fechaHora
+            diccios["idUsuario"] = i.idUsuario
+            diccios["idGrupo"] = i.idGrupo
+            laLista.append(diccios)
+
+        print(laLista)
+        print("diccio referencia Hecho")
     	return jsonify(resp)
 
     def eliminarReferencia(self, idReferencia):
