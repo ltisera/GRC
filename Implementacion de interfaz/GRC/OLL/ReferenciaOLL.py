@@ -28,14 +28,14 @@ class ReferenciaOLL(object):
             diccios["cita"] = i.cita
             diccios["link"] = i.link
             diccios["descripcion"] = i.descripcion
-            diccios["fechaHora"] = i.fechaHora
-            diccios["idUsuario"] = i.idUsuario
-            diccios["idGrupo"] = i.idGrupo
+            diccios["fecha"] = i.fecha
+            diccios["idUsuario"] = i.usuario
+            diccios["idGrupo"] = i.grupo
             laLista.append(diccios)
 
         print(laLista)
         print("diccio referencia Hecho")
-    	return jsonify(resp)
+    	return jsonify(laLista)
 
     def eliminarReferencia(self, idReferencia):
     	referenciaDAO.eliminarReferencia(idReferencia)
