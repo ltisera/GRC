@@ -19,7 +19,10 @@ class ReferenciaOLL(object):
     	referenciaDAO.publicarReferencia(cita, descripcion, link, fecha, usuario, grupo, tags)
 
     def traerReferenciasDeGrupo(self, idGrupo):
-    	return jsonify(referenciaDAO.traerReferenciasDeGrupo(idGrupo))
+        resp = referenciaDAO.traerReferenciasDeGrupo(idGrupo)
+        print("ACA TE LO PRINTEO ATENCIONNNNNNNNNNNN")
+        print(resp)
+    	return jsonify(resp)
 
     def eliminarReferencia(self, idReferencia):
     	referenciaDAO.eliminarReferencia(idReferencia)

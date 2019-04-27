@@ -279,9 +279,10 @@ def publicarReferencia():
 @app.route('/comentarReferencia', methods=['GET', 'POST'])
 def comentarReferencia():
     comoll = ComentarioOLL()
-    comoll.comentarReferencia(request.values["comentario"], request.values["referencia"], request.values["fecha"], request.values["usuario"])
+    fecha = datetime.now()
+    comoll.comentarReferencia(request.values["comentario"], request.values["idReferencia"], fecha, request.values["idUsuario"])
     jResponse = 200
-    return jResponse
+    return jsonify(jResponse)
 
 
 @app.route('/eliminarReferencia', methods=['GET', 'POST'])
@@ -289,7 +290,8 @@ def eliminarReferencia():
     refoll = ReferenciaOLL()
     refoll.eliminarReferencia(request.values["idReferencia"])
     jResponse = 200
-    return jResponse
+
+    return str(jResponse)
 
 
 
@@ -322,6 +324,7 @@ def buscarReferencia():
 @app.route('/cargarComentarios', methods=['GET', 'POST'])
 def cargarComentarios():
     comoll = ComentarioOLL()
+
     return comoll.traerComentariosDeReferencia(request.values["idReferencia"])
 
 @app.route('/eliminarComentario', methods=['GET', 'POST'])

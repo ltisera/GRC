@@ -44,4 +44,7 @@ class Comentario():
         return self._idUsuario
 
     def __str__(self):
-        return str("idComentario: "+str(self.idComentario)+" comentario: "+str(self.comentario)+" fecha: "+str(self.fecha)+" idUsuario: "+str(self.idUsuario))
+        return str("idComentario: " + str(self.idComentario) +
+                   " comentario: " + str(self.comentario) +
+                   " fecha: " + str(self.fecha) +
+                   " idUsuario: " + str(self.idUsuario))

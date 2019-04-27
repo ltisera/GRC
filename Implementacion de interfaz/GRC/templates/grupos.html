@@ -134,12 +134,48 @@
                 console.log("click DETECATADO")
                 $("#divPublicarReferencia").show();
             });
+            /* Click en Boton ComentAr*/
+            $(document).on('click', ".btnClsComentar", function() {
+                console.log($(this).attr('id'));
+                var idBotonComentarSel = $(this).attr('id').substring(11);
+                console.log(idBotonComentarSel);
+                console.log($("#textComentario"+idBotonComentarSel).val())
+                $.ajax({
+                    url: 'comentarReferencia',
+                    type: 'POST',
+                    data:{
+                        'idReferencia' : idBotonComentarSel,
+                        'comentario' : $("#textComentario"+idBotonComentarSel).val(),
+                        'idUsuario' : idUsuarioLogueado,
+                    },
+                    success: function(response){console.log(response)},
+                    error: function(response){console.log("error")},
+                });
 
+            });
             /*Click en COMENTARIO*/
             $(document).on('click', ".divIconComentario", function() {
                 console.log($(this).attr('id'));
-                var qweid = $(this).attr('id').substring(13);
-                console.log(qweid)
+                var idReferenciaSel = $(this).attr('id').substring(13);
+                console.log(idReferenciaSel)
+                console.log($("#divReferenciaId"+idReferenciaSel).data('idPrueba'))
+                $.ajax({
+                    url : 'cargarComentarios',
+                    type: 'POST',
+                    data:{
+                        'idReferencia' : idReferenciaSel,
+                    },
+                    success: function(response){console.log(response)},
+                    error: function(response){console.log("errer")},
+                });
+
+                if($("#divComentrarioDeRef"+idReferenciaSel).hasClass("mostrar")){
+                    $("#divComentrarioDeRef"+idReferenciaSel).removeClass("mostrar")
+                }
+                else{
+                    $("#divComentrarioDeRef"+idReferenciaSel).addClass("mostrar")
+                }
+
             });
 
             /*Click en BARRA DE GRUPOS*/
@@ -191,7 +227,10 @@
                         if(response.length != 0 ){
                             $("#divSinRef").hide()
                             for(i=0;i<response.length;i++){
-                                $("#divContenedorReferencias").append("<div class='referencia'><div class='divEncabezado'><div class='fizquierda' >Fecha:"+response[i].fecha+"</div><div class='fderecha'>"+response[i].descripcion+"</div></div><br><br><label>"+response[i].cita+"</label><br><div class='divPiePagina'><div class='divUsuario'>"+response[i].usuario+"</div><div class='divLink'> Link: "+response[i].link+"</div><div class='divIconComentario' id='btnComentario"+String(response[i].id)+"'></div></div></div>")
+                                $("#divContenedorReferencias").append(devolveHT(response,i));
+                                    $("#divReferenciaId"+String(response[i].id)).data('idReferencia', "te pongo una data");
+                                    var objeto = $("#divReferenciaId"+String(response[i].id))
+                                    objeto.data('idPrueba', response[i].id)
                             }
                         }
                         else
@@ -208,6 +247,9 @@
                 })
             });
 
+function devolveHT(rta,i){
+    return "<div class='referencia' id='divReferenciaId"+String(rta[i].id)+"'><div class='divEncabezado'><div class='fizquierda' >Fecha:"+rta[i].fecha+"</div><div class='fderecha'>"+rta[i].descripcion+"</div></div><br><br><label>"+rta[i].cita+"</label><br><div class='divPiePagina'><div class='divUsuario'>"+rta[i].usuario+"</div><div class='divLink'> Link: "+rta[i].link+"</div><div class='divIconComentario' id='btnComentario"+String(rta[i].id)+"'></div></div></div><div id='divComentrarioDeRef"+rta[i].id+"' class='refDeCom'><div class='insertarComentario'><div>Escribi tu Comentario:<br><textarea id='textComentario"+rta[i].id+"'rows = '5' cols = '60' class='textComentario'></textarea><button id='btnComentar"+rta[i].id+"' class='btn btn-primary btnClsComentar'>Comentar</button></div></div></div>"
+}
 
 function imprimi(){
     console.log("click");
@@ -403,7 +445,25 @@ function invitarUsuarioAGrupo(){
                 
                 <div id="divContenedorReferencias" class="referenciaContenedora">
                 </div>
-                
+                <div class='referencia' id='divReferenciaId"+String(response[i].id)+"'>
+                    <div class='divEncabezado'>
+                        <div class='fizquierda' >Fecha:"+response[i].fecha+"</div>
+                        <div class='fderecha'>"+response[i].descripcion+"</div>
+                    </div><br><br>
+                    <label>"+response[i].cita+"</label><br>
+                    <div class='divPiePagina'>
+                        <div class='divUsuario'>"+response[i].usuario+"</div>
+                        <div class='divLink'> Link: "+response[i].link+"</div>
+                        <div class='divIconComentario' id='btnComentario"+String(response[i].id)+"'>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div id='divComentrarioDeRef"+response[i].id+"' class=' mostrar'>
+                    <div class="insertarComentario"><div>Escribi tu Comentario:<br><textarea rows = "5" cols = "60"  name="" class="textComentario"></textarea><button id="btnComentar" class="btn btn-primary">Comentar</button></div></div><div class="insertarComentario1">Comentario 1</div ><div class="insertarComentario2">Comentario 2</div><div class="insertarComentario1">Comentario 1</div><div class="insertarComentario2">Comentario 2</div><div class="insertarComentario1">Comentario 1</div><div class="insertarComentario2">Comentario 2</div>
+
+                </div>
+
 
             </div>
 

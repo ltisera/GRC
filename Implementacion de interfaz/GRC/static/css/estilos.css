@@ -286,12 +286,45 @@ body {
   height: 38px;
   margin-top:-38px;
   z-index: 100px;
-
+  cursor: pointer;
 }
 
+.refDeCom{
+  margin-top: -1%;
+  margin-bottom: 1%;
+  color: white;
+  background:rgba(155,155,255,0.9);
+  margin-right: 1%;
+  margin-left: 3%;
+  padding-bottom: 0%;
+  padding-left: 0; 
+  border-width: 2px;
+  border-top-style: hidden;
+  border-color: white;
+  border-style: inset;
+  display: none;
+}
+.mostrar {
+  margin-top: -1%;
+  margin-bottom: 1%;
+  color: white;
+  background:rgba(105,105,205,0.9);
+  margin-right: 1%;
+  margin-left: 3%;
+  padding-bottom: 0%;
+  padding-left: 10; 
+  padding-right: 10; 
+  
+  border-width: 2px;
+  border-style: solid;
+  border-top-style: hidden;
+  border-color: white;
 
+  display: block;
+}
 .casd {
   user-select: none;
+  cursor: pointer;
 }
 
 .mitest{
@@ -299,3 +332,33 @@ body {
     margin-right: 10px;
     margin-left: 10px;
   }
+
+.insertarComentario{
+  padding: 10;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  background-color: rgba(55,55,105,0.9);
+}
+.insertarComentario1{
+  padding: 0;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  background-color: rgba(155,155,255,0.9);
+}
+.insertarComentario2{
+  padding: 0;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  background-color: rgba(105,105,205,0.9);
+
+}
+
+.textComentario{
+  width: 90%;
+  background-color: transparent;
+  color: white;
+
+}

@@ -63,7 +63,11 @@ class Referencia():
     def grupo(self, grupo):
         self._grupo = grupo
 
-
     def __str__(self):
-        return str("id: "+str(self.idReferencia)+" Cita: "+str(self.cita)+" Descripcion: "+str(self.descripcion)
-			+" link: "+str(self.link)+" fecha: "+str(self.fecha)+" usuario: "+str(self.usuario)+" grupo: "+str(self.grupo))
+        return str("id: " + str(self.idReferencia) +
+                   " Cita: " + str(self.cita) +
+                   " Descripcion: " + str(self.descripcion) +
+                   " link: " + str(self.link) +
+                   " fecha: " + str(self.fecha) +
+                   " usuario: " + str(self.usuario) +
+                   " grupo: " + str(self.grupo))
