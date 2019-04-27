@@ -20,8 +20,7 @@ class ReferenciaDAO(ConexionBD):
                 self._micur.execute(consulta)
                 self._micur.execute('SELECT * from referencia where idReferencia = (select max(idReferencia) from referencia)')
                 idReferencia = self._micur.fetchone()[0]
-                for i in tags:
-                    categoria = self.traerCategoria(i)
+                for categoria in tags:
                     self._micur.execute('INSERT INTO tag_has_referencia(`idTag`, `idReferencia`) values ("{0}", "{1}")'.format(categoria.idCategoria, idReferencia))
                 self._bd.commit()
         except Error as e:

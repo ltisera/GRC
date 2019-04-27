@@ -12,11 +12,14 @@ class ReferenciaOLL(object):
         pass
 
     def publicarReferencia(self, cita, descripcion, link, fecha, usuario, grupo, tags):
+        lstCategorias =[]
         for i in tags:
             categoria = categoriaOLL.traerCategoria(i)
             if(categoria is None):
                 categoriaOLL.crearCategoria(i)
-    	referenciaDAO.publicarReferencia(cita, descripcion, link, fecha, usuario, grupo, tags)
+                categoria = categoriaOLL.traerCategoria(i)
+            lstCategorias.append(categoria)
+    	referenciaDAO.publicarReferencia(cita, descripcion, link, fecha, usuario, grupo, lstCategorias)
 
     def traerReferenciasDeGrupo(self, idGrupo):
         resp = referenciaDAO.traerReferenciasDeGrupo(idGrupo)

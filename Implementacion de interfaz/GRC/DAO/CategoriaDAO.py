@@ -13,6 +13,7 @@ class CategoriaDAO(ConexionBD):
         pass
 
     def traerCategoria(self, nombreCategoria):
+        self.crearConexion()
         categoria = None
         try:
             if (self._bd.is_connected()):
@@ -23,11 +24,16 @@ class CategoriaDAO(ConexionBD):
 
         except Error as e:
             print("Error al conectar con la BD", e)
+        finally:
+            self.cerrarConexion()
         return categoria
 
     def crearCategoria(self, categoria):
+        self.crearConexion()
         try:
             if (self._bd.is_connected()):
                 self._micur.execute('INSERT INTO tag(`etiqueta`) values("{0}")'.format(categoria))
         except Error as e:
             print("Error al conectar con la BD", e)
+        finally:
+            self.cerrarConexion()
