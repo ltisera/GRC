@@ -14,7 +14,6 @@ class ComentarioOLL(object):
 
     def traerComentariosDeReferencia(self, idReferencia):
         hacerDIC = comentarioDAO.traerComentariosDeReferencia(idReferencia)
-        print(hacerDIC)
         laLista = []
         for i in hacerDIC:
             diccios = {}
@@ -24,9 +23,6 @@ class ComentarioOLL(object):
             diccios["idReferencia"] = i.idReferencia
             laLista.append(diccios)
 
-        print(" HACEME EL DICCIONARIO PIBEEEEE")
-        print(laLista)
-        print("Hecho")
 
         return jsonify(laLista)
 

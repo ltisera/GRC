@@ -82,7 +82,6 @@ def inicio():
 
 @app.route('/grupos')
 def grupos():
-    print("Dale que va")
     return render_template('grupos.html')
 
 
@@ -128,7 +127,6 @@ def cargarListaGrupo():
 @app.route('/traerR')
 def traerR():
     lista = rdao.traerReferenciasDeGrupo(request.values["grupo"])
-    print(lista)
     return jsonify(lista)
 
 @app.route('/cargarListaReferencias', methods=['GET', 'POST'])
@@ -140,15 +138,11 @@ def cargarListaReferencias():
 
 @app.route('/cargarReferenciaTest', methods=['GET', 'POST'])
 def cargarReferenciaTest():
-    print("Estoy devolviendo una ref 6666666666666666666666666")
     num = 200
     rdao = ReferenciaDAO()
     lista = rdao.traerReferenciasDeGrupo(request.values["grupo"])
     lstRefJson = []
-    print(len(lista))
     for i in lista:
-        
-        print("otro asd")
         if(len(lista)>0):
             
             refJson = {}
@@ -161,21 +155,12 @@ def cargarReferenciaTest():
             refJson["grupo"] = i.grupo
 
             lstRefJson.append(refJson)
-
-         
-    print("ASDASDASDASDASDASD")
-    print(lstRefJson)
-
     return jsonify(lstRefJson)
 
 @app.route('/loguearUsuario', methods=['GET', 'POST'])
 def loguearUsuario():
     objUsuario = validarUsuario(request)
-    print("Este es el usuario que voy a devolver JSONIFYCADO")
-    print("Y ESTE ES EL return")
-
     if(objUsuario is not None):
-        print("Tirand")
         jResponse = jsonify(nombre=objUsuario.nombre,
                             id=objUsuario.idUsuario,
                             apellido=objUsuario.apellido,
@@ -201,8 +186,6 @@ def crearUsuario(request):
                            request.values["nombre"],
                            request.values["email"],
                            request.values["password"])
-    print("Intentando cargar", nuevoUsuario.__str__())
-    print("Bien")
     stAgregarUsuario = udao.agregarUsuario(nuevoUsuario)
     if(stAgregarUsuario is True):
         print("Se agrego Correctamente")
@@ -212,14 +195,8 @@ def crearUsuario(request):
 
 
 def validarUsuario(request):
-    print("Printealo")
-    print("Estoy imprimiendo")
-    print("Usuario: " + request.values["usuario"])
-    print("Pass: " + request.values["password"])
-    print("Intentando traer usuario")
     udao = UsuarioDAO()
     elusr = udao.traerUsuarioXMail(request.values["usuario"])
-    print(str(elusr))
 
     if(elusr.password == request.values["password"]):
         print("PIOLA LOCO, HABEMUS LOGIN")
@@ -276,7 +253,6 @@ def publicarReferencia():
 def comentarReferencia():
     comoll = ComentarioOLL()
     fecha = datetime.now()
-    print(request)
     comoll.comentarReferencia(request.values["comentario"], request.values["idReferencia"], fecha, request.values["idUsuario"])
     jResponse = 200
     return jsonify(jResponse)

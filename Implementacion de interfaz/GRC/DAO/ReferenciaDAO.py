@@ -33,7 +33,7 @@ class ReferenciaDAO(ConexionBD):
         try:
             lista = []
             if (self._bd.is_connected()):
-                self._micur.execute("SELECT r.idReferencia, r.cita, r.descripcion, r.link, r.fechaHora, u.nombre, u.apellido FROM referencia as r inner join usuario as u on r.idUsuario = u.idUsuario where r.idGrupo = {0}".format(idGrupo))
+                self._micur.execute("SELECT r.idReferencia, r.cita, r.descripcion, r.link, r.fechaHora, u.nombre, u.apellido FROM referencia as r inner join usuario as u on r.idUsuario = u.idUsuario where r.idGrupo = {0} ORDER BY r.fechaHora DESC".format(idGrupo))
                 reg = self._micur.fetchall()
                 if reg is not None:
                     for r in reg:

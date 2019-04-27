@@ -1,0 +1,22 @@
+-Eliminar Referencias/Comentarios
+-Pagina de Admin
+    |_ Registras llegue Algo al ADMIN??
+    
+    
+    
+
+RFp) Los registros deben contener un captcha.
+
+
+RF4) Los registros de usuario deben ser aprobados/validados por un administrador del sistema
+
+RF5) El sistema debe adapatarse al tamaño del dispositivo de visualizacion (PC/Celular)
+
+
+FR12) Los administradores de grupo, pueden eliminar usuarios
+
+RF13) Las publicaciones de usuarios eliminados deben ser conservadas, visibles y extendibles por el grupo
+
+
+RF16) El sistema debe buscar etiquetas o publicaciones
+    */

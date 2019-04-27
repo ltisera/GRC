@@ -21,13 +21,9 @@ class GrupoOLL(object):
         respuesta = None
         lstGrupos = grupoDao.traerGruposDeUsuario(idUsuario)
         if(len(lstGrupos) != 0):
-            print("ACA TENEMOS EL PRINT DE MMM GRUPOS?")
-            print(lstGrupos)
             respuesta = lstGrupos
             num = 200
         else:
-            print("ACA TENEMOS EL PRINT vacio")
-            print(lstGrupos)
             num = 200
         return jsonify(respuesta, str(num))
 
@@ -53,8 +49,6 @@ class GrupoOLL(object):
         permiso = None
         if(usuario!=None and grupo in traerGruposDeUsuario(usuario)):
             permiso = grupoDao.consultarPermisos(usuario, grupo)
-            print("rev PERMISO")
-            print(jsonify(permiso))
         return jsonify(permiso)
 
     def eliminarUsuarioDelGrupo(self, usuario, grupo):
