@@ -60,6 +60,11 @@ def cssestilos():
     return send_from_directory('static/css', 'estilos.css')
 
 
+@app.route('/js/grupos.js')
+def jsgrupos():
+    return send_from_directory('static/js', 'grupos.js')
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
