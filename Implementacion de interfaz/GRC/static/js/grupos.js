@@ -1,4 +1,4 @@
-/*Funcion que trae las referencias de un grupo*/
+/*Trae las referencias del grupo pasado por parametro*/
 function pedirReferencias(idGrupoactual){
     $.ajax({
         url:'cargarListaReferencias', 
@@ -13,14 +13,14 @@ function pedirReferencias(idGrupoactual){
                 $("#divSinRef").hide()
                 for(i=0;i<response.length;i++){
                     $("#divContenedorReferencias").append(generarReferenciaHTML(response,i));
-                    
+                    $("#textComentario"+response[i].id).val("Escribi Tu comentario");
+                    /*Agrega el ID de referencia como parametro*/
                     $("#divReferenciaId"+String(response[i].id)).data('idReferencia', 
                                                                       response[i].id);
                 }
             }
             else
             {
-
                 $("#divSinRef").html("no hay ninguna cita en el grupo")
             }
 
@@ -32,15 +32,17 @@ function pedirReferencias(idGrupoactual){
     })
 }
 
+/*Oculta y Muestra las divisiones de La primera Carga*/
 function primeraCarga(){
     console.log("Esto se imprime 1 vez en la primera cargas");
     $("#lblUsuarioLogueado").html(String(idUsuarioLogueado));
     $("#lblIdGrupo").html(idGrupoActual);
     $("#divPublicarReferencia").hide();
-    console.log("ENTREEWEWWEWEWEWE")
 }
 
-/*Funcion que Trae los comentarios*/
+/*Trae los comentarios de la Referencia pasada por parametro
+    Y genera los div para mostrarlos
+*/
 function pedirComentarios(idReferenciaSel){
     $.ajax({
         url : 'cargarComentarios',
@@ -59,7 +61,15 @@ function pedirComentarios(idReferenciaSel){
                 else{
                     conteoPar = 1
                 }
-                $("#divComentrarioDeRefSinEscribir"+idReferenciaSel).append("<div class='insertarComentario"+conteoPar+"'><div class='clsComentarioGeneral'>MAthov Comento:<div class='divContenidoComentario'>"+response[i].comentario+"</div><label class='clsFechaDeComentario'>"+response[i].fecha+"</label></div></div>");
+                var cadenaFormateada = `
+    <div class='insertarComentario`+conteoPar+`'>
+        <div class='clsComentarioGeneral'>MAthov Comento:
+            <div class='divContenidoComentario'>`+response[i].comentario+`</div>
+            <label class='clsFechaDeComentario'>`+response[i].fecha+`</label>
+        </div>
+    </div>
+`
+                $("#divComentrarioDeRefSinEscribir"+idReferenciaSel).append(cadenaFormateada);
             }
 
         },
@@ -68,7 +78,7 @@ function pedirComentarios(idReferenciaSel){
     });
 }
 
-/*Funcion que formatea Texto plano a HTML*/
+/*formatea Texto plano a HTML*/
 function nlTobr (str, is_xhtml) {
     if (typeof str === 'undefined' || str === null) {
         return '';
@@ -77,9 +87,9 @@ function nlTobr (str, is_xhtml) {
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 }
 
-/*Funcion que formatea el HTML para la DIV*/
+/*Genera La <div> de Una referencia*/
 function generarReferenciaHTML(rta,i){
-    var prueba = `
+    var resp = `
     <div class='referencia' id='divReferenciaId`+String(rta[i].id)+`'>
         <div class='divEncabezado'>
             <div class='fizquierda' >Fecha:`+rta[i].fecha+`</div>
@@ -104,66 +114,43 @@ function generarReferenciaHTML(rta,i){
         <div class='clsDivComentarioSinEscribir' id='divComentrarioDeRefSinEscribir`+rta[i].id+`'></div>
     </div>
 `
-    return prueba;
-    /*
-    return "<div class='referencia' id='divReferenciaId"+String(rta[i].id)+"'><div class='divEncabezado'><div class='fizquierda' >Fecha:"+rta[i].fecha+"</div><div class='fderecha'>"+rta[i].descripcion+"</div></div><br><br><label>"+rta[i].cita+"</label><br><div class='divPiePagina'><div class='divUsuario'>"+rta[i].usuario+"</div><div class='divLink'> Link: "+rta[i].link+"</div><div class='divIconComentario' id='btnComentario"+String(rta[i].id)+"'></div></div></div><div id='divComentrarioDeRef"+rta[i].id+"' class='refDeCom'><div class='insertarComentario'><div>Escribi tu Comentario:<br><textarea id='textComentario"+rta[i].id+"'rows = '5' cols = '60' class='textComentario'></textarea><button id='btnComentar"+rta[i].id+"' class='btn btn-primary btnClsComentar'>Comentar</button></div></div><div class='clsDivComentarioSinEscribir' id='divComentrarioDeRefSinEscribir"+rta[i].id+"'></div></div>"*/
+    return resp;
 }
 
-
-function tstResponse(){
-    $.ajax({
-        url: 'traerR',
-        type: 'POST',
-        data:{
-
-        },
-        success: function(response){
-            console.log("dale bien");
-            console.log(response)},
-        error:  function(response){
-            console.log("dale putooo");
-            console.log(response)},
-    });
-}
 function agregarGrupo(){
     console.log("Creando Grupo:", idUsuarioLogueado)
-    $.ajax({
-        url: 'crearGrupo',
-        type: 'POST',
-        data:{
-            "nombreGrupo": $("#txtNombreDelGrupo").val(),
-            "descripcion": $("#txtDescripcionDelGrupo").val(),
-            "usuarioCredor": idUsuarioLogueado,
-        },
-        success: function(response){
-            console.log("bien")
-            console.log(response)
-        },
-        error: function(response){
-            console.log("bien PERO CON ERROS")
-            console.log(response)
-        },
-    });
+    if (validacionesCrearGrupo() == true){
+        $.ajax({
+            url: 'crearGrupo',
+            type: 'POST',
+            data:{
+                "nombreGrupo": $("#txtNombreDelGrupo").val(),
+                "descripcion": $("#txtDescripcionDelGrupo").val(),
+                "usuarioCredor": idUsuarioLogueado,
+            },
+            success: function(response){
+            },
+            error: function(response){
+                console.log("por algun motivo no se Creo el grupo")
+            },
+        });
+    }
 }
-
+function validacionesCrearGrupo(){
+    resp = true;
+    if($("#txtNombreDelGrupo").val() == ""){
+        alert("El grupo debe tener Nombre");
+        resp = false;
+    }
+    if($("#txtDescripcionDelGrupo").val() == ""){
+        alert("El grupo debe tener Descripcion");
+        resp = false;
+    }
+    return resp;
+}
 function publicarReferencia(){
     var aHTML = $('#summernote').summernote("code"); //save HTML If you need(aHTML: array).
-    console.log(aHTML);
-
-    if($("#descripcion").val() == "" || $("#descripcion").val().localeCompare("Escriba aqui") == 0){
-      alert("Debe ingresar una descripcion");
-    }
-    else if($("#link").val() == "" || $("#link").val().localeCompare("Escriba aqui") == 0){
-      alert("Debe ingresar un link");
-    }
-    else{
-        console.log("este es mi json")
-        console.log("idUsuarioLogueado: ", idUsuarioLogueado)
-        console.log("grupo: ", idGrupoActual)
-        console.log(aHTML)
-        console.log("descripcion:",$("#descripcion").val())
-        console.log("link: ",$("#link").val())
-        console.log("tags:", "algo")
+    if(validacionesPF() == True){
         $.ajax({
             url : "publicarReferencia",
             type : "POST",
@@ -186,8 +173,23 @@ function publicarReferencia(){
     }
 }
 
+function validacionesPF(){
+    var resp = true;
+    if($("#descripcion").val() == "" ||
+       $("#descripcion").val().localeCompare("Escriba aqui") == 0){
+        alert("Debe ingresar una descripcion");
+        resp = false;
+    }
+    if($("#link").val() == "" ||
+       $("#link").val().localeCompare("Escriba aqui") == 0){
+        alert("Debe ingresar un link");
+        resp = false;
+    }
+    return resp;
+}
+
+/*Invita a un usuario a el grupo Actual*/
 function invitarUsuarioAGrupo(){
-    console.log("Invitando a:", $("#txtMailDeUsuario").val(), "al grupo:", idGrupoActual);
     $.ajax({
         url: 'invitarUsuario',
         type: 'POST',
@@ -210,7 +212,9 @@ function invitarUsuarioAGrupo(){
 }
 
 
-
+function cargarGruposDeUsuario(){
+    
+}
 
 /*
     DOCUMENT READY
@@ -235,7 +239,6 @@ $(document).ready(function(){
     $("#btnEnviar").click(publicarReferencia);
     $("#btnCrearGrupo").click(agregarGrupo);
 
-    $("#btnTST").click(tstResponse);
 
     $("#btnInvitarUsuario").click(invitarUsuarioAGrupo)
 
@@ -252,12 +255,8 @@ $(document).ready(function(){
     }
     primeraCarga();
 
-    $("body").on("click",".btnGrupos",function(){
-        document.cookie = "idGrupoLogueado=" + this.id.substring(this.id.indexOf("=")+1);
-        window.location.href = ('http://localhost:5000/inicio')
-    });
-
-
+   
+    cargarGruposDeUsuario();
     $.ajax({
         async: true,
         data : {
@@ -324,6 +323,17 @@ $(document).ready(function(){
 
 });
 
+/*
+Eventos
+*/
+
+/*
+Click en GRC o botoni Inicio (te lleva al login)
+*/
+$("body").on("click",".btnGrupos",function(){
+    document.cookie = "idGrupoLogueado=" + this.id.substring(this.id.indexOf("=")+1);
+    window.location.href = ('http://localhost:5000/inicio')
+});
 
 /*
     Click en nueva Publicacion
@@ -332,38 +342,57 @@ $(document).on('click', "#detectame123", function() {
     console.log("click DETECATADO")
     $("#divPublicarReferencia").show();
 });
-/* Click en Boton ComentAr*/
+
+/* 
+    Click en Boton ComentAr
+    Persiste el comentario creado
+*/
 $(document).on('click', ".btnClsComentar", function() {
     var idA = $(this).parents(".refDeCom").prev().data("idReferencia")
-    $.ajax({
-        url: 'comentarReferencia',
-        type: 'POST',
-        data:{
-            'idReferencia' : idA,
-            'comentario' : nlTobr($("#textComentario"+idA).val()),
-            'idUsuario' : idUsuarioLogueado,
-        },
-        success: function(response){
-            $("#textComentario"+idA).val("");
-            pedirComentarios(idA);
-        },
-        error: function(response){console.log("error")},
-    });
-
+    console.log("WNTROA")
+    if (validacionesComentarios(idA) == true){
+        console.log("WNTROC")
+        $.ajax({
+            url: 'comentarReferencia',
+            type: 'POST',
+            data:{
+                'idReferencia' : idA,
+                'comentario' : nlTobr($("#textComentario"+idA).val()),
+                'idUsuario' : idUsuarioLogueado,
+            },
+            success: function(response){
+                $("#textComentario"+idA).val("");
+                pedirComentarios(idA);
+            },
+            error: function(response){console.log("error")},
+        });
+    }
 });
+
+function validacionesComentarios(idA){
+    console.log("WNTROB")
+    var resp = true;
+    console.log($("#textComentario"+idA).val())
+    if($("#textComentario"+idA).val() == ""){
+        alert("El comentario no contiene nada man");
+        resp = false;
+    }
+    return resp;
+}
 /*Click en COMENTARIO*/
 $(document).on('click', ".divIconComentario", function() {
     console.log($(this).parents(".referencia").data('idReferencia'))
     var idReferenciaSel = $(this).parents(".referencia").data('idReferencia')
+    var objSel = $("#divComentrarioDeRef"+idReferenciaSel)
     pedirComentarios(idReferenciaSel);
 
 
-    if($("#divComentrarioDeRef"+idReferenciaSel).hasClass("mostrar")){
-        $("#divComentrarioDeRef"+idReferenciaSel).removeClass("mostrar")
+    if(objSel.hasClass("mostrar")){
+        objSel.removeClass("mostrar")
     }
 
     else{
-        $("#divComentrarioDeRef"+idReferenciaSel).addClass("mostrar")
+        objSel.addClass("mostrar")
     }
 
 });
@@ -374,7 +403,7 @@ $(document).on('click', ".GrupIMG", function() {
     $('#lblNombreGrupo').html("_"+$(this).data('elNombre')+"");
     $('#lblDescripcionGrupo').html("_"+$(this).data('laDescripcion')+"");
     $('#lblIdGrupo').html("_"+$(this).data('idGrupo'));
-    $("#lblPermisoEnGrupo").html(uDataGlobal[$(this).data('posEnArray')][3])
+    
     idGrupoActual = $(this).data('idGrupo');
     if($(this).attr('id') == "IMGagregar"){
         console.log("CLICKITO");
@@ -386,6 +415,7 @@ $(document).on('click', ".GrupIMG", function() {
         }
     }
     else{
+    $("#lblPermisoEnGrupo").html(uDataGlobal[$(this).data('posEnArray')][3])
         $('#divAgregarGrupo').hide();
         if(uDataGlobal[$(this).data('posEnArray')][3] == 'creador'){
             $('#divAdminGrupo').show();
