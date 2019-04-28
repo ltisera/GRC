@@ -17,10 +17,12 @@ class ComentarioOLL(object):
         laLista = []
         for i in hacerDIC:
             diccios = {}
-            diccios["idComentario"] = i.idComentario
-            diccios["comentario"] = i.comentario
-            diccios["fecha"] = i.fecha
-            diccios["idReferencia"] = i.idReferencia
+            diccios["idComentario"] = i[0].idComentario
+            diccios["comentario"] = i[0].comentario
+            diccios["fecha"] = i[0].fecha
+            diccios["idReferencia"] = i[0].idReferencia
+            diccios["idUsuario"] = i[0].idUsuario
+            diccios["nombreUsuario"] = i[1]
             laLista.append(diccios)
 
 

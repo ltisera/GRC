@@ -340,7 +340,7 @@ body {
   border-width: 1px;
   background-color: rgba(55,55,105,0.9);
 }
-.insertarComentario1{
+.insertarComentario0{
   padding: 0;
   border-style: solid;
   border-color: white;
@@ -349,7 +349,7 @@ body {
   border-bottom: hidden;
   background-color: rgba(155,155,255,0.9);
 }
-.insertarComentario2{
+.insertarComentario1{
   padding: 0;
   border-style: solid;
   border-color: white;

@@ -49,7 +49,6 @@ def sumernotejs():
 def csssumernote():
     return send_from_directory('static/sumer/dist', 'summernote.css')
 
-
 @app.route('/css/bootstrap.min.css')
 def cssbootstrapfile():
     return send_from_directory('static/css', 'bootstrap.min.css')
@@ -58,6 +57,11 @@ def cssbootstrapfile():
 @app.route('/static/css/estilos.css')
 def cssestilos():
     return send_from_directory('static/css', 'estilos.css')
+
+@app.route('/static/recursos/icons/fontello-4ce1ed53/css/fontello.css')
+def recFontello():
+    print("despachame los iconos")
+    return send_from_directory('static/recursos/icons/fontello-4ce1ed53/css','fontello.css')
 
 
 @app.route('/js/grupos.js')

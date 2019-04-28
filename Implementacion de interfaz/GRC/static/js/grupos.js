@@ -62,8 +62,8 @@ function pedirComentarios(idReferenciaSel){
                     conteoPar = 1
                 }
                 var cadenaFormateada = `
-    <div class='insertarComentario`+conteoPar+`'>
-        <div class='clsComentarioGeneral'>MAthov Comento:
+    <div class='insertarComentario`+(i % 2)+`'>
+        <div class='clsComentarioGeneral'>`+response[i].nombreUsuario+` Comento:
             <div class='divContenidoComentario'>`+response[i].comentario+`</div>
             <label class='clsFechaDeComentario'>`+response[i].fecha+`</label>
         </div>
@@ -118,7 +118,6 @@ function generarReferenciaHTML(rta,i){
 }
 
 function agregarGrupo(){
-    console.log("Creando Grupo:", idUsuarioLogueado)
     if (validacionesCrearGrupo() == true){
         $.ajax({
             url: 'crearGrupo',
@@ -213,51 +212,7 @@ function invitarUsuarioAGrupo(){
 
 
 function cargarGruposDeUsuario(){
-    
-}
-
-/*
-    DOCUMENT READY
-*/
-$(document).ready(function(){
-
-    $('#summernote').summernote({
-        height: '300px',
-        width: '600px',
-        focus: true,
-        lang: 'es-ES',
-        toolbar: [
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']],
-        ['insert', ['link']],
-        ]
-    });
-
-    $("#btnEnviar").click(publicarReferencia);
-    $("#btnCrearGrupo").click(agregarGrupo);
-
-
-    $("#btnInvitarUsuario").click(invitarUsuarioAGrupo)
-
-    misCookies = document.cookie
-    listaCookies = misCookies.split(";")
-    for (i in listaCookies) {
-        busca = listaCookies[i].search("idUsuarioLogueado");
-        if (busca > -1) {
-            micookie=listaCookies[i]
-            igual = micookie.indexOf("=");
-            valor = micookie.substring(igual+1);
-            idUsuarioLogueado = valor;
-        }
-    }
-    primeraCarga();
-
-   
-    cargarGruposDeUsuario();
-    $.ajax({
+        $.ajax({
         async: true,
         data : {
             "usuario" : valor,
@@ -320,6 +275,50 @@ $(document).ready(function(){
 
         }
     });
+}
+
+/*
+    DOCUMENT READY
+*/
+$(document).ready(function(){
+
+    $('#summernote').summernote({
+        height: '300px',
+        width: '600px',
+        focus: true,
+        lang: 'es-ES',
+        toolbar: [
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']],
+        ['insert', ['link']],
+        ]
+    });
+
+    $("#btnEnviar").click(publicarReferencia);
+    $("#btnCrearGrupo").click(agregarGrupo);
+
+
+    $("#btnInvitarUsuario").click(invitarUsuarioAGrupo)
+
+    misCookies = document.cookie
+    listaCookies = misCookies.split(";")
+    for (i in listaCookies) {
+        busca = listaCookies[i].search("idUsuarioLogueado");
+        if (busca > -1) {
+            micookie=listaCookies[i]
+            igual = micookie.indexOf("=");
+            valor = micookie.substring(igual+1);
+            idUsuarioLogueado = valor;
+        }
+    }
+    primeraCarga();
+
+   
+    cargarGruposDeUsuario();
+    
 
 });
 
@@ -385,15 +384,15 @@ $(document).on('click', ".divIconComentario", function() {
     var idReferenciaSel = $(this).parents(".referencia").data('idReferencia')
     var objSel = $("#divComentrarioDeRef"+idReferenciaSel)
     pedirComentarios(idReferenciaSel);
-
-
-    if(objSel.hasClass("mostrar")){
+    
+    objSel.toggleClass("mostrar");
+    /*if(objSel.hasClass("mostrar")){
         objSel.removeClass("mostrar")
     }
 
     else{
         objSel.addClass("mostrar")
-    }
+    }*/
 
 });
 

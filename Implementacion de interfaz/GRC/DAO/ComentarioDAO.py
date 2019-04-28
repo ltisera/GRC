@@ -27,12 +27,12 @@ class ComentarioDAO(ConexionBD):
         try:
             lista = []
             if (self._bd.is_connected()):
-                self._micur.execute('SELECT c.idComentario, c.comentario, c.fechaHora, c.idReferencia, c.idUsuario FROM comentario as c inner join usuario as u on c.idUsuario = u.idUsuario WHERE c.idReferencia="{0}"'.format(idReferencia))
+                self._micur.execute('SELECT c.idComentario, c.comentario, c.fechaHora, c.idReferencia, c.idUsuario, u.nombre FROM comentario as c inner join usuario as u on c.idUsuario = u.idUsuario WHERE c.idReferencia="{0}"'.format(idReferencia))
                 reg = self._micur.fetchall()
                 
                 if reg is not None:
                     for c in reg:
-                        lista.append(Comentario(idComentario=c[0], comentario=c[1], fecha=c[2], idReferencia=c[3], idUsuario=c[4]))
+                        lista.append((Comentario(idComentario=c[0], comentario=c[1], fecha=c[2], idReferencia=c[3], idUsuario=c[4]), c[5]))
 
         except Error as e:
             print("Error al conectar con la BD", e)
