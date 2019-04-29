@@ -15,9 +15,29 @@ from datetime import datetime
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 
-@app.route('/banner')
-def banner():
-    return send_from_directory('static', 'banner.jpg')
+@app.route('/banner-inicio.jpg')
+def bannerInicio():
+    return send_from_directory('static/img', 'banner-inicio.jpg')
+
+
+@app.route('/banner-info.jpg')
+def bannerInfo():
+    return send_from_directory('static/img', 'banner-info.jpg')
+
+
+@app.route('/team1.jpg')
+def team1():
+    return send_from_directory('static/img', 'team1.jpg')
+
+
+@app.route('/team2.jpg')
+def team2():
+    return send_from_directory('static/img', 'team2.jpg')
+
+
+@app.route('/team3.jpg')
+def team3():
+    return send_from_directory('static/img', 'team3.jpg')
 
 
 @app.route('/menu.js')
@@ -26,8 +46,13 @@ def jsMenu():
 
 
 @app.route('/estilo.css')
-def cssestilo():
+def cssEstilo():
     return send_from_directory('static/css', 'estilo.css')
+
+
+@app.route('/info.css')
+def cssInfo():
+    return send_from_directory('static/css', 'info.css')
 
 
 @app.route('/js/jquery-3.3.1.js')
@@ -49,6 +74,7 @@ def sumernotejs():
 def csssumernote():
     return send_from_directory('static/sumer/dist', 'summernote.css')
 
+
 @app.route('/css/bootstrap.min.css')
 def cssbootstrapfile():
     return send_from_directory('static/css', 'bootstrap.min.css')
@@ -58,10 +84,11 @@ def cssbootstrapfile():
 def cssestilos():
     return send_from_directory('static/css', 'estilos.css')
 
+
 @app.route('/static/recursos/icons/fontello-4ce1ed53/css/fontello.css')
 def recFontello():
     print("despachame los iconos")
-    return send_from_directory('static/recursos/icons/fontello-4ce1ed53/css','fontello.css')
+    return send_from_directory('static/recursos/icons/fontello-4ce1ed53/css', 'fontello.css')
 
 
 @app.route('/js/grupos.js')
@@ -97,16 +124,6 @@ def grupos():
 @app.route('/publicar')
 def publicar():
     return render_template('publicar2.html')
-
-
-@app.route('/contacto')
-def contacto():
-    return render_template('contacto.html')
-
-
-@app.route('/info')
-def info():
-    return render_template('info.html')
 
 
 @app.route('/traerTodosGrupos')

@@ -149,7 +149,7 @@ function validacionesCrearGrupo(){
 }
 function publicarReferencia(){
     var aHTML = $('#summernote').summernote("code"); //save HTML If you need(aHTML: array).
-    if(validacionesPF() == True){
+    if(validacionesPF() == true){
         $.ajax({
             url : "publicarReferencia",
             type : "POST",

@@ -1,26 +1,60 @@
-<html>
-    <head>
-        <script src="/js/jquery-3.3.1.js"></script>
-        <script>
-            $(function(){
-                $("#includedContent").load("/header1");
-            });
-        </script>
-    </head>
-    
-    <div id="includedContent"></div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Informacio | GRC</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="estilo.css" />
+    <link rel="stylesheet" href="info.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <script src="/js/jquery-3.3.1.js"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container container--flex">
+            <div class="logo-container">
+                <h1 class="logo">Gestor de Referencias Colaborativas</h1>
+            </div>
+        </div>
+    </header>
+    <nav class="main-nav">
+        <div class="container container--flex">
+            <img src="http://www.apacid.com.ar/imagenes/iconos/Menu.png" class="icon-menu" id="btnmenu"></img>
+            <ul class="menu" id="menu">
+                <li class="menu__item"><a id="menu-inicio" class="menu__link">Inicio</a></li>
+                <li class="menu__item"><a id="menu-info" class="menu__link menu__link--select">Informacion</a></li>
+                <li class="menu__item"><a id="menu-contacto" class="menu__link">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <body>
+
+
+    <main class="main">
         
-        <div class="container">
+    </main>
 
-          <div class="starter-template">
-	        <h1 class="fondoBlanco">Gestor de Referencias Colaborativas</h1>
-	        <p class="lead fondoBlanco cuerpo">info info info info.</p>
-	      </div>
-
-        </div><!-- /.container -->
-
-      </body>
-
+    <footer class="main-footer">
+        <div class="container container--flex">
+            <div class="column column--33">
+                <h2 class="column__title">¿Por que GRC?</h2>
+                <p class="column__txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus nam eaque corporis similique doloremque quidem voluptates voluptatum, pariatur, cum labore laudantium necessitatibus modi optio, molestiae aspernatur consequuntur unde tenetur rem!</p>
+            </div>
+            <div class="column column--33">
+                <h2 class="column__title">Blablabla</h2>
+                <p class="column__txt">Pos algo</p>
+                <p class="column__txt">Algo</p>
+                <p class="column__txt">Mas algo</p>
+                <p class="column__txt">Yep, algo</p>
+            </div>
+            <div class="column column--33">
+                <h2 class="column__title">Y MAS!!</h2>
+                <p class="column__txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi maiores, ab, sapiente labore laboriosam iure cum minima consectetur cupiditate velit aut hic voluptas, nisi! Quidem obcaecati voluptate totam, maiores mollitia.</p>
+            </div>
+            <p class="copy">2019 Derechos reservados</p>
+        </div>
+    </footer>
+    <script src="menu.js"></script>
+</body>
 </html>
+
