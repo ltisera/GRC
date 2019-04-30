@@ -55,6 +55,37 @@ def cssInfo():
     return send_from_directory('static/css', 'info.css')
 
 
+
+@app.route('/static/<path:path>')
+def despAduana(path):
+    sPath = path.split("/")
+    print("Este es el path dividido... MATHOV")
+    print(sPath)
+    print(len(sPath))
+    arcDir = ""
+    if(len(sPath) == 1):
+        arcDir = ""
+        arc = sPath[len(sPath) - 1]  # QUIERO PRINTAR SOLO EL ARCHIVO
+    else:
+        for i in range(len(sPath) - 1):
+            arcDir = arcDir + sPath[i] + "/"
+        arcDir = arcDir[0:- 1]
+        arc = sPath[len(sPath) - 1]
+    arcFinal = "static/" + arcDir
+    print("EL PATH")
+    print(arcFinal)
+    print("El file")
+    print(arc)
+    return send_from_directory(arcFinal, arc)
+
+"""
+
+@app.route('/recursos/icons/iconComentario.png')
+def iconComentario():
+    return send_from_directory('static/recursos/icons', 'iconComentario.png')
+
+
+
 @app.route('/js/jquery-3.3.1.js')
 def jsfile():
     return send_from_directory('static/js', 'jquery-3.3.1.js')
@@ -95,7 +126,7 @@ def recFontello():
 def jsgrupos():
     return send_from_directory('static/js', 'grupos.js')
 
-
+"""
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
@@ -332,9 +363,4 @@ def eliminarComentario():
     return comoll.eliminarComentario(request.values["idComentario"])
 
 
-@app.route('/recursos/icons/iconComentario.png')
-def iconComentario():
-    return send_from_directory('static/recursos/icons', 'iconComentario.png')
-
-	
 app.run(debug=True)
