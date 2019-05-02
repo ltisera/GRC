@@ -54,29 +54,25 @@ def cssEstilo():
 def cssInfo():
     return send_from_directory('static/css', 'info.css')
 
-
+"""
+Devuelve Archivos que se encuentren dentro de la carpeta static
+/static/<dir>/nombreDeArchivo.ext
+"""
 
 @app.route('/static/<path:path>')
-def despAduana(path):
+def sirveDirectorioSTATIC(path):
     sPath = path.split("/")
-    print("Este es el path dividido... MATHOV")
-    print(sPath)
-    print(len(sPath))
-    arcDir = ""
+    directorio = ""
     if(len(sPath) == 1):
-        arcDir = ""
-        arc = sPath[len(sPath) - 1]  # QUIERO PRINTAR SOLO EL ARCHIVO
+        directorio = ""
+        arc = sPath[len(sPath) - 1]
     else:
         for i in range(len(sPath) - 1):
-            arcDir = arcDir + sPath[i] + "/"
-        arcDir = arcDir[0:- 1]
+            directorio = directorio + sPath[i] + "/"
+        directorio = directorio[0:- 1]
         arc = sPath[len(sPath) - 1]
-    arcFinal = "static/" + arcDir
-    print("EL PATH")
-    print(arcFinal)
-    print("El file")
-    print(arc)
-    return send_from_directory(arcFinal, arc)
+    directorio = "static/" + directorio
+    return send_from_directory(directorio, arc)
 
 """
 

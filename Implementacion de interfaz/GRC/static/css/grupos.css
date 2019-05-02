@@ -1,0 +1,86 @@
+@import url("referencia.css");
+@import url("comentario.css");
+
+/*Estilos para grupos.html*/
+/*Estilos para grupos.html*/
+.divBoton{
+  border-style: solid;
+  border-color: #212730;
+  border-width: 3px;
+  border-radius: 10px;
+  background-color: #515e70;
+  width: 200px;
+  height: 30px;
+  position: absolute;
+  top :300;
+  left: 10;
+  color: black;
+  text-align: center;
+}
+
+#grupoDeReferencias {
+  margin-left: 80px;
+  padding-top: 40px;
+  color: black;
+}
+
+#menuGrupos {
+  height: 100%;
+  width: 70px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: grey; 
+  overflow-x: visible;
+  padding-top: 50px;
+  text-align: center;
+  color: white;
+
+}
+
+.mitest{
+    margin-top: 50px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+
+
+.masSize{
+  vertical-align: top;
+  padding-top: 5px;
+  padding-right: 0px;
+  font-size: 20px;
+  color: red;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.masMenu{
+
+  left: -100px;
+}
+.opcionesMenu{
+  background-color: rgba(200,200,200,0.9);
+}
+
+
+.masSize:hover{
+  color: red;
+  background-color: rgba(200,200,200,0.9);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+}

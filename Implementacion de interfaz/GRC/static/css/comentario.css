@@ -1,0 +1,56 @@
+.insertarComentario{
+  padding: 10;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  background-color: rgba(55,55,105,0.9);
+}
+.insertarComentario0{
+  padding: 0;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-top: hidden;
+  border-bottom: hidden;
+  background-color: rgba(155,155,255,0.9);
+}
+.insertarComentario1{
+  padding: 0;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
+  border-top: hidden;
+  border-bottom: hidden;
+  background-color: rgba(105,105,205,0.9);
+
+
+}
+.divContenidoComentario{
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(200,200,200);
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 5px;
+
+}
+.clsComentarioGeneral{
+  padding-top: 5px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px; 
+}
+.clsDivComentarioSinEscribir{
+
+}
+.textComentario{
+  width: 90%;
+  background-color: transparent;
+
+  color: white;
+
+}
+.clsFechaDeComentario{
+  width: 100%;
+  text-align: right;
+}
