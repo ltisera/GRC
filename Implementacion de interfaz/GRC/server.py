@@ -10,6 +10,8 @@ from OLL.ComentarioOLL import ComentarioOLL
 from OLL.ReferenciaOLL import ReferenciaOLL
 from DML.Usuario import Usuario
 
+
+
 from datetime import datetime
 
 app = Flask(__name__, static_folder='static', static_url_path='')
@@ -212,7 +214,9 @@ def cargarReferenciaTest():
 
 @app.route('/loguearUsuario', methods=['GET', 'POST'])
 def loguearUsuario():
-    objUsuario = validarUsuario(request)
+    uOLL = UsuarioOLL()
+    objUsuario = uOLL.validarUsuario(request)
+    """
     if(objUsuario is not None):
         jResponse = jsonify(nombre=objUsuario.nombre,
                             id=objUsuario.idUsuario,
@@ -222,7 +226,8 @@ def loguearUsuario():
     else:
         print("Errorr")
         jResponse = 404
-    return jResponse
+    """
+    return objUsuario
 
     """
     Este Metodo funciona Correctamente
@@ -245,19 +250,6 @@ def crearUsuario(request):
     else:
         print("Error", stAgregarUsuario)
     return 200
-
-
-def validarUsuario(request):
-    udao = UsuarioDAO()
-    elusr = udao.traerUsuarioXMail(request.values["usuario"])
-
-    if(elusr.password == request.values["password"]):
-        print("PIOLA LOCO, HABEMUS LOGIN")
-    else:
-        print("que mal no hay login")
-        elusr = None
-    return elusr
-
 
 def traerUsuario(id):
     udao = UsuarioDAO()

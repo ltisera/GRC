@@ -35,19 +35,22 @@ class UsuarioOLL():
         return resp
 
     def validarUsuario(self, request):
-        print("Wesa que si lo uso")
         udao = UsuarioDAO()
-        resp = {}
         usuarioTraido = udao.traerUsuarioXMail(request.values["usuario"])
+        resp = jsonify(error="Usuario o password incorrectos")
+        status = 400
 
         if usuarioTraido is not None:
-            if(usuarioTraido.password == request.values["password"]):
-                resp = jsonify(usuarioTraido)
-            else:
-                resp = jsonify(status="400",
-                               mensaje="El passwrd no es valido")
-        else:
-            resp = jsonify(status="400",
-                           mensaje="Usuario No existe")
+            print("usuario traido: ", usuarioTraido)
+            if(usuarioTraido.usuarioValido == 0):
+                print("usuario invalido")
+                status = 400
+                resp = jsonify(error="El usuario no fue validado.")
+            elif(usuarioTraido.password == request.values["password"]):
+                status = 200
+                resp = jsonify(nombre=usuarioTraido.nombre,
+                            id=usuarioTraido.idUsuario,
+                            apellido=usuarioTraido.apellido,
+                            email=usuarioTraido.email)
 
-        return resp
+        return (resp, status)

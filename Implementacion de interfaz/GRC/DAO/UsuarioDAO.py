@@ -66,7 +66,7 @@ class UsuarioDAO(ConexionBD):
                 self._micur.execute(consulta)
                 resultado = self._micur.fetchone()
                 i = resultado
-                utraido = Usuario(i[1], i[2], i[3], i[4], i[0])
+                utraido = Usuario(i[1], i[2], i[3], i[4], i[0], i[5], i[6])
 
         except Error as e:
             print("Error al conectar con la BD", e)
@@ -91,6 +91,8 @@ class UsuarioDAO(ConexionBD):
                     utraido.apellido = i[2]
                     utraido.email = i[3]
                     utraido.password = i[4]
+                    utraido.adminGlobal = i[5]
+                    utraido.usuarioValido = i[6]
 
         except Error as e:
             print("Error al conectar con la BD", e)

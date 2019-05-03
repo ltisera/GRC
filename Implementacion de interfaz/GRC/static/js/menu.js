@@ -83,12 +83,14 @@ $(document).on('click', "#login-submit", function() {
                 password : $("#password").val()
             },
             success: function(response){
+                console.log(response);
                 var idUsuarioLogueado = response.id;
                 document.cookie = "idUsuarioLogueado=" + idUsuarioLogueado;
                 window.location.href = ('http://localhost:5000/grupos')
+                
             },
             error: function(response){
-                alert("usuario o contraseña incorrectos");
+                alert(response.responseJSON.error);
             }
         });
     }

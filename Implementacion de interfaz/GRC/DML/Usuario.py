@@ -1,11 +1,13 @@
 class Usuario():
     def __init__(self, nombre="", apellido="",
-                 email="", password="", idUsuario=None):
+                 email="", password="", idUsuario=None, adminGlobal="", usuarioValido=""):
         self._idUsuario = idUsuario
         self._nombre = nombre
         self._apellido = apellido
         self._email = email
         self._password = password
+        self._adminGlobal = adminGlobal
+        self._usuarioValido = usuarioValido
         
 
     @property
@@ -48,12 +50,31 @@ class Usuario():
     def password(self, password):
         self._password = str(password)
 
+    @property
+    def adminGlobal(self):
+        return self._adminGlobal
+
+    @adminGlobal.setter
+    def adminGlobal(self, adminGlobal):
+        self._adminGlobal = str(adminGlobal)
+
+    @property
+    def usuarioValido(self):
+        return self._usuarioValido
+
+    @usuarioValido.setter
+    def usuarioValido(self, usuarioValido):
+        self._usuarioValido = usuarioValido
+
+
     def __str__(self):
         return str("id: " + str(self.idUsuario) +
                    " Nombre: " + str(self.nombre) + " " +
                    str(self.apellido) + " Email: " +
                    str(self.email) + " Password: " +
-                   str(self.password))
+                   str(self.password) + " adminGlobal: " +
+                   str(self._adminGlobal) + " usuarioValido: " +
+                   str(self._usuarioValido))
 
 if __name__ == '__main__':
     usrtst = Usuario
