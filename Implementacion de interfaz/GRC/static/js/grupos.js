@@ -226,26 +226,39 @@ function cargarGruposDeUsuario(){
             $('#gruposLista').html(response);
             uDataGlobal = response[0];
             console.log(response);
-            $("#menuGrupos").append('<br><img id = "IMGagregar" div="grupoFoto" class="img-circle GrupIMG" src="https://image.flaticon.com/icons/svg/25/25340.svg" alt="Generic placeholder image" width="50" height="50"><br>'+ "AGREGAR");
+            $("#menuGrupos").append(`
+                                    <br>
+                                    <img id = "IMGagregar" div="grupoFoto" class="img-circle GrupIMG" 
+                                    src="https://image.flaticon.com/icons/svg/25/25340.svg" 
+                                    alt = "Generic placeholder image" width = "50" height = "50"><br>'`+ `AGREGAR
+                                    `);
             if(response[0]==null){
                 console.log("SOY NULL");
             }
             else{
+                var htmlContenedorGrupos = `<div id="contenedorGrupos">`
                 for(i=0; i < response[0].length; i++){
-                var nombre = response[0][i][1]
-                if(nombre.length > 7){
-                    nombre = response[0][i][1].slice(0, 5) + "..."
-                }
+                    var nombre = response[0][i][1]
+                    if(nombre.length > 7){
+                        nombre = response[0][i][1].slice(0, 5) + "..."
+                    }
 
-                $("#menuGrupos").append('<br><img id = "IMG'+String(i)+'" div="grupoFoto" class="img-circle GrupIMG" src="https://images.emojiterra.com/google/android-oreo/512px/1f625.png" alt="Generic placeholder image" width="50" height="50"><br>'+ nombre);
-                $("#IMG"+i).data('idNecesario', String(response[0][i][0]));    
-                $("#IMG"+i).data('idGrupo', String(response[0][i][0]));
-                $("#IMG"+i).data('elNombre', String(response[0][i][1]));
-                $("#IMG"+i).data('laDescripcion', String(response[0][i][2]));
-                $("#IMG"+i).data('posEnArray', i);
+                    htmlContenedorGrupos += `
+                                            <br>
+                                            <img id = "IMG` + String(i) + `div="grupoFoto" class="img-circle GrupIMG" 
+                                            src="https://images.emojiterra.com/google/android-oreo/512px/1f625.png" 
+                                            alt="Generic placeholder image" width="50" height="50"> <br>`+ nombre
+                                            
+                    $("#IMG"+i).data('idNecesario', String(response[0][i][0]));    
+                    $("#IMG"+i).data('idGrupo', String(response[0][i][0]));
+                    $("#IMG"+i).data('elNombre', String(response[0][i][1]));
+                    $("#IMG"+i).data('laDescripcion', String(response[0][i][2]));
+                    $("#IMG"+i).data('posEnArray', i);
 
-                $("#IMG"+i).tooltip({title: String(response[0][i][2]), trigger: "hover", placement: "right"});
+                    $("#IMG"+i).tooltip({title: String(response[0][i][2]), trigger: "hover", placement: "right"});
                 }
+                htmlContenedorGrupos += `</div>`
+                $("#menuGrupos").append(htmlContenedorGrupos);
             }
 
         },
@@ -326,6 +339,9 @@ $(document).ready(function(){
 Eventos
 */
 
+$(window).on("resize",function(){
+    console.log($("#contenedorGrupos").height());
+});
 /*
 Click en GRC o botoni Inicio (te lleva al login)
 */

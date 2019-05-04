@@ -1,6 +1,7 @@
 /* ------------- Menu ------------- */
 $(document).ready(function(){
     $("#index-main").html(inicioHTML());
+    
 });
 $(document).on('click', ".menu__item", function() {
     $(".menu__item").toggleClass("menu__link--select", false);
@@ -27,18 +28,43 @@ $(document).on('click', "#btnMenu", function() {
 });
 
 
-/*
+
+
+
+
+
+$(document).on('click', ".loginORegistro", function() {
+    var toggle = false;
+    $("#login-submit").html("Registrar");
+    if($(this).attr("id") == "login"){
+        toggle = true;
+        $("#login-submit").html("Entrar");
+    }
+    $("#divRegistro").toggleClass("ocultar", toggle);
+    $("#login").toggleClass("login__link--select", toggle);
+    $("#registro").toggleClass("login__link--select", !toggle);
+});
+
+/* ------------- Iniciar Sesion ------------- */
+
+$(document).on('click', "#login-submit", function() {
+    if($("#login").hasClass("login__link--select")){
+        iniciarSesion();
+    }  
+    else{
+        registrarUsuario();
+    }
+});
 
 function registrarUsuario(){
     if($("#apellido").val() != "" &&
        $("#nombre").val() != "" &&
-       $("#emailr").val() != "" &&
-       $("#passwordr").val() != "" &&
-       $("#confirm-password").val() != ""){
+       $("#email").val() != "" &&
+       $("#password").val() != ""){
         console.log($("#apellido").val());
         console.log($("#nombre").val());
-        console.log($("#emailr").val());
-        console.log($("#passwordr").val());
+        console.log($("#email").val());
+        console.log($("#password").val());
 
         $.ajax({
             url : "crearUsuario",
@@ -46,8 +72,8 @@ function registrarUsuario(){
             data : {
                 apellido : $("#apellido").val(),
                 nombre : $("#nombre").val(),
-                email : $("#emailr").val(),
-                password : $("#passwordr").val()
+                email : $("#email").val(),
+                password : $("#password").val()
             },
             success: function(response){
                 console.log(response);
@@ -61,13 +87,9 @@ function registrarUsuario(){
     else{
         alert("Completa todos los campos");
     }
-}
-*/
+};
 
-
-/* ------------- Iniciar Sesion ------------- */
-
-$(document).on('click', "#login-submit", function() {
+function iniciarSesion(){
     if($("#email").val() == ""){
         alert("Debe ingresar usuario");
     }
@@ -94,9 +116,7 @@ $(document).on('click', "#login-submit", function() {
             }
         });
     }
-
-});
-
+};
 
 /* ------------- Menu HTML ------------- */
 
@@ -119,17 +139,28 @@ function inicioHTML(){
     <section class="banner">
         <img src="/banner-inicio.jpg" alt="" class="banner__img">
         <div class="banner__content banner__card banner__width">
-            <h2 class="banner__title">Login</h2>
-            <label class="banner__txt">Usuario: </label>
-            <input class="banner__input" id="email" type="text"></p>
-            <label class="banner__txt">Password: </label>
-            <input class="banner__input" id="password" type="password"></p>
+            <h2 class="banner__title"> 
+                <label class="login__link--select loginORegistro" id="login">Login</label> | 
+                <label class="loginORegistro" id="registro">Register</label>
+            </h2>
+            <div style="text-align: left;">
+                <div id="divRegistro" class="ocultar">
+                    <label class="banner__txt">Nombre: </label>
+                    <input class="banner__input" id="nombre" type="text"></p>
+                    <label class="banner__txt">Apellido: </label>
+                    <input class="banner__input" id="apellido" type="text"></p>
+                </div>
+                <label class="banner__txt">Usuario: </label>
+                <input class="banner__input" id="email" type="text"></p>
+                <label class="banner__txt">Password: </label>
+                <input class="banner__input" id="password" type="password"></p>
+            </div>                
             <button class="banner__btn" id="login-submit">Entrar</button>
         </div>
     </section>
     <section class="group group--color">
         <div class="container">
-            <h2 class="main__title">bienvenido</h2>
+            <h3 class="main__title">bienvenido</h2>
             <p class="main__txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam error sint optio alias minus, nisi officia, aperiam dignissimos molestias necessitatibus. Temporibus, possimus laudantium sunt. Veniam voluptatum laudantium natus enim.</p>
         </div>
     </section>

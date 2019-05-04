@@ -13,7 +13,7 @@ img {
 	width: 100%;
 	max-width: 100%;
 }
-h1,h2,h3,h4,h5,h6{
+h1,h3,h4,h5,h6{
 	margin: 0;     
     font-family: 'Permanent Marker', cursive;
 }
@@ -30,7 +30,9 @@ h1,h2,h3,h4,h5,h6{
 .colum {
 	width: 100%;
 }
-
+.ocultar {
+	display: none;
+}
 
 /*--------------------------------*/
 
@@ -96,8 +98,16 @@ h1,h2,h3,h4,h5,h6{
 .menu__link:hover {
 	background: #15478e;
 }
+.loginORegistro:hover {
+	color: antiquewhite;
+	cursor: pointer;
+}
+.login__link--select {
+	text-shadow: 2px 2px rgba(0,0,0,0.2);
+	color: #15478e;
+}
 .menu__link--select {
-	background: #15478e;
+	background-color: #15478e;
 }
 .mostrar {
 	height: 153px;
@@ -125,38 +135,40 @@ h1,h2,h3,h4,h5,h6{
 	object-fit: cover;
 }
 .banner__content {
-	text-align: center;
 	position: absolute;
 	z-index: 1500;
 	top: 50%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
-	font-size: 1.3em;
+	font-size: 0.8em;
 	font-weight: bold;
 	padding: 0.01em 16px;
+	text-align: center;
 }
 .banner__width{
 	width: 70%;
 }
 .banner__txt {
 	height: 10px;
+	margin-left: 3%;
 }
-
+.banner__tittle {
+	height: 10px;
+}
 .banner__input {
+	margin-top: 3px;
 	border: 0;
-	padding: 8px;
+	padding: 4px 8px;
 	display: block;
 	width: 100%;
 	border-radius: 10px;
 }
 
 .banner__btn {
-	padding: 10px 20%;
-	text-align: center;
+	padding: 5px 20%;
 	text-decoration: none;
 	display: inline-block;
 	font-family: 'Roboto Slab', serif;
-	font-size: 0.7em;
 	-webkit-transition-duration: 0.4s; /* Safari */
 	transition-duration: 0.4s;
 	cursor: pointer;
@@ -173,7 +185,10 @@ h1,h2,h3,h4,h5,h6{
 
 .banner__card {
 	box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19);
-    background-color: #c0c0c0 !important;
+	background-color: rgba(200,200,200,0.3);
+	border-color: rgba(255, 255, 255, 0.5);
+	color: white;
+	border-style: solid;
 }
 
 /*--------------------------------*/
@@ -231,9 +246,6 @@ h1,h2,h3,h4,h5,h6{
 	.banner {
 		margin-top: -125px;
 	}
-	.banner__btn {
-		font-size: 0.8em;
-	}
 	.banner__content {
 		top: 60%;
 	}
@@ -255,7 +267,6 @@ h1,h2,h3,h4,h5,h6{
 	.logo{
 		font-size: 2em;
 	}
-
 	.icon-menu{
 		display: none;
 	}
@@ -269,11 +280,18 @@ h1,h2,h3,h4,h5,h6{
 		width: auto;
 		margin-left: 50px;
 	}
+	.banner__content {
+		font-size: 1em;
+	}
 	.banner__btn {
-		padding: 10px 15%;
+		padding: 8px 15%;
+		font-size: 1.1em;
 	}
 	.banner{
 		margin-top: -120px;
+	}
+	.banner__img{
+		height: 550px;
 	}
 	.group{
 		padding: 10px;
@@ -294,10 +312,15 @@ h1,h2,h3,h4,h5,h6{
 		margin-top: -145px;
 	}
 	.banner__content{
-		font-size: 1.8em;
+		font-size: 1.5em;
 	}
-	.banner__img{
-		height: 650px;
+	.banner__input {
+		margin-top: 3px;
+		padding: 8px;
+		margin-bottom: -10px;
+	}
+	.banner__img {
+		height: 700px;
 	}
 	.group{
 		padding: 30px;
