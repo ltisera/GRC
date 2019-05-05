@@ -210,7 +210,6 @@ function invitarUsuarioAGrupo(){
 
 }
 
-
 function cargarGruposDeUsuario(){
         $.ajax({
         async: true,
@@ -226,39 +225,12 @@ function cargarGruposDeUsuario(){
             $('#gruposLista').html(response);
             uDataGlobal = response[0];
             console.log(response);
-            $("#menuGrupos").append(`
-                                    <br>
-                                    <img id = "IMGagregar" div="grupoFoto" class="img-circle GrupIMG" 
-                                    src="https://image.flaticon.com/icons/svg/25/25340.svg" 
-                                    alt = "Generic placeholder image" width = "50" height = "50"><br>'`+ `AGREGAR
-                                    `);
+            $("#menuGrupos").append(insertarImagenAgregarGrupo());
             if(response[0]==null){
                 console.log("SOY NULL");
             }
             else{
-                var htmlContenedorGrupos = `<div id="contenedorGrupos">`
-                for(i=0; i < response[0].length; i++){
-                    var nombre = response[0][i][1]
-                    if(nombre.length > 7){
-                        nombre = response[0][i][1].slice(0, 5) + "..."
-                    }
-
-                    htmlContenedorGrupos += `
-                                            <br>
-                                            <img id = "IMG` + String(i) + `div="grupoFoto" class="img-circle GrupIMG" 
-                                            src="https://images.emojiterra.com/google/android-oreo/512px/1f625.png" 
-                                            alt="Generic placeholder image" width="50" height="50"> <br>`+ nombre
-                                            
-                    $("#IMG"+i).data('idNecesario', String(response[0][i][0]));    
-                    $("#IMG"+i).data('idGrupo', String(response[0][i][0]));
-                    $("#IMG"+i).data('elNombre', String(response[0][i][1]));
-                    $("#IMG"+i).data('laDescripcion', String(response[0][i][2]));
-                    $("#IMG"+i).data('posEnArray', i);
-
-                    $("#IMG"+i).tooltip({title: String(response[0][i][2]), trigger: "hover", placement: "right"});
-                }
-                htmlContenedorGrupos += `</div>`
-                $("#menuGrupos").append(htmlContenedorGrupos);
+                cargarGruposEnContendor(response);
             }
 
         },
@@ -289,6 +261,40 @@ function cargarGruposDeUsuario(){
         }
     });
 }
+
+function cargarGruposEnContendor(gruposTraidos){
+    var htmlContenedorGrupos = `<div id="contenedorGrupos">`
+    for(i=0; i < gruposTraidos[0].length; i++){
+        var nombre = gruposTraidos[0][i][1]
+        if(nombre.length > 7){
+            nombre = gruposTraidos[0][i][1].slice(0, 5) + "..."
+        }
+
+        htmlContenedorGrupos += `
+                                <br>
+                                <img id = "IMG` + String(i) + `div="grupoFoto" class="img-circle GrupIMG" 
+                                src="https://images.emojiterra.com/google/android-oreo/512px/1f625.png" 
+                                alt="Generic placeholder image" width="50" height="50"> <br>`+ nombre
+                                
+        $("#IMG"+i).data('idNecesario', String(gruposTraidos[0][i][0]));    
+        $("#IMG"+i).data('idGrupo', String(gruposTraidos[0][i][0]));
+        $("#IMG"+i).data('elNombre', String(gruposTraidos[0][i][1]));
+        $("#IMG"+i).data('laDescripcion', String(gruposTraidos[0][i][2]));
+        $("#IMG"+i).data('posEnArray', i);
+
+        $("#IMG"+i).tooltip({title: String(gruposTraidos[0][i][2]), trigger: "hover", placement: "right"});
+    }
+    htmlContenedorGrupos += `</div>`
+    $("#menuGrupos").append(htmlContenedorGrupos);
+};
+function insertarImagenAgregarGrupo(){
+    return `
+            <br>
+            <img id = "IMGagregar" div="grupoFoto" class="img-circle GrupIMG" 
+            src="https://image.flaticon.com/icons/svg/25/25340.svg" 
+            alt = "Generic placeholder image" width = "50" height = "50"><br>'`+ `AGREGAR
+            `
+};
 
 /*
     DOCUMENT READY
