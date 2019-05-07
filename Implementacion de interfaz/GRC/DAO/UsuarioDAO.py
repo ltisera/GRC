@@ -3,7 +3,6 @@ import mysql.connector
 from mysql.connector import Error
 from ConexionBD import ConexionBD
 
-
 class UsuarioDAO(ConexionBD):
     def __init__(self):
         pass
@@ -112,12 +111,60 @@ class UsuarioDAO(ConexionBD):
         Implementar estos metodos
     """
 
-    def modificarUsuario(self, id):
-        pass
+    
+    def eliminarUsuario(self, mail):
+        valido = False
+        try:
+            self.crearConexion()
+            consulta = "DELETE from Usuario where email = {0}".format(mail)
+            self._micur.execute(consulta)
+            self._bd.commit()
+            valido = True
+        except Error as e:
+            valido = "Usuario No Existe"
+        finally:
+            self.cerrarConexion()
+        return valido
 
-    def eliminarUsurio(self, id):
-        pass
+    def validarUsuario(self, mail):
+        valido = False
+        try:
+            self.crearConexion()
+            consulta = "UPDATE Usuario SET validarUsuario = 1 WHERE email = {0}".format(mail)
+            self._micur.execute(consulta)
+            self._bd.commit()
+            valido = True
+        except Error as e:
+            valido = "Usuario No Existe"
+        finally:
+            self.cerrarConexion()
+        return valido
 
+
+    def traerUsuariosSinValidar(self):
+        listaUsuario = []
+        try:
+            self.crearConexion()
+            if(self._bd.is_connected()):
+                consulta = "SELECT * FROM Usuario where usuarioValido = 0"
+                self._micur.execute(consulta)
+                reg = self._micur.fetchall()
+                if reg is not None:
+                    for r in reg:
+                        listaUsuario.append(Usuario(idUsuario=r[0],
+                                                    nombre=r[1],
+                                                    apellido=r[2],
+                                                    email=r[3],
+                                                    password=r[4],
+                                                    usuarioValido=r[5],
+                                                    adminGlobal=r[6]))
+
+
+        except Error as e:
+            print("Error al conectar con la BD", e)
+        finally:
+            self.cerrarConexion()
+            return listaUsuario
 
 if __name__ == '__main__':
     print("iniciando la pruba unitaria para UsuarioDAO")

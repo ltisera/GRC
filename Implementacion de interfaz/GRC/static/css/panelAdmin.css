@@ -1,10 +1,18 @@
 #cuerpin{
     background-image: url("/static/img/banner-inicio.jpg");
     margin-top: 30px;
-    color: royalblue;
+    color: black;
+    padding: 10px;
 }
 
-.solicitud{
+.solicitud1{
     background-color: bisque;
-    border-style: solid 5px black;
+    border-left: solid 1px black;
+    padding: 5px;
+}
+
+.solicitud2{
+    background-color: burlywood;
+    border-left: solid 1px black;
+    padding: 5px;   
 }

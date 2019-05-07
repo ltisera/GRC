@@ -221,7 +221,7 @@ def cargarReferenciaTest():
 @app.route('/loguearUsuario', methods=['GET', 'POST'])
 def loguearUsuario():
     uOLL = UsuarioOLL()
-    objUsuario = uOLL.validarUsuario(request)
+    objUsuario = uOLL.isUsuarioValido(request)
     """
     if(objUsuario is not None):
         jResponse = jsonify(nombre=objUsuario.nombre,
@@ -356,5 +356,9 @@ def eliminarComentario():
     comoll = ComentarioOLL()
     return comoll.eliminarComentario(request.values["idComentario"])
 
+@app.route('/traerUsuariosSinValidar', methods=['GET', 'POST'])
+def traerUsuariosSinValidar():
+    uOLL = UsuarioOLL()
+    return uOLL.traerUsuariosSinValidar()
 
 app.run(debug=True)

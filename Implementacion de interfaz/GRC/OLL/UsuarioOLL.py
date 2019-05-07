@@ -34,7 +34,7 @@ class UsuarioOLL():
 
         return resp
 
-    def validarUsuario(self, request):
+    def isUsuarioValido(self, request):
         udao = UsuarioDAO()
         usuarioTraido = udao.traerUsuarioXMail(request.values["usuario"])
         resp = jsonify(error="Usuario o password incorrectos")
@@ -54,3 +54,25 @@ class UsuarioOLL():
                             email=usuarioTraido.email)
 
         return (resp, status)
+
+    def traerUsuariosSinValidar(self):
+        udao = UsuarioDAO()
+        status = 200
+        lista = []        
+        resp = udao.traerUsuariosSinValidar()
+        for u in resp:
+            dicc = {}
+            dicc["nombre"] = u.nombre,
+            dicc["id"] = u.idUsuario,
+            dicc["apellido"] = u.apellido,
+            dicc["email"] = u.email
+            lista.append(dicc)
+        return (jsonify(lista), status)
+        
+    def validarUsuario(self, request):
+        udao = UsuarioDAO()
+        status = 400
+        resp = udao.validarUsuario(request.values["mail"])
+        if resp is True:
+            status = 200
+        return(jsonify(resp), status)
