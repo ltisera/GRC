@@ -34,7 +34,7 @@ body {
   color: #666;
   background-position: 50% 50%;
   background-repeat: repeat;    
-  background: url('http://www.psdgraphics.com/file/beautiful-abstract-background.jpg') fixed;
+  /*background: url('http://www.psdgraphics.com/file/beautiful-abstract-background.jpg') fixed;*/
 }
 
 .cuerpo{

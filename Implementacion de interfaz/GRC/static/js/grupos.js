@@ -1,4 +1,5 @@
 /*Trae las referencias del grupo pasado por parametro*/
+var uDataGlobal =""
 function pedirReferencias(idGrupoactual){
     $.ajax({
         url:'cargarListaReferencias', 
@@ -272,10 +273,14 @@ function cargarGruposEnContendor(gruposTraidos){
 
         htmlContenedorGrupos += `
                                 <br>
-                                <img id = "IMG` + String(i) + `div="grupoFoto" class="img-circle GrupIMG" 
+                                <img id = "IMG` + String(i) + `" div="grupoFoto" class="img-circle GrupIMG" 
                                 src="https://images.emojiterra.com/google/android-oreo/512px/1f625.png" 
-                                alt="Generic placeholder image" width="50" height="50"> <br>`+ nombre
-                                
+                                alt="Generic placeholder image" width="50" height="50"> <br>`+ nombre +``
+
+    }
+    htmlContenedorGrupos += `</div>`
+    $("#menuGrupos").append(htmlContenedorGrupos);
+    for(i=0; i < gruposTraidos[0].length; i++){
         $("#IMG"+i).data('idNecesario', String(gruposTraidos[0][i][0]));    
         $("#IMG"+i).data('idGrupo', String(gruposTraidos[0][i][0]));
         $("#IMG"+i).data('elNombre', String(gruposTraidos[0][i][1]));
@@ -283,16 +288,17 @@ function cargarGruposEnContendor(gruposTraidos){
         $("#IMG"+i).data('posEnArray', i);
 
         $("#IMG"+i).tooltip({title: String(gruposTraidos[0][i][2]), trigger: "hover", placement: "right"});
+        console.log($("#IMG"+i).data('posEnArray'))
+        console.log("fin")
     }
-    htmlContenedorGrupos += `</div>`
-    $("#menuGrupos").append(htmlContenedorGrupos);
+
 };
 function insertarImagenAgregarGrupo(){
     return `
             <br>
             <img id = "IMGagregar" div="grupoFoto" class="img-circle GrupIMG" 
             src="https://image.flaticon.com/icons/svg/25/25340.svg" 
-            alt = "Generic placeholder image" width = "50" height = "50"><br>'`+ `AGREGAR
+            alt = "Generic placeholder image" width = "50" height = "50"><br>`+ ` Crear Grupo
             `
 };
 
@@ -420,11 +426,11 @@ $(document).on('click', ".divIconComentario", function() {
 
 /*Click en BARRA DE GRUPOS*/
 $(document).on('click', ".GrupIMG", function() {
+    console.log($(this))
     $("#divPublicarReferencia").hide();
     $('#lblNombreGrupo').html("_"+$(this).data('elNombre')+"");
     $('#lblDescripcionGrupo').html("_"+$(this).data('laDescripcion')+"");
     $('#lblIdGrupo').html("_"+$(this).data('idGrupo'));
-    
     idGrupoActual = $(this).data('idGrupo');
     if($(this).attr('id') == "IMGagregar"){
         console.log("CLICKITO");
@@ -436,7 +442,9 @@ $(document).on('click', ".GrupIMG", function() {
         }
     }
     else{
-    $("#lblPermisoEnGrupo").html(uDataGlobal[$(this).data('posEnArray')][3])
+        console.log("posEnArray: " + uDataGlobal[$(this).data('posEnArray')])
+        console.log(uDataGlobal)
+        $("#lblPermisoEnGrupo").html(uDataGlobal[$(this).data('posEnArray')][3])
         $('#divAgregarGrupo').hide();
         if(uDataGlobal[$(this).data('posEnArray')][3] == 'creador'){
             $('#divAdminGrupo').show();
@@ -453,6 +461,9 @@ $(document).on('click', ".GrupIMG", function() {
             document.getElementById("detectame123").style.visibility = "visible";
             console.log("Muestra")
         }
+        
+        
     }
     pedirReferencias(idGrupoActual);
+    
 });

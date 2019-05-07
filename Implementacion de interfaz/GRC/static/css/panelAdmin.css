@@ -1,0 +1,10 @@
+#cuerpin{
+    background-image: url("/static/img/banner-inicio.jpg");
+    margin-top: 30px;
+    color: royalblue;
+}
+
+.solicitud{
+    background-color: bisque;
+    border-style: solid 5px black;
+}

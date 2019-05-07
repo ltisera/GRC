@@ -130,6 +130,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/panelAdmin', methods=['GET', 'POST'])
+def panelAdmin():
+    return render_template('panelAdmin.html')
+
+
 @app.route('/header1')
 def header1():
     return render_template('header1.html')
@@ -181,6 +186,7 @@ def cargarListaGrupo():
 
 @app.route('/traerR')
 def traerR():
+    rdao = ReferenciaDAO()
     lista = rdao.traerReferenciasDeGrupo(request.values["grupo"])
     return jsonify(lista)
 
