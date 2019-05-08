@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'grcfuente';
-  src: url('../font/grcfuente.eot?56654307');
-  src: url('../font/grcfuente.eot?56654307#iefix') format('embedded-opentype'),
-       url('../font/grcfuente.woff2?56654307') format('woff2'),
-       url('../font/grcfuente.woff?56654307') format('woff'),
-       url('../font/grcfuente.ttf?56654307') format('truetype'),
-       url('../font/grcfuente.svg?56654307#grcfuente') format('svg');
+  src: url('../font/grcfuente.eot?48862977');
+  src: url('../font/grcfuente.eot?48862977#iefix') format('embedded-opentype'),
+       url('../font/grcfuente.woff2?48862977') format('woff2'),
+       url('../font/grcfuente.woff?48862977') format('woff'),
+       url('../font/grcfuente.ttf?48862977') format('truetype'),
+       url('../font/grcfuente.svg?48862977#grcfuente') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'grcfuente';
-    src: url('../font/grcfuente.svg?56654307#grcfuente') format('svg');
+    src: url('../font/grcfuente.svg?48862977#grcfuente') format('svg');
   }
 }
 */
@@ -57,5 +57,6 @@
  
 .icon-cancel-1:before { content: '\e800'; } /* '' */
 .icon-cancel-circled-1:before { content: '\e801'; } /* '' */
+.icon-ok:before { content: '\e802'; } /* '' */
 .icon-spin1:before { content: '\e830'; } /* '' */
 .icon-spin6:before { content: '\e839'; } /* '' */

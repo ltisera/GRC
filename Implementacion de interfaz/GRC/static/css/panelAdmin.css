@@ -16,3 +16,19 @@
     border-left: solid 1px black;
     padding: 5px;   
 }
+
+.actionButton{
+    padding: 2px;
+    padding-right: 7px;
+
+    cursor: pointer;
+}
+
+.actionButton:hover{
+    background-color: rgb(0, 0, 0, 0.5);
+    padding: 2px;
+    padding-right: 7px;
+    outline: solid 1px white;
+    outline-offset: -4px;
+    cursor: pointer;
+}

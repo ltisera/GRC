@@ -16,7 +16,10 @@ $(document).ready(function(){
                 $("#lstUsuarios").append(`
                     <div class="solicitud`+ (i%2 + 1) +`"> 
                         <div class=""> El usuario con  mail: `+ response[i].email + ` quiere entrar al sistema </div>
-                        <div class=""><label> Aceptar </label>  <label>Rechazar</label></div>
+                        <div class="">
+                            <label class="icon-ok actionButton"> Aceptar </label>  
+                            <label class="icon-cancel-1 actionButton">Rechazar</label>
+                        </div>
                     </div>`
                 );
             }
@@ -30,3 +33,4 @@ $(document).ready(function(){
     console.log("ahi te los traje my frien")
 });
 
+$(document).on('click', "#detectame123", function() {})
