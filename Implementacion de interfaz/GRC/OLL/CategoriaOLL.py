@@ -1,5 +1,5 @@
-from DML.Categoria import Categoria
-from DAO.CategoriaDAO import CategoriaDAO
+from OLL.DAO.DML.Categoria import Categoria
+from OLL.DAO.CategoriaDAO import CategoriaDAO
 from flask import jsonify
 
 categoriaDAO = CategoriaDAO()

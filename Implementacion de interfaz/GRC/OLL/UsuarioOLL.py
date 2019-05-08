@@ -1,6 +1,6 @@
-from DML.Usuario import Usuario
+from DAO.DML.Usuario import Usuario
 from DAO.UsuarioDAO import UsuarioDAO
-from flask import jsonify
+from flask import jsonify, request
 
 class UsuarioOLL():
     """docstring for UsuarioOLL"""
@@ -41,7 +41,7 @@ class UsuarioOLL():
         status = 400
 
         if usuarioTraido is not None:
-            print("usuario traido: ", usuarioTraido)
+            print("usuario traido: ", usuarioTraido.__str__())
             if(usuarioTraido.usuarioValido == 0):
                 print("usuario invalido")
                 status = 400
@@ -72,7 +72,10 @@ class UsuarioOLL():
     def validarUsuario(self, request):
         udao = UsuarioDAO()
         status = 400
-        resp = udao.validarUsuario(request.values["mail"])
+        print("WASU")
+        print(request.values["email"])
+        print("WASA")
+        resp = udao.validarUsuario(request.values["email"])
         if resp is True:
             status = 200
         return(jsonify(resp), status)

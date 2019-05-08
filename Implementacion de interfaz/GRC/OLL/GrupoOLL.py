@@ -1,4 +1,4 @@
-from DML.Grupo import Grupo
+from OLL.DAO.DML.Grupo import Grupo
 from DAO.GrupoDAO import GrupoDAO
 from flask import jsonify
 

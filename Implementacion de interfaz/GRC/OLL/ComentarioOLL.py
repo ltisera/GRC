@@ -1,5 +1,5 @@
-from DML.Comentario import Comentario
-from DAO.ComentarioDAO import ComentarioDAO
+from OLL.DAO.DML.Comentario import Comentario
+from OLL.DAO.ComentarioDAO import ComentarioDAO
 from flask import jsonify
 
 comentarioDAO = ComentarioDAO()

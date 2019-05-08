@@ -1,14 +1,14 @@
 from flask import Flask, render_template, send_from_directory, request, jsonify, Response
-from DAO.UsuarioDAO import UsuarioDAO
-from DAO.GrupoDAO import GrupoDAO
+from OLL.DAO.UsuarioDAO import UsuarioDAO
+from OLL.DAO.GrupoDAO import GrupoDAO
 
-from DAO.ReferenciaDAO import ReferenciaDAO
+from OLL.DAO.ReferenciaDAO import ReferenciaDAO
 
 from OLL.UsuarioOLL import UsuarioOLL
 from OLL.GrupoOLL import GrupoOLL
 from OLL.ComentarioOLL import ComentarioOLL
 from OLL.ReferenciaOLL import ReferenciaOLL
-from DML.Usuario import Usuario
+from OLL.DAO.DML.Usuario import Usuario
 
 
 
@@ -56,6 +56,7 @@ def cssEstilo():
 def cssInfo():
     return send_from_directory('static/css', 'info.css')
 
+
 """
 Devuelve Archivos que se encuentren dentro de la carpeta static
 /static/<dir>/nombreDeArchivo.ext
@@ -75,6 +76,7 @@ def sirveDirectorioSTATIC(path):
         arc = sPath[len(sPath) - 1]
     directorio = "static/" + directorio
     return send_from_directory(directorio, arc)
+
 
 """
 
@@ -193,13 +195,11 @@ def traerR():
 @app.route('/cargarListaReferencias', methods=['GET', 'POST'])
 def cargarListaReferencias():
     print("Cargo lista de referencias")
-    num = 200
     refoll = ReferenciaOLL()
     return refoll.traerReferenciasDeGrupo(request.values["grupo"])
 
 @app.route('/cargarReferenciaTest', methods=['GET', 'POST'])
 def cargarReferenciaTest():
-    num = 200
     rdao = ReferenciaDAO()
     lista = rdao.traerReferenciasDeGrupo(request.values["grupo"])
     lstRefJson = []
@@ -234,14 +234,6 @@ def loguearUsuario():
         jResponse = 404
     """
     return objUsuario
-
-    """
-    Este Metodo funciona Correctamente
-    return ("{nombre=" + objUsuario.nombre + "," +
-            "id=" + str(objUsuario.idUsuario) + "," +
-            "apellido=" + objUsuario.apellido + "," +
-            "email=" + objUsuario.email + "}")
-    """
 
 
 def crearUsuario(request):
@@ -282,7 +274,6 @@ def invitarUsuario():
     if(user is not None):
         idUsuario = user.idUsuario
         idGrupo = gOll.traerGrupo(request.values["idDelGrupo"]).idGrupo
-        status = 500
         return gOll.agregarUsuarioAGrupo(idUsuario, request.values["permisoUsuario"], idGrupo)
     return jsonify(200,"El usuario no Existe")
 
@@ -318,13 +309,12 @@ def eliminarReferencia():
     return str(jResponse)
 
 
-
 @app.route('/buscarReferencia', methods=['GET', 'POST'])
 def buscarReferencia():
     html = ""
     num = 404
     refoll = ReferenciaOLL()
-    lista = refoll.buscarReferencia(request.values["idGrupo"], request.values["busqueda"])
+    lista = refoll.buscarReferencias(request.values["idGrupo"], request.values["busqueda"])
     if(len(lista) != 0):
         for r in lista:
             html += """ <div class="well">
@@ -356,9 +346,21 @@ def eliminarComentario():
     comoll = ComentarioOLL()
     return comoll.eliminarComentario(request.values["idComentario"])
 
+
+@app.route('/validarUsuario', methods=['GET', 'POST'])
+def validarUsuario():
+    print("ea")
+    uOLL = UsuarioOLL()
+
+    return uOLL.validarUsuario(request)
+
+
 @app.route('/traerUsuariosSinValidar', methods=['GET', 'POST'])
 def traerUsuariosSinValidar():
     uOLL = UsuarioOLL()
     return uOLL.traerUsuariosSinValidar()
 
 app.run(debug=True)
+
+
+    

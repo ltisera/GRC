@@ -1,5 +1,4 @@
-from DML.Referencia import Referencia
-from DAO.ReferenciaDAO import ReferenciaDAO
+from OLL.DAO.ReferenciaDAO import ReferenciaDAO
 from OLL.CategoriaOLL import CategoriaOLL
 from flask import jsonify
 
@@ -12,14 +11,14 @@ class ReferenciaOLL(object):
         pass
 
     def publicarReferencia(self, cita, descripcion, link, fecha, usuario, grupo, tags):
-        lstCategorias =[]
+        lstCategorias = []
         for i in tags:
             categoria = categoriaOLL.traerCategoria(i)
             if(categoria is None):
                 categoriaOLL.crearCategoria(i)
                 categoria = categoriaOLL.traerCategoria(i)
             lstCategorias.append(categoria)
-    	referenciaDAO.publicarReferencia(cita, descripcion, link, fecha, usuario, grupo, lstCategorias)
+        referenciaDAO.publicarReferencia(cita, descripcion, link, fecha, usuario, grupo, lstCategorias)
 
     def traerReferenciasDeGrupo(self, idGrupo):
         resp = referenciaDAO.traerReferenciasDeGrupo(idGrupo)
@@ -35,10 +34,10 @@ class ReferenciaOLL(object):
             diccios["grupo"] = i.grupo
             laLista.append(diccios)
 
-    	return jsonify(laLista)
+        return jsonify(laLista)
 
     def eliminarReferencia(self, idReferencia):
-    	referenciaDAO.eliminarReferencia(idReferencia)
+        referenciaDAO.eliminarReferencia(idReferencia)
 
     def buscarReferencias(self, idGrupo, busqueda):
-    	return jsonify(referenciaDAO.buscarReferencias(idGrupo, busqueda))
+        return jsonify(referenciaDAO.buscarReferencias(idGrupo, busqueda))
